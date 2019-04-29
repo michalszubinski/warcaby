@@ -79,6 +79,8 @@ public:
 
     //void changer(); // zastosowuje ruch ######
     //bool possible();// czy ruch jest mozliwy ######
+    
+    //void kruch(); // okresla ktora druzyna ma ruch ######
 
 
 
