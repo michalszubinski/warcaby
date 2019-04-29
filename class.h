@@ -16,6 +16,7 @@ struct c // KORDYNATY
 
 struct ruch // KORDYNATY RUCHU
 {
+    int id; //id pionka
     c o; // stara pozycja
     c n; // nowa pozycja
     bool bicie; // czy bylo bicie
@@ -27,6 +28,7 @@ struct ruch // KORDYNATY RUCHU
 
 class _ob // PIONEK
 {
+    
     bool team; // druzyna pionka
     bool alive; // czy nie jest zbity
     c pos; // pozycja pionka
