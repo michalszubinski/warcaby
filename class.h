@@ -16,6 +16,7 @@ struct c // KORDYNATY
 
 struct ruch // KORDYNATY RUCHU
 {
+    int wartoscruchu; // dla minimax
     int id; //id pionka
     c o; // stara pozycja
     c n; // nowa pozycja
