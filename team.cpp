@@ -1,6 +1,9 @@
 #include <iostream>
 
 #include "class.h"
+#include <fstream>
+#include<string>
+#include <cstdlib>
 
 using namespace std;
 
@@ -62,7 +65,31 @@ char team::getpt()
 
 void team::StatsFromFile()
 {
-    //TUTAJ BEDZIE WCZYTYWALO STATYSTYKI Z PLIKU
+	string linia;
+	fstream plik;
+	plik.open("nowy.txt", ios::in);
+
+	if (plik.good() == false)
+	{
+		cout << "Nie udalo sie otworzyc pliku! " << endl;
+	}
+
+	while (getline(plik, linia))
+	{
+		if (linia == name)
+		{
+			getline(plik, linia);
+			w = atoi(linia.c_str());
+			getline(plik, linia);
+			l = atoi(linia.c_str());
+			getline(plik, linia);
+			d = atoi(linia.c_str());
+		}
+	}
+	cout << "Wygrane: " << w << endl;
+	cout << "Przegrane: " << l << endl;
+	cout << "Remisy: " << d << endl;
+	plik.close();
 }
 
 void team::StatsToFile()
