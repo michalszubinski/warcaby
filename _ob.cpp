@@ -1,13 +1,41 @@
 #include <iostream>
+#include <stdio.h>
 
 #include "class.h"
 
 using namespace std;
 
 //_ob
+
+_ob::_ob()
+{
+    this -> alive = 1;
+    this -> damka = 0;
+}
+
 void _ob::setteam(bool t)
 {
     this -> team = t;
     /*if(t==0) n0++;
     else n1++; TO LICZYLO ILOSC PIONKOW, ALE RACZEJ JEST NIE POTRZEBNE*/
+}
+
+void _ob::setpos(c P)
+{
+    pos = P;
+}
+
+void _ob::DAMKA()
+{
+    this -> damka = 1;
+}
+
+void _ob::show()
+{
+    printf("ID = %d, TEAM = %d, ALIVE = %d, (X,Y) = (%d,%d), DAMKA = %d\n",id,team,alive,pos.x,pos.y,damka);
+}
+
+void _ob::setid(int ID)
+{
+    this -> id = ID;
 }
