@@ -29,14 +29,18 @@ struct ruch // KORDYNATY RUCHU
 
 class _ob // PIONEK
 {
-    
     bool team; // druzyna pionka
     bool alive; // czy nie jest zbity
     c pos; // pozycja pionka
     bool damka; // czy jest damka
+    int id; //id
 public:
-    //_ob(); // konstrktor - NIE MAM POMYSLU CO MOZE ROBIC ALE NIECH BEDZIE JAK MACIE POMYSL [NAJLEPIEJ ZEBY NIE PRZYJMOWAL WARTOSCI!!!] ######
+    _ob(); // konstrktor  ######
     void setteam(bool t); // ustawia druzyne
+    void setpos(c P); // ustawia pozycje
+    void DAMKA(); // pionek staje sie damka
+    void show(); // pokazuje informacje
+    void setid(int ID); // ustawia id
 };
 
 class team // DRUZYNA
@@ -48,13 +52,13 @@ class team // DRUZYNA
     bool t; // czarne czy biale
     char playertype; // typ poruszania sie (czy gracz czy ai)
 public:
-    team(bool tea, char playertype=0, string name=""); // konstuktor wczytuje statystyki z pliku
+    team(bool tea=0, char playertype=0, string name=""); // konstuktor wczytuje statystyki z pliku
     ~team(); // dekonstruktor zapisuje statystyki
     void setplayertype(char T); // ustawia typ gracza
     string getplayertype(); // string = TYP GRACZA | JEGO DRUZYNA
     bool gett(); //zwraca druzyne
     char getpt(); // zwraca typ gracza
-    void StatsFromFile(); // Wczytywanie statystyk z pliku ######
+    void StatsFromFile(); // Wczytywanie statystyk z pliku 
     void StatsToFile(); // Zapisywanie statystyk do pliku ######
 };
 
@@ -66,8 +70,8 @@ class MAP
     team T[2]; // 2 druzyny
 
 public:
-    //MAP(); inicjalizuje gre ######
-    //~MAP(); inicjalizuje gre ######
+    MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
+    ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
     //void render(); // rysuje mape ######
 
     //void TURN(); // poczatkuje zmiane pozycji ######
@@ -79,12 +83,12 @@ public:
 
     //void changer(); // zastosowuje ruch ######
     //bool possible();// czy ruch jest mozliwy ######
-    
+
     //void kruch(); // okresla ktora druzyna ma ruch ######
 
 
 
-    //int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ######
+    //int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS
 };
 
 
