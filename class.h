@@ -23,8 +23,8 @@ struct ruch // KORDYNATY RUCHU
     bool bicie; // czy bylo bicie
     int bicieid; // id zbitego pionka przy tym ruchu
 
-    //bool operator==(ruch other); // ######
-    //bool operator!=(ruch other); // ######
+    bool operator==(ruch other); 
+    bool operator!=(ruch other); 
 };
 
 class _ob // PIONEK
