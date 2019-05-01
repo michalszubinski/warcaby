@@ -8,6 +8,20 @@ using namespace std;
 
 MAP::MAP()  // MAP_StartEnd.cpp
 {
+    T[0].setteam(0);
+    T[1].setteam(1);
+
+    {
+        string x="";
+
+        cout<<"Nazwa druzyny bialej\n"; cin>>x;
+        T[0].setteamname(x);
+
+        cout<<"Nazwa druzyny czarnej\n"; cin>>x;
+        T[1].setteamname(x);
+    }
+
+
     T[0].StatsFromFile();
     T[1].StatsFromFile();
     c help0, help1;
