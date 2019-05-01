@@ -35,7 +35,7 @@ class _ob // PIONEK
     bool damka; // czy jest damka
     int id; //id
 public:
-    _ob(); // konstrktor  ######
+    _ob(); // konstrktor 
     void setteam(bool t); // ustawia druzyne
     void setpos(c P); // ustawia pozycje
     void DAMKA(); // pionek staje sie damka
