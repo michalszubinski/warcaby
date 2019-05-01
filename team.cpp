@@ -96,3 +96,14 @@ void team::StatsToFile()
 {
     //TUTAJ BEDZIE ZAPISYWALO STATYSTYKI Z PLIKU
 }
+
+void team::setteam(bool TTT)
+{
+    this -> t = TTT;
+}
+
+void team::setteamname(string X) // ustawia nazwe druzyny
+{
+    this -> name = X;
+}
+
