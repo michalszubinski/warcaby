@@ -58,8 +58,10 @@ public:
     string getplayertype(); // string = TYP GRACZA | JEGO DRUZYNA
     bool gett(); //zwraca druzyne
     char getpt(); // zwraca typ gracza
-    void StatsFromFile(); // Wczytywanie statystyk z pliku 
+    void StatsFromFile(); // Wczytywanie statystyk z pliku
     void StatsToFile(); // Zapisywanie statystyk do pliku ######
+    void setteam(bool TTT); // ustawia druzyne
+    void setteamname(string X); // ustawia nazwe druzyny
 };
 
 class MAP
