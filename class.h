@@ -86,7 +86,7 @@ public:
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
     void render(); // rysuje mape
 
-    //void TURN(); // poczatkuje zmiane pozycji ######
+    void TURN(); // poczatkuje zmiane pozycji ######
     //ruch decide(); // decyduje ktory typ gracza wybrac ######
 
     //ruch player0(); te cyferki oznaczaja typy gracza ######
