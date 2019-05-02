@@ -92,6 +92,7 @@ MAP::~MAP() // MAP_StartEnd.cpp
 void MAP::render()
 {
 
+
     for(int i=0;i<12;i++)
     {
         if((T0[i].a())==1)
@@ -99,7 +100,7 @@ void MAP::render()
         board[T0[i].dorendera_x()][T0[i].dorendera_y()]='b';
         }
 
-         if((T0[i].a())==1)
+         if((T1[i].a())==1)
          {
             board[T1[i].dorendera_x()][T1[i].dorendera_y()]='c';
          }
@@ -116,15 +117,90 @@ void MAP::render()
 
     }
    }
-for(int a=1;a<9;a++)
-{cout<<9-a<<" ";
+cout<<"Y\n\n";
+   for(int a=0;a<8;a++)
+
+   {cout<<7-a<<" ";
        for(int i=1;i<9;i++)
    {
-     cout<<board[a-1][i-1]<<"_|";
+     cout<<board[a][i-1]<<"_|";
    }
     cout<<"\n";
+   }
+   cout<<"\nX";
+for(int i=0;i<=7;i++)
+{
+  cout<<"  "<<i;
 }
-for(char i='a';i<='h';i++)
+
+}
+
+void MAP::TURN()
+{
+
+
+    for(int i=0;i<12;i++)
+    {
+        if((T0[i].a())==1)
+        {
+            if(T0[i].czydamka()==0)
+        {
+           board[T0[i].dorendera_x()][T0[i].dorendera_y()]='b';
+        }
+        else
+        {
+          board[T0[i].dorendera_x()][T0[i].dorendera_y()]='B';
+        }
+        }
+
+         if((T1[i].a())==1)
+         {
+             if((T1[i].czydamka())==0)
+         {
+             board[T1[i].dorendera_x()][T1[i].dorendera_y()]='c';
+         }
+           else
+           {
+            board[T1[i].dorendera_x()][T1[i].dorendera_y()]='C';
+           }
+         }
+    }
+    for(int i=0;i<9;i++)
+    {
+        for(int a=0;a<9;a++)
+    {
+       if(board[i][a]=='c'||board[i][a]=='b');
+       else
+        {
+        board[i][a]=' ';
+       }
+
+    }
+   }
+for(int i=0;i<9;i++)
+    {
+        for(int a=0;a<9;a++)
+    {
+       if(board[i][a]=='c'||board[i][a]=='b');
+       else
+        {
+        board[i][a]=' ';
+       }
+
+    }
+   }
+cout<<"Y\n\n";
+   for(int a=0;a<8;a++)
+
+   {cout<<7-a<<" ";
+       for(int i=1;i<9;i++)
+   {
+     cout<<board[a][i-1]<<"_|";
+   }
+    cout<<"\n";
+   }
+   cout<<"\nX";
+for(int i=0;i<=7;i++)
 {
   cout<<"  "<<i;
 }
