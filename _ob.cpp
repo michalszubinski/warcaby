@@ -40,7 +40,7 @@ void _ob::setid(int ID)
     this -> id = ID;
 }
 
-void _ob::a()
+bool _ob::a()
 {
     if((this -> alive)==1) return 1;
     else return 0;
