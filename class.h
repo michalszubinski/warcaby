@@ -12,6 +12,8 @@ struct c // KORDYNATY
 
     bool operator==(c other);
     bool operator!=(c other);
+
+    bool good(); // sprawdza czy kordynaty znajduja sie na planszy
 };
 
 struct ruch // KORDYNATY RUCHU
@@ -22,9 +24,10 @@ struct ruch // KORDYNATY RUCHU
     c n; // nowa pozycja
     bool bicie; // czy bylo bicie
     int bicieid; // id zbitego pionka przy tym ruchu
+    bool team; // druzyna z ktorej pochodzi pionek
 
-    bool operator==(ruch other); 
-    bool operator!=(ruch other); 
+    bool operator==(ruch other);
+    bool operator!=(ruch other);
 };
 
 class _ob // PIONEK
@@ -35,12 +38,15 @@ class _ob // PIONEK
     bool damka; // czy jest damka
     int id; //id
 public:
-    _ob(); // konstrktor 
+    _ob(); // konstrktor
     void setteam(bool t); // ustawia druzyne
     void setpos(c P); // ustawia pozycje
     void DAMKA(); // pionek staje sie damka
     void show(); // pokazuje informacje
     void setid(int ID); // ustawia id
+    bool a(); // sprawdza czy pionek nie jest zbity
+    void kill(); // zabija pionek
+    bool czydamka(); // sprawdza czy pionek jest damka
 };
 
 class team // DRUZYNA
@@ -59,7 +65,7 @@ public:
     bool gett(); //zwraca druzyne
     char getpt(); // zwraca typ gracza
     void StatsFromFile(); // Wczytywanie statystyk z pliku
-    void StatsToFile(); // Zapisywanie statystyk do pliku 
+    void StatsToFile(); // Zapisywanie statystyk do pliku ######
     void setteam(bool TTT); // ustawia druzyne
     void setteamname(string X); // ustawia nazwe druzyny
 };
@@ -74,7 +80,7 @@ class MAP
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
-    //void render(); // rysuje mape ######
+    void render(); // rysuje mape
 
     //void TURN(); // poczatkuje zmiane pozycji ######
     //ruch decide(); // decyduje ktory typ gracza wybrac ######
@@ -84,7 +90,7 @@ public:
     //ruch player2();
 
     //void changer(); // zastosowuje ruch ######
-    //bool possible();// czy ruch jest mozliwy ######
+    bool possible(ruch R);// czy ruch jest mozliwy ######
 
     //void kruch(); // okresla ktora druzyna ma ruch ######
 
