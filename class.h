@@ -78,6 +78,7 @@ class MAP
     _ob T0[12]; // pionki druzyny bialych
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
+    char board[8][8]; //w tej tablicy przechowuję się pozycję
 
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
