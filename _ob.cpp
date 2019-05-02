@@ -55,3 +55,11 @@ bool _ob::czydamka()
 {
     return this -> damka;
 }
+int _ob::dorendera_x()
+{
+  return pos.x;
+}
+int _ob::dorendera_y()
+{
+  return pos.y;
+}
