@@ -91,8 +91,6 @@ MAP::~MAP() // MAP_StartEnd.cpp
 }
 MAP::void render()
 {
-   void render()
-{
     char board[8][8];
     for(int i=0;i<8;i)
     {
