@@ -44,7 +44,7 @@ public:
     void DAMKA(); // pionek staje sie damka
     void show(); // pokazuje informacje
     void setid(int ID); // ustawia id
-    void a(); // sprawdza czy pionek nie jest zbity
+    bool a(); // sprawdza czy pionek nie jest zbity
     void kill(); // zabija pionek
 };
 
