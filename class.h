@@ -65,7 +65,7 @@ public:
     bool gett(); //zwraca druzyne
     char getpt(); // zwraca typ gracza
     void StatsFromFile(); // Wczytywanie statystyk z pliku
-    void StatsToFile(); // Zapisywanie statystyk do pliku ######
+    void StatsToFile(); // Zapisywanie statystyk do pliku 
     void setteam(bool TTT); // ustawia druzyne
     void setteamname(string X); // ustawia nazwe druzyny
 };
@@ -90,7 +90,7 @@ public:
     //ruch player2();
 
     //void changer(); // zastosowuje ruch ######
-    bool possible(ruch R);// czy ruch jest mozliwy ######
+    //bool possible(ruch R);// czy ruch jest mozliwy ######
 
     //void kruch(); // okresla ktora druzyna ma ruch ######
 
