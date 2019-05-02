@@ -119,16 +119,16 @@ MAP::void render()
 
    for(int a=1;a<9;a++)
 
-   {cout<<a<<"  ";
+   {cout<<a<<" ";
        for(int i=1;i<9;i++)
    {
-     cout<<board[a-1][i-1]<<"___|";
+     cout<<board[a-1][i-1]<<"_|";
    }
     cout<<"\n";
    }
 for(char i='a';i<='h';i++)
 {
-  cout<<"    "<<i;
+  cout<<"  "<<i;
 }
 
 }
