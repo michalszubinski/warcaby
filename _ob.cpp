@@ -51,3 +51,7 @@ void _ob::kill()
     this -> alive = 0;
 }
 
+bool _ob::czydamka()
+{
+    return this -> damka;
+}
