@@ -39,3 +39,15 @@ void _ob::setid(int ID)
 {
     this -> id = ID;
 }
+
+void _ob::a()
+{
+    if((this -> alive)==1) return 1;
+    else return 0;
+}
+
+void _ob::kill()
+{
+    this -> alive = 0;
+}
+
