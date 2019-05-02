@@ -34,7 +34,7 @@ MAP::MAP()  // MAP_StartEnd.cpp
         T1[i].setteam(1);
 
         T0[i].setid(i);
-        T1[i].setid(i);
+        T1[i].setid(i+12);
 
         if(((i>=0)&&(i<=3))||((i>=8)&&(i<=11))) // ustawianie pozycji pomocnicznej
         {
