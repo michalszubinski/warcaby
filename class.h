@@ -44,6 +44,7 @@ public:
     void setteam(bool t); // ustawia druzyne
     void setpos(c P); // ustawia pozycje
     void DAMKA(); // pionek staje sie damka
+    bool czydamka(); 
     void show(); // pokazuje informacje
     void setid(int ID); // ustawia id
     bool a(); // sprawdza czy pionek nie jest zbity
