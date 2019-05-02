@@ -92,7 +92,6 @@ MAP::~MAP() // MAP_StartEnd.cpp
 void MAP::render()
 {
 
-    char board[8][8];
     for(int i=0;i<12;i++)
     {
         if((T0[i].a())==1)
