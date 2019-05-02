@@ -22,7 +22,7 @@ struct ruch // KORDYNATY RUCHU
     c n; // nowa pozycja
     bool bicie; // czy bylo bicie
     int bicieid; // id zbitego pionka przy tym ruchu
-    bool team(); // druzyna z ktorej pochodzi pionek
+    bool team; // druzyna z ktorej pochodzi pionek
 
     bool operator==(ruch other); 
     bool operator!=(ruch other); 
