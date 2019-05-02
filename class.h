@@ -22,9 +22,12 @@ struct ruch // KORDYNATY RUCHU
     c n; // nowa pozycja
     bool bicie; // czy bylo bicie
     int bicieid; // id zbitego pionka przy tym ruchu
+    bool team(); // druzyna z ktorej pochodzi pionek
 
     bool operator==(ruch other); 
     bool operator!=(ruch other); 
+    
+    bool good(); // sprawdza czy kordynaty znajduja sie na planszy
 };
 
 class _ob // PIONEK
@@ -41,6 +44,8 @@ public:
     void DAMKA(); // pionek staje sie damka
     void show(); // pokazuje informacje
     void setid(int ID); // ustawia id
+    void a(); // sprawdza czy pionek nie jest zbity
+    void kill(); // zabija pionek
 };
 
 class team // DRUZYNA
@@ -74,7 +79,7 @@ class MAP
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
-    void render(); // rysuje mape 
+    void render(); // rysuje mape DO POPRAWY
 
     //void TURN(); // poczatkuje zmiane pozycji ######
     //ruch decide(); // decyduje ktory typ gracza wybrac ######
