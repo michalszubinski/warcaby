@@ -39,6 +39,8 @@ class _ob // PIONEK
     int id; //id
 public:
     _ob(); // konstrktor
+    int dorendera_x(); //c pos jest private a musiałem się dostać do x i y
+    int dorendera_y();
     void setteam(bool t); // ustawia druzyne
     void setpos(c P); // ustawia pozycje
     void DAMKA(); // pionek staje sie damka
