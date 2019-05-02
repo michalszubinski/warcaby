@@ -89,22 +89,25 @@ MAP::~MAP() // MAP_StartEnd.cpp
     T[0].StatsToFile();
     T[1].StatsToFile();
 }
-MAP::void render()
+void MAP::render()
 {
-    char board[8][8];
-    for(int i=0;i<8;i)
-    {
-        board[0][i]='c';
-         board[2][i]='c';
-         board[6][i]='b';
-        board[1][i+1]='c';
-        board[7][i+1]='b';
-        board[5][i+1]='b';
-        i=i+2;
 
+    char board[8][8];
+    for(int i=0;i<12;i++)
+    {
+        if((T0[i].a())==1)
+        {
+        board[T0[i].dorendera_x()][T0[i].dorendera_y()]='b';
+        }
+
+         if((T0[i].a())==1)
+         {
+            board[T1[i].dorendera_x()][T1[i].dorendera_y()]='c';
+         }
     }
     for(int i=0;i<9;i++)
-    {for(int a=0;a<9;a++)
+    {
+        for(int a=0;a<9;a++)
     {
        if(board[i][a]=='c'||board[i][a]=='b');
        else
@@ -113,19 +116,15 @@ MAP::void render()
        }
 
     }
-
-
-    }
-
-   for(int a=1;a<9;a++)
-
-   {cout<<a<<" ";
+   }
+for(int a=1;a<9;a++)
+{cout<<9-a<<" ";
        for(int i=1;i<9;i++)
    {
      cout<<board[a-1][i-1]<<"_|";
    }
     cout<<"\n";
-   }
+}
 for(char i='a';i<='h';i++)
 {
   cout<<"  "<<i;
