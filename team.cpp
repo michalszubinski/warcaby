@@ -73,17 +73,18 @@ void team::StatsFromFile()
 	{
 		cout << "Nie udalo sie otworzyc pliku! " << endl;
 	}
-
+	w, l, d = 0;
 	while (getline(plik, linia))
 	{
+
 		if (linia == name)
 		{
 			getline(plik, linia);
-			w = atoi(linia.c_str());
+			w = w + atoi(linia.c_str());
 			getline(plik, linia);
-			l = atoi(linia.c_str());
+			l = l + atoi(linia.c_str());
 			getline(plik, linia);
-			d = atoi(linia.c_str());
+			d = d + atoi(linia.c_str());
 		}
 	}
 	cout << "Wygrane: " << w << endl;
@@ -94,7 +95,17 @@ void team::StatsFromFile()
 
 void team::StatsToFile()
 {
-    //TUTAJ BEDZIE ZAPISYWALO STATYSTYKI Z PLIKU
+
+	fstream plik1;
+	
+	plik1.open("nowy.txt", ios::out | ios::app)
+	plik1 << name << endl;
+	plik1 << w << endl;
+	plik1 << l << endl;
+	plik1 << d << endl;
+	
+	plik1.close();
+	
 }
 
 void team::setteam(bool TTT)
