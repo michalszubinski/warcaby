@@ -79,27 +79,25 @@ class MAP
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
     char board[8][8]; //w tej tablicy przechowuję się pozycję
+    int kto_gra[2]; //do tablicy funkcja decide wstawia kto gra bialymi a kto czarnymi
 
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
-    void render(); // rysuje mape
+   void render(); // rysuje mape DO POPRAWY
 
-    void TURN(); // poczatkuje zmiane pozycji ######
-    //ruch decide(); // decyduje ktory typ gracza wybrac ######
+   void TURN(); // poczatkuje zmiane pozycji ######
+   void decide(); // decyduje ktory typ gracza wybrac ######
 
-    //ruch player0(); te cyferki oznaczaja typy gracza ######
-    //ruch player1();
-    //ruch player2();
+    ruch player0(); //te cyferki oznaczaja typy gracza ######
+    ruch player1();   //0-czlowiek 1-random 2-minimax ######
+    ruch player2();
 
-    //void changer(); // zastosowuje ruch ######
-    //bool possible(ruch R);// czy ruch jest mozliwy ######
+    void changer(struct ruch abc); // zastosowuje ruch ######
+    //bool possible();// czy ruch jest mozliwy ######
 
-    //void kruch(); // okresla ktora druzyna ma ruch ######
-
-
-
-    //int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS
+    int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
+    int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
 };
 
 
