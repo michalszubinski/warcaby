@@ -97,52 +97,6 @@ void MAP::render()
     {
         if((T0[i].a())==1)
         {
-        board[T0[i].dorendera_x()][T0[i].dorendera_y()]='b';
-        }
-
-         if((T1[i].a())==1)
-         {
-            board[T1[i].dorendera_x()][T1[i].dorendera_y()]='c';
-         }
-    }
-    for(int i=0;i<9;i++)
-    {
-        for(int a=0;a<9;a++)
-    {
-       if(board[i][a]=='c'||board[i][a]=='b');
-       else
-        {
-        board[i][a]=' ';
-       }
-
-    }
-   }
-cout<<"Y\n\n";
-   for(int a=0;a<8;a++)
-
-   {cout<<7-a<<" ";
-       for(int i=1;i<9;i++)
-   {
-     cout<<board[a][i-1]<<"_|";
-   }
-    cout<<"\n";
-   }
-   cout<<"\nX";
-for(int i=0;i<=7;i++)
-{
-  cout<<"  "<<i;
-}
-
-}
-
-void MAP::TURN()
-{
-
-
-    for(int i=0;i<12;i++)
-    {
-        if((T0[i].a())==1)
-        {
             if(T0[i].czydamka()==0)
         {
            board[T0[i].dorendera_x()][T0[i].dorendera_y()]='b';
@@ -206,3 +160,89 @@ for(int i=0;i<=7;i++)
 }
 
 }
+void MAP::decide()
+{
+    int wybor;
+    cout<<"Kto ma grac bialymi?\n0-gracz \n1-random\n2-minimax\n";
+    cin >>wybor;
+    kto_gra[0]=wybor;
+    cout<<"Kto ma grac czarnymi?\n0-gracz \n1-random\n2-minimax\n";
+    cin >>wybor;
+    kto_gra[1]=wybor;
+    system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
+}
+ruch MAP::player0()
+{
+
+}
+ruch MAP::player1()
+{
+
+}
+ruch MAP::player2()
+{
+
+}
+void MAP::changer(struct ruch abc)
+{
+
+}
+int MAP::kruch()
+{
+
+}
+int MAP::g00d()
+{
+
+
+}
+void MAP::TURN()
+{
+    ruch abc;
+    int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
+    decide(); //decide wypelnia tablice kto_gra
+   while(1)
+   {
+
+
+    if(kto_gra[0]==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
+    if(kto_gra[0]==1) abc=player1();
+    if(kto_gra[0]==2) abc=player2();
+    changer(abc);
+    if(g00d()) break;
+    while(kruch()==1)
+    {
+    if(kto_gra[0]==0) abc=player0();
+    if(kto_gra[0]==1) abc=player1();
+    if(kto_gra[0]==2) abc=player2();
+    changer(abc);
+        if(g00d())
+        {
+          exit =0;
+          break;
+        }
+    }
+    if(exit==0)break;
+
+      if(kto_gra[1]==0) abc=player0(); //sprawdza ktory gracz gra czarnymi
+      if(kto_gra[1]==1) abc=player1();
+      if(kto_gra[1]==2) abc=player2();
+       changer(abc);
+        if(g00d()) break;
+       while(kruch()==1)
+    {
+    if(kto_gra[1]==0) abc=player0();
+    if(kto_gra[1]==1) abc=player1();
+    if(kto_gra[1]==2) abc=player2();
+      changer(abc);
+       if(g00d())
+       {
+           exit=0;
+           break;
+       }
+       if(exit==0)break;
+    }
+    }
+   }
+
+
