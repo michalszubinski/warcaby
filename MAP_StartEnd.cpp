@@ -146,7 +146,7 @@ for(int i=0;i<9;i++)
 cout<<"Y\n\n";
    for(int a=0;a<8;a++)
 
-   {cout<<7-a<<" ";
+   {cout<<a<<" ";
        for(int i=1;i<9;i++)
    {
      cout<<board[a][i-1]<<"_|";
