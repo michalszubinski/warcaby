@@ -103,7 +103,7 @@ public:
 
     bool czybicieNORM(ruch &R); // czy bicie dla normalnego pionka
     bool czybicieDAMKA(ruch &R); // czy bicie dla damki
-    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do possible
+    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do possible ######
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
