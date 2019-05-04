@@ -5,28 +5,28 @@
 
 using namespace std;
 
-bool MAP::prepos(ruch &R)
+bool MAP::prepos(ruch *R)
 {
-    if(R.n.good())
+    if(R->n.good())
     {
-        int realid = Realid(R.id);
+        int realid = Realid(R->id);
 
         /*int bicierealid;
 
-        if(R.team==1) bicierealid =R.bicieid-12;
-        else bicierealid = R.bicieid;*/
+        if(R->team==1) bicierealid =R->bicieid-12;
+        else bicierealid = R->bicieid;*/
 
-        bool teamprzeciwny = Teamprzeciwny(R.team);
+        bool teamprzeciwny = Teamprzeciwny(R->team);
 
-        if((R.team==0)&&(!T0[realid].a())) return 0; // czy zyje
+        if((R->team==0)&&(!T0[realid].a())) return 0; // czy zyje
 
-        if((R.team==1)&&(!T1[realid].a())) return 0;
+        if((R->team==1)&&(!T1[realid].a())) return 0;
 
-        if((R.n.x%2==0)&&(R.n.y%2==0)) {} // czy na czarnym polu
-        else if((R.n.x%2==1)&&(R.n.y%2==1)) {}
+        if((R->n.x%2==0)&&(R->n.y%2==0)) {} // czy na czarnym polu
+        else if((R->n.x%2==1)&&(R->n.y%2==1)) {}
         else return 0;
 
-        if(polehelp(R.n)!=2) return 0; //czy pole jest zajete
+        if(polehelp(R->n)!=2) return 0; //czy pole jest zajete
 
         return 1;
     }
@@ -34,63 +34,62 @@ bool MAP::prepos(ruch &R)
 
 }
 
-bool MAP::possible(ruch &R)
+bool MAP::possible(ruch *R)
 {
-    R.bicie=0;
-    if(prepos(&R)) // czy nowy ruch znajduje sie na planszy
+    R->bicie=0;
+    if(prepos(R)) // czy nowy ruch znajduje sie na planszy
     {
-        /*int realid = Realid(R.id);
+        /*int realid = Realid(R->id);
 
         //int bicierealid;
 
-        //if(R.team==1) bicierealid =R.bicieid-12;
-        //else bicierealid = R.bicieid;
+        //if(R->team==1) bicierealid =R->bicieid-12;
+        //else bicierealid = R->bicieid;
 
-        bool teamprzeciwny = Teamprzeciwny(R.team);
+        bool teamprzeciwny = Teamprzeciwny(R->team);
 
-        if((R.team==0)&&(!T0[realid].a())) return 0; // czy zyje
+        if((R->team==0)&&(!T0[realid].a())) return 0; // czy zyje
 
-        if((R.team==1)&&(!T1[realid].a())) return 0;
+        if((R->team==1)&&(!T1[realid].a())) return 0;
 
-        if((R.n.x%2==0)&&(R.n.y%2==0)) {} // czy na czarnym polu
-        else if((R.n.x%2==1)&&(R.n.y%2==1)) {}
+        if((R->n.x%2==0)&&(R->n.y%2==0)) {} // czy na czarnym polu
+        else if((R->n.x%2==1)&&(R->n.y%2==1)) {}
         else return 0;
 
         //bool damka;
-        //if(R.team==0) damka = T0[realid].czydamka();
+        //if(R->team==0) damka = T0[realid].czydamka();
         //else damka = T1[realid].czydamka();
-        if(polehelp(R.n)!=2) return 0; //czy pole jest zajete */
-        int realid = Realid(R.id);
-        bool teamprzeciwny = Teamprzeciwny(R.team);
-        bool damka = czydamkaPOS(R.id,R.team);
+        if(polehelp(R->n)!=2) return 0; //czy pole jest zajete */
+        int realid = Realid(R->id);
+        bool teamprzeciwny = Teamprzeciwny(R->team);
+        bool damka = czydamkaPOS(R->id,R->team);
 
 
 
         if(!damka) // jesli jest normalnym pionkiem
         {
-            if((R.team==0)&&(R.n.y>R.o.y)) return 0; // czy ruszyl sie do przodu
+            if(( R->team==0)&&( R->n.y>R->o.y)) return 0; // czy ruszyl sie do przodu
 
-            if((R.team==1)&&(R.n.y<R.o.y)) return 0;
+            if((R->team==1)&&(R->n.y<
+                              R->o.y)) return 0;
 
-            if((abs(R.o.x - R.n.x)== 1)&&(abs(R.o.y - R.n.y)== 1)) return 1;//pole oddalone o 1;
+            if((abs(R->o.x - R->n.x)== 1)&&(abs(R->o.y - R->n.y)== 1)) return 1;//pole oddalone o 1;
 
             if(ActBicie==0)
             {
-                if(czybicieNORM(&R)) return 1;
+                if(czybicieNORM(R)) return 1;
                 else return 0;
             }
             else
             {
-                if(czybicieNORM(&R)&&(R.id==idBijacego)) return 1;
+                if(czybicieNORM(R)&&(R->id==idBijacego)) return 1;
                 else return 0;
             }
 
         }
         else // jesli jest damka
         {
-            if(((abs(R.o.x - R.n.x))!=(abs(R.o.y - R.n.y)))) return 0; // jesli jest po linii
-
-
+            if(((abs(R->o.x -  R->n.x))!=(abs(R->o.y -  R->n.y)))) return 0; // jesli jest po linii
 
         }
 
@@ -112,37 +111,38 @@ char MAP::polehelp(c pole)
     return 2;
 }
 
-bool MAP::czybicieNORM(ruch &R)
+bool MAP::czybicieNORM(ruch *R)
 {
-    bool teamprzeciwny = Teamprzeciwny(R.team);
+    bool teamprzeciwny = Teamprzeciwny(R->team);
 
-    if((abs(R.o.x - R.n.x)== 2)&&(abs(R.o.y - R.n.y)== 2)) // sprawdzanie bicia
+    if((abs(R->o.x -
+            R->n.x)== 2)&&(abs(R->o.y - R->n.y)== 2)) // sprawdzanie bicia
     {
         c polewroga;
         int mnoznik=-1;
-        if(R.team==1) mnoznik = 1;
+        if(R->team==1) mnoznik = 1;
 
-        polewroga.x = R.n.x + mnoznik;
-        polewroga.y = R.n.y + mnoznik;
+        polewroga.x = R->n.x + mnoznik;
+        polewroga.y = R->n.y + mnoznik;
 
         if(polehelp(polewroga)==teamprzeciwny)
         {
-            ladujbicie(&R,polewroga);
+            ladujbicie(R,polewroga);
             return 1;
         }
     }
     else return 0;
 }
 
-bool MAP::czybicieDAMKA(ruch &R)
+bool MAP::czybicieDAMKA(ruch *R)
 {
-    bool teamprzeciwny = Teamprzeciwny(R.team);
+    bool teamprzeciwny = Teamprzeciwny(R->team);
     c polewroga;
 
-    int delta = abs(R.n.x - R.o.x);
+    int delta = abs(R->n.x - R->o.x);
 
-    int deltax = R.n.x - R.o.x;
-    int deltay = R.n.y - R.o.y;
+    int deltax = R->n.x - R->o.x;
+    int deltay = R->n.y - R->o.y;
 
     int dx;
     if(deltax>0) dx=1;
@@ -158,16 +158,16 @@ bool MAP::czybicieDAMKA(ruch &R)
 
     for(int i=1; i<=delta; i++)
     {
-        polewroga.x=R.o.x + i*dx;
-        polewroga.y=R.o.y + i*dy;
+        polewroga.x=R->o.x + i*dx;
+        polewroga.y=R->o.y + i*dy;
 
         pole = polehelp(polewroga);
-        if(pole==R.team) return 0; // jesli po drodze stoi pionek tej samej druzyny
+        if(pole==R->team) return 0; // jesli po drodze stoi pionek tej samej druzyny
 
         if(pole==teamprzeciwny)
         {
             firstobj=1;
-            ladujbicie(&R,polewroga);
+            ladujbicie(R,polewroga);
         }
 
         if((pole==teamprzeciwny)&&(firstobj==1)) return 0; // jesli napotka drugi pionek druzyny przeciwnej
@@ -188,10 +188,10 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
     {
         for(int i=0; i<2; i++) // sprawdza strony ruchu
         {
-            ruch R;
-            if(Tt==0) R.o = T0[id].pozycja();
-            else R.o = T1[id].pozycja();
-            R.n = R.o;
+            ruch *R = new ruch;
+            if(Tt==0) R->o = T0[id].pozycja();
+            else R->o = T1[id].pozycja();
+            R->n = R->o;
 
             int mn; // dla dwoch pol ktore sa do bicia
             if(i==0) mn=-1;
@@ -201,13 +201,15 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             if(Tt==0) ymn=1;
             else ymn= -1;
 
-            R.n.x += mn*2;
-            R.n.y += ymn*2;
+            R->n.x += mn*2;
+            R->n.y += ymn*2;
 
-            R.team = Tt;
-            R.id = sztuczneid;
+            R->team = Tt;
+            R->id = sztuczneid;
 
-            if((bicie==0)&&(R.n.good())) bicie = possible(R);
+            if((bicie==0)&&(R->n.good())) bicie = possible(R);
+
+            delete R;
         }
     }
     else // damka
@@ -223,10 +225,10 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             else if(j==3) {xchanger=1; ychanger=1;}
 
 
-            for(int i=0; i<delta;i++)
+            /*for(int i=0; i<delta;i++)
             {
                 bool czywrog=0;
-            }
+            }*/
         }
     }
 
@@ -262,14 +264,14 @@ bool MAP::czydamkaPOS(int id,bool Tt)
     return damka;
 }
 
-void MAP::ladujbicie(ruch &R, c polewroga)
+void MAP::ladujbicie(ruch *R, c polewroga)
 {
-    R.bicie=1;
+    R->bicie=1;
 
     for(int i=0; i<12; i++)
     {
-        if(T0[i].a()&&T0[0].pozycja() == polewroga) R.bicieid = T0[i].getid();
-        if(T1[i].a()&&T1[0].pozycja() == polewroga) R.bicieid = T1[i].getid();
+        if(T0[i].a()&&T0[0].pozycja() == polewroga) R->bicieid = T0[i].getid();
+        if(T1[i].a()&&T1[0].pozycja() == polewroga) R->bicieid = T1[i].getid();
     }
 }
 
