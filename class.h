@@ -82,7 +82,6 @@ class MAP
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
     char board[8][8]; //w tej tablicy przechowuję się pozycję
-    int kto_gra[2]; //do tablicy funkcja decide wstawia kto gra bialymi a kto czarnymi
 
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
@@ -91,7 +90,7 @@ public:
     
     //void GAME(); // funckja gry WRZUCAM KOD DO ZASTANOWIENIA SIE
    void TURN(); // poczatkuje zmiane pozycji ######
-   void decide(); // decyduje ktory typ gracza wybrac ######
+   ruch decide(bool Tt); // decyduje ktory typ gracza wybrac ######
 
     ruch player0(); //te cyferki oznaczaja typy gracza ######
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
