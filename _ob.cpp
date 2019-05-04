@@ -63,3 +63,7 @@ int _ob::dorendera_y()
 {
   return pos.y;
 }
+int _ob::getid()
+{
+    return id;
+}
