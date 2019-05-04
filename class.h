@@ -101,14 +101,14 @@ public:
     bool possible(ruch &R);// czy ruch jest mozliwy ######
     char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
 
-    bool czybicieNORM(ruch &R); // czy bicie dla normalnego pionka 
-    bool czybicieDAMKA(ruch &R); // czy bicie dla damki ######
-    bool czybicie(ruch &R); //sprawdza dla odpowiedniego typu pionka #####
-    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do czybicie 
+    bool czybicieNORM(ruch &R); // czy bicie dla normalnego pionka
+    bool czybicieDAMKA(ruch &R); // czy bicie dla damki
+    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do possible
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
     bool czydamkaPOS(int id,bool Tt); // sprawdza czy dany pionek z danej druzyny jest damka
+    void ladujbicie(ruch &R, c polewroga); // laduje bicie do obiektu klasy ruch
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
