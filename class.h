@@ -95,10 +95,20 @@ public:
     ruch player0(); //te cyferki oznaczaja typy gracza ######
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
     ruch player2();
-
     void changer(ruch abc); // zastosowuje ruch ######
-    bool possible();// czy ruch jest mozliwy ######
+    
+    bool prepos(ruch &R); // podstawowe warunki mozliwosc ruchu
+    bool possible(ruch &R);// czy ruch jest mozliwy ######
     char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
+
+    bool czybicieNORM(ruch &R); // czy bicie dla normalnego pionka 
+    bool czybicieDAMKA(ruch &R); // czy bicie dla damki ######
+    bool czybicie(ruch &R); //sprawdza dla odpowiedniego typu pionka #####
+    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do czybicie 
+    bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
+    int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
+    bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
+    bool czydamkaPOS(int id,bool Tt); // sprawdza czy dany pionek z danej druzyny jest damka
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
