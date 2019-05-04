@@ -39,8 +39,6 @@ class _ob // PIONEK
     int id; //id
 public:
     _ob(); // konstrktor
-    int dorendera_x(); //c pos jest private a musiałem się dostać do x i y
-    int dorendera_y();
     void setteam(bool t); // ustawia druzyne
     void setpos(c P); // ustawia pozycje
     void DAMKA(); // pionek staje sie damka
@@ -49,6 +47,10 @@ public:
     bool a(); // sprawdza czy pionek nie jest zbity
     void kill(); // zabija pionek
     bool czydamka(); // sprawdza czy pionek jest damka
+    int dorendera_x(); //c pos jest private a musia³em siê dostaæ do x i y
+    int dorendera_y();
+    c pozycja(); // zwraca pozycje pionka
+    int getid(); // zwraca id
 };
 
 class team // DRUZYNA
@@ -70,6 +72,7 @@ public:
     void StatsToFile(); // Zapisywanie statystyk do pliku 
     void setteam(bool TTT); // ustawia druzyne
     void setteamname(string X); // ustawia nazwe druzyny
+    void EndV(int X); //0 DODAJE WYGRANA , 1 DODAJE PRZEGRANA , 2 DODAJE REMIS
 };
 
 class MAP
@@ -85,7 +88,8 @@ public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
    void render(); // rysuje mape DO POPRAWY
-
+    
+    //void GAME(); // funckja gry WRZUCAM KOD DO ZASTANOWIENIA SIE
    void TURN(); // poczatkuje zmiane pozycji ######
    void decide(); // decyduje ktory typ gracza wybrac ######
 
