@@ -10,7 +10,7 @@ MAP::MAP()  // MAP_StartEnd.cpp
 {
     T[0].setteam(0);
     T[1].setteam(1);
-
+    
     {
         string x="";
 
@@ -19,6 +19,15 @@ MAP::MAP()  // MAP_StartEnd.cpp
 
         cout<<"Nazwa druzyny czarnej\n"; cin>>x;
         T[1].setteamname(x);
+
+        int wybor;
+        cout<<"Kto ma grac bialymi?\n0-gracz \n1-random\n2-minimax\n";
+        cin >>wybor;
+        T[0].setplayertype(wybor);
+        cout<<"Kto ma grac czarnymi?\n0-gracz \n1-random\n2-minimax\n";
+        cin >>wybor;
+        T[1].setplayertype(wybor);
+        system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
     }
 
 
@@ -63,27 +72,28 @@ MAP::MAP()  // MAP_StartEnd.cpp
         //T1[i].show();
     }
 
+    //GAME(); // DLA WERSJI NR 2
 }
 
 MAP::~MAP() // MAP_StartEnd.cpp
 {
-    /*if(g00d==1)
+    if(g00d()==1)
     {
-        T[0].w++;
-        T[1].l++;
+        T[0].EndV(0);
+        T[1].EndV(1);
     }
 
-    else if(g00d==2)
+    else if(g00d()==2)
     {
-        T[0].l++;
-        T[1].w++;
+        T[0].EndV(1);
+        T[1].EndV(0);
     }
 
-    else if(g00d==3)
+    else if(g00d()==3)
     {
-        T[0].d++;
-        T[1].d++;
-    } TEN KOMENTARZ NALEZY USUNAC JAK POWSTANIE FUNCKJA g00d*/
+        T[0].EndV(2);
+        T[1].EndV(2);
+    }
 
 
     T[0].StatsToFile();
@@ -160,17 +170,17 @@ for(int i=0;i<=7;i++)
 }
 
 }
-void MAP::decide()
+ruch MAP::decide(bool Tt)
 {
-    int wybor;
-    cout<<"Kto ma grac bialymi?\n0-gracz \n1-random\n2-minimax\n";
-    cin >>wybor;
-    kto_gra[0]=wybor;
-    cout<<"Kto ma grac czarnymi?\n0-gracz \n1-random\n2-minimax\n";
-    cin >>wybor;
-    kto_gra[1]=wybor;
-    system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
+    ruch abc;
+
+    if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
+    else if(T[Tt].getpt()==1) abc=player1();
+    else if(T[Tt].getpt()==2) abc=player2();
+
+    return abc;
 }
+
 ruch MAP::player0()
 {
 
@@ -200,21 +210,17 @@ void MAP::TURN()
 {
     ruch abc;
     int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
-    decide(); //decide wypelnia tablice kto_gra
+     //stary decide przeniesiony do konstruktora
    while(1)
    {
 
 
-    if(kto_gra[0]==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
-    if(kto_gra[0]==1) abc=player1();
-    if(kto_gra[0]==2) abc=player2();
+    abc = decide(0);
     changer(abc);
     if(g00d()) break;
     while(kruch()==1)
     {
-    if(kto_gra[0]==0) abc=player0();
-    if(kto_gra[0]==1) abc=player1();
-    if(kto_gra[0]==2) abc=player2();
+    abc = decide(0);
     changer(abc);
         if(g00d())
         {
@@ -224,16 +230,12 @@ void MAP::TURN()
     }
     if(exit==0)break;
 
-      if(kto_gra[1]==0) abc=player0(); //sprawdza ktory gracz gra czarnymi
-      if(kto_gra[1]==1) abc=player1();
-      if(kto_gra[1]==2) abc=player2();
+      abc = decide(1);
        changer(abc);
         if(g00d()) break;
        while(kruch()==1)
     {
-    if(kto_gra[1]==0) abc=player0();
-    if(kto_gra[1]==1) abc=player1();
-    if(kto_gra[1]==2) abc=player2();
+    abc = decide(1);
       changer(abc);
        if(g00d())
        {
@@ -244,5 +246,43 @@ void MAP::TURN()
     }
     }
    }
+
+*/void MAP::GAME() // DLA WERSJI 2
+{
+
+    //T0[2].DAMKA();
+    //T0[1].kill();
+    //T0[2].show();
+    //T0[1].show();
+
+    //T1[2].DAMKA();
+    //T1[1].kill();
+    //T1[2].show();
+    //T1[1].show();
+
+
+    render();
+
+    while(!g00d())
+    {
+        TURN();
+        system("cls");
+        render();
+        act = kruch();
+    }
+
+    system("cls");
+    render();
+}
+
+void MAP::TURN()
+{
+    ruch abc;
+
+    abc = decide(act);
+    changer(abc);
+    kruch();
+} WERSJA NR2 GRY */
+
 
 
