@@ -203,8 +203,116 @@ int MAP::kruch()
 }
 int MAP::g00d()
 {
+    int zmienna_pomocnicza=1,exit=0;
+  for(int i=0;i<8;i++)//wygrali biali-nie ma zadnego czarnego pionka lub damki na szachownicy
+  {
+      for (int a=0;a<8;a++)
+      {
+          if(board[i][a]=='c'|| board[i][a]=='C')
+          {
+                zmienna_pomocnicza=0;
+                exit=1;
+                break;
+          }
+          if(exit) break;
+      }
+  }
+  if(zmienna_pomocnicza) return 1;
+ for(int i=0;i<8;i++)//wygrali czarni-nie ma zadnego czarnego pionka lub damki na szachownicy
+  {
+      for (int a=0;a<8;a++)
+      {
+          if(board[i][a]=='b'|| board[i][a]=='B')
+          {
+                zmienna_pomocnicza=0;
+                exit=1;
+                break;
+          }
+          if(exit) break;
+      }
+  }
+  if(zmienna_pomocnicza) return 2;
+  ruch abc_pomocniczy; //do sprawdzenia czy mozna wykonac jakis ruch
+ if(act==1) //sprawdzam mozliwosc ruchu dla bialych
+ {
+     for(int i=0;i<8;i++)
+     {
+         for(int a=0;a<8;a++)
+         {
+             if(board[a][i]=='b'||board[a][i]=='B') //szuka dowolnego bialego pionka i spr. czy mozna wykonac nim ruch //damka jesli damka nie moze sie ruszyc o 1 lub o dwa pola to nie moze sie ruszyc wogole
+              {
+                abc_pomocniczy.o.x=a;
+                abc_pomocniczy.o.y=i;
+                abc_pomocniczy.n.x=a+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
+                abc_pomocniczy.n.y=i+1;
+                 for(int q=0;q<12;q++)
+                  {
+                    if(T0[q].dorendera_x()==a)
+                    {
+                        if(T0[q].dorendera_y()==i)
+                        {
+                            abc_pomocniczy.id=T0[q].getid();
+                            abc_pomocniczy.team=0;
+                        }
+                     }
+                    
+                  }
+               if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
+                abc_pomocniczy.n.x=a-1;  //czy pionek moze sie ruszyc o 1 w lewo
+                abc_pomocniczy.n.y=i-1;
+                if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=a+2;  //spr. czy pionek moze zbic w prawo
+                abc_pomocniczy.n.y=i+2;
+               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=a-2; //spr. czy pionek moze zbic w lewo
+                abc_pomocniczy.n.y=i-2;
+               if(possible(abc_pomocniczy))return 0;
 
+             }
 
+         }
+     }
+ }
+ else
+ {
+for(int i=0;i<8;i++)
+   {
+         for(int a=0;a<8;a++)
+         {
+             if(board[a][i]=='c'||board[a][i]=='C')
+              {
+                abc_pomocniczy.o.x=a;
+                abc_pomocniczy.o.y=i;
+                for(int q=0;q<12;q++)
+                  {
+                    if(T0[q].dorendera_x()==a)
+                    {
+                        if(T0[q].dorendera_y()==i)
+                        {
+                            abc_pomocniczy.id=T0[q].getid();
+                            abc_pomocniczy.team=1;
+                        }
+                     }
+                  }
+                abc_pomocniczy.n.x=a-1; //czy pionek bialy moze sie ruszyc o jeden w prawo
+                abc_pomocniczy.n.y=i+1;
+               if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
+                abc_pomocniczy.n.x=a-1;  //czy pionek moze sie ruszyc o 1 w lewo
+                abc_pomocniczy.n.y=i-1;
+                if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=a-2;  //spr. czy pionek moze zbic w prawo
+                abc_pomocniczy.n.y=i+2;
+               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=a-2; //spr. czy pionek moze zbic w lewo
+                abc_pomocniczy.n.y=i-2;
+               if(possible(abc_pomocniczy))return 0;
+
+             }
+          }
+
+   }
+ }
+ return 3; //jest remis
 }
 void MAP::TURN()
 {
