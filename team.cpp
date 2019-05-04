@@ -118,3 +118,13 @@ void team::setteamname(string X) // ustawia nazwe druzyny
     this -> name = X;
 }
 
+void team::EndV(int X)
+{
+    switch(X)
+    {
+    case 0: w++; break;
+    case 1: l++; break;
+    case 2: d++; break;
+    }
+}
+
