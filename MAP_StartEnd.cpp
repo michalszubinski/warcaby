@@ -193,7 +193,7 @@ ruch MAP::player2()
 {
 
 }
-void MAP::changer(struct ruch abc)
+void MAP::changer(ruch abc)
 {
 
 }
