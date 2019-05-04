@@ -96,8 +96,9 @@ public:
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
     ruch player2();
 
-    void changer(struct ruch abc); // zastosowuje ruch ######
-    //bool possible();// czy ruch jest mozliwy ######
+    void changer(ruch abc); // zastosowuje ruch ######
+    bool possible();// czy ruch jest mozliwy ######
+    char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
