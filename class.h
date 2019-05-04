@@ -82,6 +82,8 @@ class MAP
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
     char board[8][8]; //w tej tablicy przechowuję się pozycję
+    bool ActBicie; // czy teraz na mapie ktos zaczal bicie
+    int idBijacego; // id pionka ktory rozpoczal bicie na mapie
 
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
