@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include<cstdlib>
 #include "class.h"
 
 using namespace std;
