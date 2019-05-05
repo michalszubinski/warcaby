@@ -115,7 +115,7 @@ public:
     bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
-    int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
+    int g00d(bool czy_wyswietlac); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
 };
 
 
