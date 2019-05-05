@@ -19,7 +19,7 @@ bool c::operator!=(c other)
 
 bool c::good()
 {
-    if(((this -> x)>0)&&((this -> x)<8)&&((this -> y)>0)&&((this -> y)<8)) return 1;
+    if(((this -> x)>=0)&&((this -> x)<8)&&((this -> y)>=0)&&((this -> y)<8)) return 1;
 
     return 0;
 }
