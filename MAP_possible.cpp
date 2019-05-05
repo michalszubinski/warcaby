@@ -69,9 +69,11 @@ bool MAP::possible(ruch *R)
 
         if(!damka) // jesli jest normalnym pionkiem
         {
-            if(( R->team==0)&&( R->n.y>R->o.y)) return 0; // czy ruszyl sie do przodu
+            if((R->team==0)&&(R->n.y<R->o.y)) return 0; // czy ruszyl sie do przodu
 
-            if((R->team==1)&&(R->n.y<R->o.y)) return 0;
+            if((R->team==1)&&(R->n.y>R->o.y)) return 0;
+
+            cout<<"HEJ";
 
             if(ActBicie==0 && terazbicie==0)
             {
