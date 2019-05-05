@@ -8,6 +8,10 @@ using namespace std;
 
 MAP::MAP()  // MAP_StartEnd.cpp
 {
+    ActBicie=0;
+    terazbicie=0;
+    act=0;
+    
     T[0].setteam(0);
     T[1].setteam(1);
     
