@@ -12,16 +12,17 @@ ruch MAP::player0()
     int realid=99;
 
     R.team = act;
+    //cout<<"act:"<<act;
 
     for(;;)
     {
-        while((realid<0)||(realid>11))
+        while(!((realid>=0)&&(realid<=11)))
         {
             cout<<"Podaj id: ";
             cin>>R.id;
-            
-            if((act==0)&&(id>=12)) R.id=9999;
-            if((act==1)&&(id<12)) R.id=9999;
+
+            if((act==0)&&(Realid(R.id)!=R.id)) R.id=9999;
+            if((act==1)&&(Realid(R.id)==R.id)) R.id=9999;
 
             realid = Realid(R.id);
         }
