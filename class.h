@@ -83,7 +83,7 @@ class MAP
     team T[2]; // 2 druzyny
     char board[8][8]; //w tej tablicy przechowuję się pozycję
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
-    int idBijacego; // id pionka ktory rozpoczal bicie na mapie
+    int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
 
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
@@ -99,18 +99,20 @@ public:
     ruch player2();
     void changer(ruch abc); // zastosowuje ruch ######
     
+    // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
     bool possible(ruch *R);// czy ruch jest mozliwy ######
     char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
 
     bool czybicieNORM(ruch *R); // czy bicie dla normalnego pionka
     bool czybicieDAMKA(ruch *R); // czy bicie dla damki
-    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do possible
+    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do possible [TUTAJ WYSYLAC ID OD 0 DO 12]
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
-    bool czydamkaPOS(int id,bool Tt); // sprawdza czy dany pionek z danej druzyny jest damka
+    bool czydamkaPOS(int id,bool Tt); // sprawdza czy dany pionek z danej druzyny jest damka [TUTAJ WYSYLAC ID OD 0 DO 12]
     void ladujbicie(ruch *R, c polewroga); // laduje bicie do obiektu klasy ruch
+    bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     int g00d(); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
