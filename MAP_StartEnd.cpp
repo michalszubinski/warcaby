@@ -197,11 +197,23 @@ ruch MAP::player2()
 }
 void MAP::changer(ruch abc)
 {
+    if(act==0) T0[abc.id].setpos(abc.n);
+    else T1[Realid(abc.id)].setpos(abc.n);
 
+    if(abc.bicie==1)
+    {
+        if(Teamprzeciwny(act)==0) T0[abc.bicieid].kill();
+        else T1[Realid(abc.bicieid)].kill();
+
+        ActBicie = 1;
+    }
+
+    if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
 }
-int MAP::kruch()
+bool MAP::kruch()
 {
-
+    if(ActBicie==1) return act;
+    else Teamprzeciwny(act);
 }
 int MAP::g00d(bool czy_wyswietlac)
 {
@@ -436,42 +448,38 @@ void MAP::TURN()
     }
 }
 
-/*void MAP::GAME() // DLA WERSJI 2
+void MAP::GAME()
 {
-
-    //T0[2].DAMKA();
-    //T0[1].kill();
-    //T0[2].show();
-    //T0[1].show();
-
-    //T1[2].DAMKA();
-    //T1[1].kill();
-    //T1[2].show();
-    //T1[1].show();
-
-
     render();
 
     while(!g00d())
     {
-        TURN();
-        system("cls");
+        TURN2();
         render();
-        act = kruch();
+        showALL();
     }
 
     system("cls");
     render();
 }
 
-void MAP::TURN()
+void MAP::TURN2()
 {
     ruch abc;
 
     abc = decide(act);
     changer(abc);
-    kruch();
-} WERSJA NR2 GRY */
+    act = kruch();
+}
+
+void MAP::showALL()
+{
+    for(int i=0;i<12;i++)
+    {
+        T0[i].show();
+        T1[i].show();
+    }
+}
 
 
 
