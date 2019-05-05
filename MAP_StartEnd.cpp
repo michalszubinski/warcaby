@@ -197,7 +197,7 @@ ruch MAP::player2()
 }
 void MAP::changer(ruch abc)
 { 
-    if(act==0)//biale
+    /*if(act==0)//biale
     {
         for(int q=0;q<12;q++)
             {
@@ -239,7 +239,7 @@ void MAP::changer(ruch abc)
                     }
             }
     }
-    
+    */
     if(act==0) T0[abc.id].setpos(abc.n);
     else T1[Realid(abc.id)].setpos(abc.n);
 
