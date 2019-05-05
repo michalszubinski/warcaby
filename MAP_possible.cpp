@@ -73,14 +73,20 @@ bool MAP::possible(ruch *R)
 
             if((R->team==1)&&(R->n.y<R->o.y)) return 0;
 
-            if((abs(R->o.x - R->n.x)== 1)&&(abs(R->o.y - R->n.y)== 1)) return 1;//pole oddalone o 1;
+            if(ActBicie==0)
+            {
+                if((abs(R->o.x - R->n.x)== 1)&&(abs(R->o.y - R->n.y)== 1)) return 1;//pole oddalone o 1;
+            }
 
             if(czybicieNORM(R)) return 1;
             else return 0;
         }
         else // jesli jest damka
         {
-            if(((abs(R->o.x -  R->n.x))!=(abs(R->o.y -  R->n.y)))) return 0; // jesli jest po linii
+            if(ActBicie==0)
+            {
+                if(((abs(R->o.x -  R->n.x))==(abs(R->o.y -  R->n.y)))) return 1; // jesli jest po linii
+            }
 
             if(czybicieDAMKA(R)) return 1;
             else return 0;
