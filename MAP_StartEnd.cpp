@@ -186,11 +186,7 @@ ruch MAP::decide(bool Tt)
 
     return abc;
 }
-
-ruch MAP::player0()
-{
-
-}
+// player0 jest w MAP_player0.cpp
 ruch MAP::player1()
 {
 
