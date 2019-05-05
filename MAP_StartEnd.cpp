@@ -322,7 +322,7 @@ int MAP::g00d(bool czy_wyswietlac)
   }
 
   ruch abc_pomocniczy; //do sprawdzenia czy mozna wykonac jakis ruch
- if(act==1) //sprawdzam mozliwosc ruchu dla bialych
+ if(act==0) //sprawdzam mozliwosc ruchu dla bialych
  {
      for(int i=0;i<8;i++)
      {
