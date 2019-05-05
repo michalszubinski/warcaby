@@ -196,8 +196,8 @@ ruch MAP::player2()
 
 }
 void MAP::changer(ruch abc)
-{ 
-    /*if(act==0)//biale
+{
+    if(act==0)//biale
     {
         for(int q=0;q<12;q++)
             {
@@ -239,7 +239,7 @@ void MAP::changer(ruch abc)
                     }
             }
     }
-    */
+
     if(act==0) T0[abc.id].setpos(abc.n);
     else T1[Realid(abc.id)].setpos(abc.n);
 
@@ -252,6 +252,28 @@ void MAP::changer(ruch abc)
     }
 
     if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
+    //render();
+    cout<<"X\n\n";
+   for(int a=0;a<8;a++)
+
+   {cout<<a<<" ";
+       for(int i=1;i<9;i++)
+   {
+     cout<<board[a][i-1]<<"_|";
+   }
+    cout<<"\n";
+   }
+   cout<<"\nY";
+for(int i=0;i<=7;i++)
+{
+  cout<<"  "<<i;
+}
+
+}
+bool MAP::kruch()
+{
+    if(ActBicie==1) return act;
+    else Teamprzeciwny(act);
 }
 bool MAP::kruch()
 {
@@ -308,13 +330,13 @@ int MAP::g00d(bool czy_wyswietlac)
          {
              if(board[a][i]=='b') //szuka dowolnego bialego pionka i spr. czy mozna wykonac nim ruch //damka jesli damka nie moze sie ruszyc o 1 lub o dwa pola to nie moze sie ruszyc wogole
               {
-                abc_pomocniczy.o.x=a;
-                abc_pomocniczy.o.y=i;
+                abc_pomocniczy.o.x=i; //1 wspolrzedna to y
+                abc_pomocniczy.o.y=a;
                  for(int q=0;q<12;q++)
                   {
-                    if(T0[q].dorendera_x()==a)
+                    if(T0[q].dorendera_x()==i)
                     {
-                        if(T0[q].dorendera_y()==i)
+                        if(T0[q].dorendera_y()==a)
                         {
                             abc_pomocniczy.id=T0[q].getid();
                             abc_pomocniczy.team=0;
@@ -322,28 +344,28 @@ int MAP::g00d(bool czy_wyswietlac)
                      }
 
                   }
-                abc_pomocniczy.n.x=a+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
-                abc_pomocniczy.n.y=i+1;
-               if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
-                abc_pomocniczy.n.x=a+1;  //czy pionek moze sie ruszyc o 1 w lewo
-                abc_pomocniczy.n.y=i-1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+2;  //spr. czy pionek moze zbic w prawo
-                abc_pomocniczy.n.y=i+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+2; //spr. czy pionek moze zbic w lewo
-                abc_pomocniczy.n.y=i-2;
-               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
+                abc_pomocniczy.n.y=a+1;
+               if(possible(&abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
+                abc_pomocniczy.n.x=i+1;  //czy pionek moze sie ruszyc o 1 w lewo
+                abc_pomocniczy.n.y=a-1;
+                if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+2;  //spr. czy pionek moze zbic w prawo
+                abc_pomocniczy.n.y=a+2;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+2; //spr. czy pionek moze zbic w lewo
+                abc_pomocniczy.n.y=a-2;
+               if(possible(&abc_pomocniczy))return 0;
 
              }
              if(board[a][i]=='B') //dla damki spr. mozliwosci jak dla pionka bialego i czarnego, bo damka moze sie ruszac i do przodu i do tylu
-             {abc_pomocniczy.o.x=a;
-                abc_pomocniczy.o.y=i;
+             {abc_pomocniczy.o.x=i;
+                abc_pomocniczy.o.y=a;
                  for(int q=0;q<12;q++)
                   {
-                    if(T0[q].dorendera_x()==a)
+                    if(T0[q].dorendera_x()==i)
                     {
-                        if(T0[q].dorendera_y()==i)
+                        if(T0[q].dorendera_y()==a)
                         {
                             abc_pomocniczy.id=T0[q].getid();
                             abc_pomocniczy.team=0;
@@ -351,30 +373,30 @@ int MAP::g00d(bool czy_wyswietlac)
                      }
 
                   }
-                abc_pomocniczy.n.x=a+1;
-                abc_pomocniczy.n.y=i+1;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+1;
-                abc_pomocniczy.n.y=i-1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+2;
-                abc_pomocniczy.n.y=i+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+2;
-                abc_pomocniczy.n.y=i-2;
-               if(possible(abc_pomocniczy))return 0;
-               abc_pomocniczy.n.x=a-1;
-                abc_pomocniczy.n.y=i+1;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-1;
-                abc_pomocniczy.n.y=i-1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-2;
-                abc_pomocniczy.n.y=i+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-2;
-                abc_pomocniczy.n.y=i-2;
-               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+1;
+                abc_pomocniczy.n.y=a+1;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+1;
+                abc_pomocniczy.n.y=a-1;
+                if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+2;
+                abc_pomocniczy.n.y=a+2;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+2;
+                abc_pomocniczy.n.y=a-2;
+               if(possible(&abc_pomocniczy))return 0;
+               abc_pomocniczy.n.x=i-1;
+                abc_pomocniczy.n.y=a+1;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-1;
+                abc_pomocniczy.n.y=a-1;
+                if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-2;
+                abc_pomocniczy.n.y=a+2;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-2;
+                abc_pomocniczy.n.y=a-2;
+               if(possible(&abc_pomocniczy))return 0;
 
              }
 
@@ -389,59 +411,59 @@ for(int i=0;i<8;i++)
          {
              if(board[a][i]=='c')
               {
-                abc_pomocniczy.o.x=a;
-                abc_pomocniczy.o.y=i;
+                abc_pomocniczy.o.x=i;
+                abc_pomocniczy.o.y=a;
                 for(int q=0;q<12;q++)
                   {
-                    if(T0[q].dorendera_x()==a)
+                    if(T0[q].dorendera_x()==i)
                     {
-                        if(T0[q].dorendera_y()==i)
+                        if(T0[q].dorendera_y()==a)
                         {
                             abc_pomocniczy.id=T0[q].getid();
                             abc_pomocniczy.team=1;
                         }
                      }
                   }
-                abc_pomocniczy.n.x=a-1; //czy pionek  moze sie ruszyc o jeden w prawo
-                abc_pomocniczy.n.y=i+1;
-               if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
-                abc_pomocniczy.n.x=a-1;  //czy pionek moze sie ruszyc o 1 w lewo
-                abc_pomocniczy.n.y=i-1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-2;  //spr. czy pionek moze zbic w prawo
-                abc_pomocniczy.n.y=i+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-2; //spr. czy pionek moze zbic w lewo
-                abc_pomocniczy.n.y=i-2;
-               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-1; //czy pionek  moze sie ruszyc o jeden w prawo
+                abc_pomocniczy.n.y=a+1;
+               if(possible(&abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
+                abc_pomocniczy.n.x=i-1;  //czy pionek moze sie ruszyc o 1 w lewo
+                abc_pomocniczy.n.y=a-1;
+                if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-2;  //spr. czy pionek moze zbic w prawo
+                abc_pomocniczy.n.y=a+2;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-2; //spr. czy pionek moze zbic w lewo
+                abc_pomocniczy.n.y=a-2;
+               if(possible(&abc_pomocniczy))return 0;
 
              }
              if(board[a][i]=='C')
              {
-                abc_pomocniczy.n.x=a+1;
-                abc_pomocniczy.n.y=i+1;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+1;
-                abc_pomocniczy.n.y=i-1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+2;
-                abc_pomocniczy.n.y=i+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a+2;
-                abc_pomocniczy.n.y=i-2;
-               if(possible(abc_pomocniczy))return 0;
-               abc_pomocniczy.n.x=a-1;
-                abc_pomocniczy.n.y=i+1;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-1;
-                abc_pomocniczy.n.y=i-1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-2;
-                abc_pomocniczy.n.y=i+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=a-2;
-                abc_pomocniczy.n.y=i-2;
-               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+1;
+                abc_pomocniczy.n.y=a+1;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+1;
+                abc_pomocniczy.n.y=a-1;
+                if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+2;
+                abc_pomocniczy.n.y=a+2;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i+2;
+                abc_pomocniczy.n.y=a-2;
+               if(possible(&abc_pomocniczy))return 0;
+               abc_pomocniczy.n.x=i-1;
+                abc_pomocniczy.n.y=a+1;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-1;
+                abc_pomocniczy.n.y=a-1;
+                if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-2;
+                abc_pomocniczy.n.y=a+2;
+               if(possible(&abc_pomocniczy))return 0;
+                abc_pomocniczy.n.x=i-2;
+                abc_pomocniczy.n.y=a-2;
+               if(possible(&abc_pomocniczy))return 0;
              }
           }
 
@@ -455,6 +477,7 @@ void MAP::TURN()
     ruch abc;
     int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
      //stary decide przeniesiony do konstruktora
+render();
    while(1)
    {
 
