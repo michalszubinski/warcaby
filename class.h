@@ -100,6 +100,7 @@ public:
     ruch player2();
     void changer(ruch abc); // zastosowuje ruch ######
     
+    
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
     bool possible(ruch *R);// czy ruch jest mozliwy 
@@ -116,7 +117,11 @@ public:
     bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
+    void showALL();
     int g00d(bool czy_wyswietlac); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
+    
+    void GAME(); // dla wersji 2
+    void TURN2(); // dla wersji 2
 };
 
 
