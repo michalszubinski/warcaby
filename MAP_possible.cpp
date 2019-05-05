@@ -28,6 +28,8 @@ bool MAP::prepos(ruch *R)
 
         if(polehelp(R->n)!=2) return 0; //czy pole jest zajete
 
+        if(!czyonjestbijacym(R->id)) return 0; // czy jest pionkiem bijacym jesli jest bicie na mapie
+
         return 1;
     }
     else return 0;
@@ -60,37 +62,28 @@ bool MAP::possible(ruch *R)
         //if(R->team==0) damka = T0[realid].czydamka();
         //else damka = T1[realid].czydamka();
         if(polehelp(R->n)!=2) return 0; //czy pole jest zajete */
+
         int realid = Realid(R->id);
         bool teamprzeciwny = Teamprzeciwny(R->team);
         bool damka = czydamkaPOS(R->id,R->team);
-
-
 
         if(!damka) // jesli jest normalnym pionkiem
         {
             if(( R->team==0)&&( R->n.y>R->o.y)) return 0; // czy ruszyl sie do przodu
 
-            if((R->team==1)&&(R->n.y<
-                              R->o.y)) return 0;
+            if((R->team==1)&&(R->n.y<R->o.y)) return 0;
 
             if((abs(R->o.x - R->n.x)== 1)&&(abs(R->o.y - R->n.y)== 1)) return 1;//pole oddalone o 1;
 
-            if(ActBicie==0)
-            {
-                if(czybicieNORM(R)) return 1;
-                else return 0;
-            }
-            else
-            {
-                if(czybicieNORM(R)&&(R->id==idBijacego)) return 1;
-                else return 0;
-            }
-
+            if(czybicieNORM(R)) return 1;
+            else return 0;
         }
         else // jesli jest damka
         {
             if(((abs(R->o.x -  R->n.x))!=(abs(R->o.y -  R->n.y)))) return 0; // jesli jest po linii
 
+            if(czybicieDAMKA(R)) return 1;
+            else return 0;
         }
 
     }
@@ -178,9 +171,12 @@ bool MAP::czybicieDAMKA(ruch *R)
 
 bool MAP::mozliwoscbicia(int id, bool Tt)
 {
+    if(!czyonjestbijacym(id)) return 0;
+
     int sztuczneid;
     if(Tt==1) sztuczneid = id +12;
     bool bicie=0;
+    bool nadsf=0;
 
     bool damka = czydamkaPOS(id,Tt);
 
@@ -207,7 +203,11 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             R->team = Tt;
             R->id = sztuczneid;
 
-            if((bicie==0)&&(R->n.good())) bicie = possible(R);
+            if((bicie==0)&&(R->n.good()))
+            {
+                nadsf = possible(R)
+                if(R.bicie&&nadsf) bicie = 1;
+            }
 
             delete R;
         }
@@ -225,10 +225,28 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             else if(j==3) {xchanger=1; ychanger=1;}
 
 
-            /*for(int i=0; i<delta;i++)
+            for(int i=1; i<12;i++)
             {
-                bool czywrog=0;
-            }*/
+                ruch *R = new ruch;
+
+                if(Tt==0) R->o = T0[id].pozycja();
+                else R->o = T1[id].pozycja();
+                R->n = R->o;
+
+                R->n.x = R->o.x + xchanger*i;
+                R->n.y = R->o.y + ychanger*i;
+
+                R->team = Tt;
+                R->id = sztuczneid;
+
+                if((bicie==0)&&(R->n.good()))
+                {
+                    nadsf = possible(R)
+                    if(R.bicie&&nadsf) bicie = 1;
+                }
+
+                delete R;
+            }
         }
     }
 
@@ -273,5 +291,18 @@ void MAP::ladujbicie(ruch *R, c polewroga)
         if(T0[i].a()&&T0[0].pozycja() == polewroga) R->bicieid = T0[i].getid();
         if(T1[i].a()&&T1[0].pozycja() == polewroga) R->bicieid = T1[i].getid();
     }
+}
+
+bool MAP::czyonjestbijacym(int id)
+{
+    int realid = Realid(id);
+
+    bool team = 0;
+    if(id>=12) team = 1;
+
+    if(ActBicie==1&&team==0&&T0[realid].getid()!=id) return 0;
+    else if(ActBicie==1&&team==1&&T1[realid].getid()!=id) return 0;
+
+    return 1;
 }
 
