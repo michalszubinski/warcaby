@@ -172,6 +172,8 @@ for(int i=0;i<=7;i++)
 }
 ruch MAP::decide(bool Tt)
 {
+    terazbicie = czyjakiesbicie(Tt);
+    
     ruch abc;
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
@@ -434,7 +436,7 @@ void MAP::TURN()
     }
 }
 
-*/void MAP::GAME() // DLA WERSJI 2
+/*void MAP::GAME() // DLA WERSJI 2
 {
 
     //T0[2].DAMKA();
