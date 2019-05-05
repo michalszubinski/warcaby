@@ -196,7 +196,50 @@ ruch MAP::player2()
 
 }
 void MAP::changer(ruch abc)
-{
+{ 
+    if(act==0)//biale
+    {
+        for(int q=0;q<12;q++)
+            {
+                    if(T0[q].dorendera_x()==abc.o.x)
+                    {
+                        if(T0[q].dorendera_y()==abc.o.y)
+                        {
+                            board[T0[q].dorendera_y()][T0[q].dorendera_x()]=' ';
+                            if(T0[q].czydamka())
+                            {
+                                board[abc.n.y][abc.n.x]='B';
+                            }
+                            else
+                            {
+                                board[abc.n.y][abc.n.x]='b';
+                            }
+                        }
+                    }
+           }
+    }
+    else //czarne
+    {
+       for(int q=0;q<12;q++)
+           {
+                    if(T1[q].dorendera_x()==abc.o.x)
+                    {
+                        if(T1[q].dorendera_y()==abc.o.y)
+                        {
+                            board[T1[q].dorendera_y()][T1[q].dorendera_x()]=' ';
+                            if(T1[q].czydamka())
+                            {
+                                board[abc.n.y][abc.n.x]='C';
+                            }
+                            else
+                            {
+                                board[abc.n.y][abc.n.x]='c';
+                            }
+                        }
+                    }
+            }
+    }
+    
     if(act==0) T0[abc.id].setpos(abc.n);
     else T1[Realid(abc.id)].setpos(abc.n);
 
