@@ -118,7 +118,7 @@ public:
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     void showALL();
-    int g00d(bool czy_wyswietlac); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
+    int g00d(bool czy_wyswietlac=0); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
     
     void GAME(); // dla wersji 2
     void TURN2(); // dla wersji 2
