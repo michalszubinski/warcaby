@@ -19,6 +19,9 @@ ruch MAP::player0()
         {
             cout<<"Podaj id: ";
             cin>>R.id;
+            
+            if((act==0)&&(id>=12)) R.id=9999;
+            if((act==1)&&(id<12)) R.id=9999;
 
             realid = Realid(R.id);
         }
