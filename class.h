@@ -84,6 +84,7 @@ class MAP
     char board[8][8]; //w tej tablicy przechowuję się pozycję
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
     int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
+    bool terazbicie; // przechowuje czy jakis pionek ma dostepne bicie
 
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
@@ -91,8 +92,8 @@ public:
    void render(); // rysuje mape DO POPRAWY
     
     //void GAME(); // funckja gry WRZUCAM KOD DO ZASTANOWIENIA SIE
-   void TURN(); // poczatkuje zmiane pozycji ######
-   ruch decide(bool Tt); // decyduje ktory typ gracza wybrac ######
+   void TURN(); // poczatkuje zmiane pozycji 
+   ruch decide(bool Tt); // decyduje ktory typ gracza wybrac 
 
     ruch player0(); //te cyferki oznaczaja typy gracza ######
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
@@ -101,7 +102,7 @@ public:
     
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
-    bool possible(ruch *R);// czy ruch jest mozliwy ######
+    bool possible(ruch *R);// czy ruch jest mozliwy 
     char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
 
     bool czybicieNORM(ruch *R); // czy bicie dla normalnego pionka
