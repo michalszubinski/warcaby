@@ -83,7 +83,7 @@ bool MAP::possible(ruch *R)
         }
         else // jesli jest damka
         {
-            if(ActBicie==0&&terazbicie=0)
+            if(ActBicie==0&&terazbicie==0)
             {
                 if(((abs(R->o.x -  R->n.x))==(abs(R->o.y -  R->n.y)))) return 1; // jesli jest po linii
             }
@@ -211,8 +211,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
 
             if((bicie==0)&&(R->n.good()))
             {
-                nadsf = possible(R)
-                if(R.bicie&&nadsf) bicie = 1;
+                nadsf = possible(R);
+                if(R->bicie&&nadsf) bicie = 1;
             }
 
             delete R;
@@ -247,8 +247,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
 
                 if((bicie==0)&&(R->n.good()))
                 {
-                    nadsf = possible(R)
-                    if(R.bicie&&nadsf) bicie = 1;
+                    nadsf = possible(R);
+                    if(R->bicie&&nadsf) bicie = 1;
                 }
 
                 delete R;
