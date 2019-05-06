@@ -272,8 +272,14 @@ for(int i=0;i<=7;i++)
 }
 bool MAP::kruch()
 {
-    if(ActBicie==1) return act;
-    else Teamprzeciwny(act);
+    bool zmienna;
+
+    if(ActBicie==1) zmienna = act;
+    else zmienna = Teamprzeciwny(act);
+
+    act = zmienna;
+
+    return zmienna;
 }
 bool MAP::kruch()
 {
