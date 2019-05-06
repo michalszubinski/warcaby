@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include<cstdlib>
 #include "class.h"
 
 using namespace std;
@@ -11,10 +11,10 @@ MAP::MAP()  // MAP_StartEnd.cpp
     ActBicie=0;
     terazbicie=0;
     act=0;
-    
+
     T[0].setteam(0);
     T[1].setteam(1);
-    
+
     {
         string x="";
 
@@ -113,11 +113,11 @@ void MAP::render()
         {
             if(T0[i].czydamka()==0)
         {
-           board[T0[i].dorendera_y()][T0[i].dorendera_x()]='b';
+           board[T0[i].dorendera_x()][T0[i].dorendera_y()]='b';
         }
         else
         {
-          board[T0[i].dorendera_y()][T0[i].dorendera_x()]='B';
+          board[T0[i].dorendera_x()][T0[i].dorendera_y()]='B';
         }
         }
 
@@ -125,17 +125,29 @@ void MAP::render()
          {
              if((T1[i].czydamka())==0)
          {
-             board[T1[i].dorendera_y()][T1[i].dorendera_x()]='c';
+             board[T1[i].dorendera_x()][T1[i].dorendera_y()]='c';
          }
            else
            {
-            board[T1[i].dorendera_y()][T1[i].dorendera_x()]='C';
+            board[T1[i].dorendera_x()][T1[i].dorendera_y()]='C';
            }
          }
     }
-    for(int i=0;i<9;i++)
+    for(int i=0;i<8;i++)
     {
-        for(int a=0;a<9;a++)
+        for(int a=0;a<8;a++)
+    {
+       if((board[i][a]=='c'||board[i][a]=='b')); //trzeba nad tym pomyslec czemu tu nie moze byc C B
+       else
+        {
+        board[i][a]=' ';
+       }
+
+    }
+   }
+/*for(int i=0;i<8;i++)
+    {
+        for(int a=0;a<8;a++)
     {
        if(board[i][a]=='c'||board[i][a]=='b');
        else
@@ -145,29 +157,18 @@ void MAP::render()
 
     }
    }
-for(int i=0;i<9;i++)
-    {
-        for(int a=0;a<9;a++)
-    {
-       if(board[i][a]=='c'||board[i][a]=='b');
-       else
-        {
-        board[i][a]=' ';
-       }
-
-    }
-   }
-cout<<"X\n\n";
+   */
+cout<<"Y\n\n";
    for(int a=0;a<8;a++)
 
    {cout<<a<<" ";
        for(int i=1;i<9;i++)
    {
-     cout<<board[a][i-1]<<"_|";
+     cout<<board[i-1][a]<<"_|";
    }
     cout<<"\n";
    }
-   cout<<"\nY";
+   cout<<"\nX";
 for(int i=0;i<=7;i++)
 {
   cout<<"  "<<i;
@@ -177,7 +178,7 @@ for(int i=0;i<=7;i++)
 ruch MAP::decide(bool Tt)
 {
     terazbicie = czyjakiesbicie(Tt);
-    
+
     ruch abc;
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
@@ -197,51 +198,66 @@ ruch MAP::player2()
 }
 void MAP::changer(ruch abc)
 {
+
     if(act==0)//biale
     {
         for(int q=0;q<12;q++)
             {
+                if(T0[q].a())
+                 {
+
+
                     if(T0[q].dorendera_x()==abc.o.x)
                     {
                         if(T0[q].dorendera_y()==abc.o.y)
                         {
-                            board[T0[q].dorendera_y()][T0[q].dorendera_x()]=' ';
+                            board[T0[q].dorendera_x()][T0[q].dorendera_y()]=' ';
                             if(T0[q].czydamka())
                             {
-                                board[abc.n.y][abc.n.x]='B';
+                                board[abc.n.x][abc.n.y]='B';
                             }
                             else
                             {
-                                board[abc.n.y][abc.n.x]='b';
+                                board[abc.n.x][abc.n.y]='b';
                             }
                         }
                     }
-           }
+                 }
+                 else board[T0[q].dorendera_x()][T0[q].dorendera_y()]=' ';
+            }
     }
     else //czarne
     {
        for(int q=0;q<12;q++)
            {
+               if(T1[q].a())
+           {
+
+
                     if(T1[q].dorendera_x()==abc.o.x)
                     {
                         if(T1[q].dorendera_y()==abc.o.y)
                         {
-                            board[T1[q].dorendera_y()][T1[q].dorendera_x()]=' ';
+                            board[T1[q].dorendera_x()][T1[q].dorendera_y()]=' ';
                             if(T1[q].czydamka())
                             {
-                                board[abc.n.y][abc.n.x]='C';
+                                board[abc.n.x][abc.n.y]='C';
                             }
                             else
                             {
-                                board[abc.n.y][abc.n.x]='c';
+                                board[abc.n.x][abc.n.y]='c';
                             }
                         }
                     }
-            }
+             }
+             else  board[T1[q].dorendera_x()][T1[q].dorendera_y()]=' ';
+             }
     }
+
 
     if(act==0) T0[abc.id].setpos(abc.n);
     else T1[Realid(abc.id)].setpos(abc.n);
+
 
     if(abc.bicie==1)
     {
@@ -252,18 +268,19 @@ void MAP::changer(ruch abc)
     }
 
     if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
+
     //render();
-    cout<<"X\n\n";
+   cout<<"Y\n\n";
    for(int a=0;a<8;a++)
 
    {cout<<a<<" ";
        for(int i=1;i<9;i++)
    {
-     cout<<board[a][i-1]<<"_|";
+     cout<<board[i-1][a]<<"_|";
    }
     cout<<"\n";
    }
-   cout<<"\nY";
+   cout<<"\nX";
 for(int i=0;i<=7;i++)
 {
   cout<<"  "<<i;
@@ -281,11 +298,12 @@ bool MAP::kruch()
 
     return zmienna;
 }
-bool MAP::kruch()
+/*bool MAP::kruch()
 {
     if(ActBicie==1) return act;
     else Teamprzeciwny(act);
 }
+*/
 int MAP::g00d(bool czy_wyswietlac)
 {
     int zmienna_pomocnicza=1,exit=0;
@@ -478,6 +496,85 @@ for(int i=0;i<8;i++)
 if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
  return 3; //jest remis
 }
+void MAP::czy_bylo_bicie(ruch abc_pomocniczy)
+{
+    if(act==0) //sprawdzam mozliwosc ruchu dla bialych
+ {
+     for(int i=0;i<8;i++)
+     {
+         for(int a=0;a<8;a++)
+         {
+             if(board[a][i]=='b') //szuka dowolnego bialego pionka i spr. czy mozna wykonac nim ruch //damka jesli damka nie moze sie ruszyc o 1 lub o dwa pola to nie moze sie ruszyc wogole
+              {
+
+                 for(int q=0;q<12;q++)
+                  {
+                    if(T0[q].dorendera_x()==a)
+                    {
+                        if(T0[q].dorendera_y()==i)
+                        {
+                           if((abc_pomocniczy.n.x==a+2&&abc_pomocniczy.n.y==i+2)||(abc_pomocniczy.n.x==a+2&&abc_pomocniczy.n.y==i-2)){ActBicie=1;idBijacego = abc_pomocniczy.id;}
+                            else ActBicie=0;
+                        }
+                     }
+
+                  }
+
+
+
+
+             }
+         }
+     }
+ }
+
+ else
+ {
+for(int i=0;i<8;i++)
+   {
+         for(int a=0;a<8;a++)
+         {
+             if(board[a][i]=='c')
+              {
+                abc_pomocniczy.o.x=a;
+                abc_pomocniczy.o.y=i;
+                for(int q=0;q<12;q++)
+                  {
+                    if(T0[q].dorendera_x()==a)
+                    {
+                        if(T0[q].dorendera_y()==i)
+                        {
+                            abc_pomocniczy.id=T0[q].getid();
+                            abc_pomocniczy.team=1;
+                        }
+                     }
+                  }
+                 if((abc_pomocniczy.n.x==a-2&&abc_pomocniczy.n.y==i+2)||(abc_pomocniczy.n.x==a-2&&abc_pomocniczy.n.y==i-2)){ActBicie=1;idBijacego = abc_pomocniczy.id;}
+                else ActBicie=0;
+
+
+             }
+
+ }
+   }
+ }
+}
+void MAP::TURN() //okrojona wersja do sprawdzenia,ktora funckja nie dziala
+{ruch abc;
+render();
+    while(1)
+    {
+        act=0;
+        abc=decide(0);
+        showALL();
+        changer(abc);
+        act=1;
+        abc=decide(0);
+        showALL();
+        changer(abc);
+    }
+}
+/*
 void MAP::TURN()
 {
     ruch abc;
@@ -488,38 +585,44 @@ render();
    {
 
     act=0;
+    showALL(); //do usuniecia
     abc = decide(0);
     changer(abc);
-    if(g00d(1)) break;
+    //if(g00d(1)) break;
     while(kruch()==1)
     {
+       showALL(); //do usuniecia
     abc = decide(0);
     changer(abc);
-        if(g00d(1))
+      /*  if(g00d(1))
         {
           exit =0;
           break;
         }
+
     }
     if(exit==0)break;
       act=1;
       abc = decide(1);
+      showALL(); //do usuniecia
        changer(abc);
-        if(g00d(1)) break;
+        //if(g00d(1)) break;
        while(kruch()==1)
        {
     abc = decide(1);
+    showALL(); //do usuniecia
       changer(abc);
-       if(g00d(1))
+       /*if(g00d(1))
        {
            exit=0;
            break;
        }
+
        if(exit==0)break;
        }
     }
 }
-
+*/
 void MAP::GAME()
 {
     render();

@@ -33,10 +33,11 @@ ruch MAP::player0()
 
         cout<<"Podaj Y: ";
         cin>>R.n.y;
+        //czy_bylo_bicie(R);
+
 
         if(act==0) R.o = T0[realid].pozycja();
         else R.o = T1[realid].pozycja();
-
         if(possible(&R)) return R;
 
         R.id=99;

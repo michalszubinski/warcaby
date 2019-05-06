@@ -97,15 +97,15 @@ void team::StatsToFile()
 {
 
 	fstream plik1;
-	
-	plik1.open("nowy.txt", ios::out | ios::app)
+
+	plik1.open("nowy.txt", ios::out | ios::app);
 	plik1 << name << endl;
 	plik1 << w << endl;
 	plik1 << l << endl;
 	plik1 << d << endl;
-	
+
 	plik1.close();
-	
+
 }
 
 void team::setteam(bool TTT)
