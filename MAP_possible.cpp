@@ -73,8 +73,6 @@ bool MAP::possible(ruch *R)
 
             if((R->team==1)&&(R->n.y>R->o.y)) return 0;
 
-            cout<<"HEJ";
-
             if(ActBicie==0 && terazbicie==0)
             {
                 if((abs(R->o.x - R->n.x)== 1)&&(abs(R->o.y - R->n.y)== 1)) return 1;//pole oddalone o 1;
@@ -183,7 +181,7 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
 
     int sztuczneid;
     if(Tt==1) sztuczneid = id +12;
-    bool bicie=0;
+    bool fbicie=0;
     bool nadsf=0;
 
     bool damka = czydamkaPOS(id,Tt);
@@ -195,7 +193,10 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             ruch *R = new ruch;
             if(Tt==0) R->o = T0[id].pozycja();
             else R->o = T1[id].pozycja();
+
             R->n = R->o;
+            if(Tt==0) sztuczneid = id;
+            else sztuczneid = id+12;
 
             int mn; // dla dwoch pol ktore sa do bicia
             if(i==0) mn=-1;
@@ -211,10 +212,13 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             R->team = Tt;
             R->id = sztuczneid;
 
-            if((bicie==0)&&(R->n.good()))
+
+
+            if((fbicie==0)&&(R->n.good()==1))
             {
+
                 nadsf = possible(R);
-                if(R->bicie&&nadsf) bicie = 1;
+                if(R->bicie&&nadsf) fbicie = 1;
             }
 
             delete R;
@@ -247,10 +251,10 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
                 R->team = Tt;
                 R->id = sztuczneid;
 
-                if((bicie==0)&&(R->n.good()))
+                if((fbicie==0)&&(R->n.good()))
                 {
                     nadsf = possible(R);
-                    if(R->bicie&&nadsf) bicie = 1;
+                    if(R->bicie&&nadsf) fbicie = 1;
                 }
 
                 delete R;
@@ -258,7 +262,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
         }
     }
 
-    return bicie;
+
+    return fbicie;
 }
 
 bool MAP::czyjakiesbicie(bool Tt)
