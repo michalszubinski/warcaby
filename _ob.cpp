@@ -48,7 +48,7 @@ bool _ob::a()
 
 void _ob::kill()
 {
-     alive = 0;
+    this -> alive = 0;
 }
 
 bool _ob::czydamka()

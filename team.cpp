@@ -1,9 +1,9 @@
 #include <iostream>
-
-#include "class.h"
 #include <fstream>
 #include<string>
 #include <cstdlib>
+
+#include "class.h"
 
 using namespace std;
 
@@ -11,8 +11,10 @@ using namespace std;
 team::team(bool tea, char playertype, string name)
 {
     setplayertype(playertype);
-    StatsFromFile();
     this -> t = tea;
+    this -> w = 0;
+    this -> l = 0;
+    this -> d = 0;
 }
 
 team::~team()
@@ -20,7 +22,7 @@ team::~team()
     StatsToFile();
 }
 
-void team::setplayertype(char T)
+void team::setplayertype(int T)
 {
     switch(T)
     {
@@ -58,7 +60,7 @@ bool team::gett()
     return (this -> t);
 }
 
-char team::getpt()
+int team::getpt()
 {
     return (this -> playertype);
 }
@@ -95,17 +97,33 @@ void team::StatsFromFile()
 
 void team::StatsToFile()
 {
+    bool jest=0;
+    fstream plik1;
+    string linia;
 
-	fstream plik1;
+    plik1.open("nowy.txt", ios::in);
 
-	plik1.open("nowy.txt", ios::out | ios::app);
-	plik1 << name << endl;
-	plik1 << w << endl;
-	plik1 << l << endl;
-	plik1 << d << endl;
+    while (getline(plik1, linia))
+	{
+		if (linia == name)
+        {
+            jest = 1;
+            plik1.close();
+            break;
+        }
+	}
 
-	plik1.close();
 
+    if(!jest)
+    {
+        plik1.open("nowy.txt", ios::out | ios::app);
+        plik1 << name << endl;
+        plik1 << w << endl;
+        plik1 << l << endl;
+        plik1 << d << endl;
+
+        plik1.close();
+    }
 }
 
 void team::setteam(bool TTT)
@@ -127,4 +145,3 @@ void team::EndV(int X)
     case 2: d++; break;
     }
 }
-

@@ -3,14 +3,12 @@
 #include "class.h"
 
 using namespace std;
-
 int main()
 {
-    MAP gra;
+ MAP gra;
+ gra.TURN();
 
 
-    gra.TURN();
-  //  gra.showALL();
 
 
 }

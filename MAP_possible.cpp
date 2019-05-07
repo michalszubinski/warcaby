@@ -86,6 +86,8 @@ bool MAP::possible(ruch *R)
             if(ActBicie==0&&terazbicie==0)
             {
                 if(((abs(R->o.x -  R->n.x))==(abs(R->o.y -  R->n.y)))) return 1; // jesli jest po linii
+
+                if(possibledamkaruch(R)) return 1;
             }
 
             if(czybicieDAMKA(R)) return 1;
@@ -112,17 +114,23 @@ char MAP::polehelp(c pole)
 
 bool MAP::czybicieNORM(ruch *R)
 {
+    //R->show();
     bool teamprzeciwny = Teamprzeciwny(R->team);
 
-    if((abs(R->o.x -
-            R->n.x)== 2)&&(abs(R->o.y - R->n.y)== 2)) // sprawdzanie bicia
+    if((abs(R->o.x - R->n.x)== 2)&&(abs(R->o.y - R->n.y)== 2)) // sprawdzanie bicia
     {
         c polewroga;
         int mnoznik=-1;
         if(R->team==1) mnoznik = 1;
 
-        polewroga.x = R->n.x + mnoznik;
+        int dx;
+        if(R->n.x - R->o.x>0) dx=-1;
+        else dx=1;
+
+        polewroga.x = R->n.x + dx;
         polewroga.y = R->n.y + mnoznik;
+
+        //cout<<"x: "<<polewroga.x<<"     y: "<<polewroga.y<<endl;
 
         if(polehelp(polewroga)==teamprzeciwny)
         {
@@ -213,7 +221,6 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             R->id = sztuczneid;
 
 
-
             if((fbicie==0)&&(R->n.good()==1))
             {
 
@@ -299,10 +306,12 @@ void MAP::ladujbicie(ruch *R, c polewroga)
 {
     R->bicie=1;
 
+    R->p = polewroga;
+
     for(int i=0; i<12; i++)
     {
-        if(T0[i].a()&&T0[0].pozycja() == polewroga) R->bicieid = T0[i].getid();
-        if(T1[i].a()&&T1[0].pozycja() == polewroga) R->bicieid = T1[i].getid();
+        if(T0[i].a()&&T0[i].pozycja() == polewroga) R->bicieid = T0[i].getid();
+        if(T1[i].a()&&T1[i].pozycja() == polewroga) R->bicieid = T1[i].getid();
     }
 }
 
@@ -315,6 +324,37 @@ bool MAP::czyonjestbijacym(int id)
 
     if(ActBicie==1&&team==0&&T0[realid].getid()!=id) return 0;
     else if(ActBicie==1&&team==1&&T1[realid].getid()!=id) return 0;
+
+    return 1;
+}
+
+bool MAP::possibledamkaruch(ruch *R)
+{
+    c polewroga;
+
+    int delta = abs(R->n.x - R->o.x);
+
+    int deltax = R->n.x - R->o.x;
+    int deltay = R->n.y - R->o.y;
+
+    int dx;
+    if(deltax>0) dx=1;
+    else dx=-1;
+
+    int dy;
+    if(deltay>0) dy=1;
+    else dy=-1;
+
+    char pole;
+
+    for(int i=1; i<=delta; i++)
+    {
+        polewroga.x=R->o.x + i*dx;
+        polewroga.y=R->o.y + i*dy;
+
+        pole = polehelp(polewroga);
+        if(pole!=2) return 0; // czy nic nie stoi na drodze
+    }
 
     return 1;
 }

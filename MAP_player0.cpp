@@ -12,7 +12,7 @@ ruch MAP::player0()
     int realid=99;
 
     R.team = act;
-    //cout<<"act:"<<act;
+    cout<<"act:"<<act<<endl;
 
     for(;;)
     {
@@ -26,6 +26,7 @@ ruch MAP::player0()
 
             realid = Realid(R.id);
         }
+
         realid = Realid(R.id);
 
         cout<<"Podaj X: ";
@@ -33,14 +34,25 @@ ruch MAP::player0()
 
         cout<<"Podaj Y: ";
         cin>>R.n.y;
-        //czy_bylo_bicie(R);
-
 
         if(act==0) R.o = T0[realid].pozycja();
         else R.o = T1[realid].pozycja();
+
+        //
+        R.show();
+        if(act==0) T0[realid].show();
+        else T1[realid].show();
+        //
+
         if(possible(&R)) return R;
 
-        R.id=99;
+        else
+        {
+            cout<<"Ruch niemozliwy!\n";
+        }
+
+
+        realid=99;
     }
 
 }
