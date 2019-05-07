@@ -487,7 +487,7 @@ render();
    while(1)
    {
 
-    act=0;
+    //act=0;
     abc = decide(0);
     changer(abc);
     if(g00d(1)) break;
@@ -502,7 +502,7 @@ render();
         }
     }
     if(exit==0)break;
-      act=1;
+      //act=1;
       abc = decide(1);
        changer(abc);
         if(g00d(1)) break;
