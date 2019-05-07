@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 
 #include "class.h"
 
@@ -11,10 +12,10 @@ MAP::MAP()  // MAP_StartEnd.cpp
     ActBicie=0;
     terazbicie=0;
     act=0;
-    
+
     T[0].setteam(0);
     T[1].setteam(1);
-    
+
     {
         string x="";
 
@@ -77,6 +78,7 @@ MAP::MAP()  // MAP_StartEnd.cpp
     }
 
     //GAME(); // DLA WERSJI NR 2
+    TURN();
 }
 
 MAP::~MAP() // MAP_StartEnd.cpp
@@ -177,8 +179,10 @@ for(int i=0;i<=7;i++)
 ruch MAP::decide(bool Tt)
 {
     terazbicie = czyjakiesbicie(act);
-    
+
     ruch abc;
+
+    cout<<"\nterazbicie = "<<terazbicie<<endl;
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
     else if(T[Tt].getpt()==1) abc=player1();
@@ -197,52 +201,6 @@ ruch MAP::player2()
 }
 void MAP::changer(ruch abc)
 {
-    if(act==0)//biale
-    {
-        for(int q=0;q<12;q++)
-            {
-                    if(T0[q].dorendera_x()==abc.o.x)
-                    {
-                        if(T0[q].dorendera_y()==abc.o.y)
-                        {
-                            board[T0[q].dorendera_y()][T0[q].dorendera_x()]=' ';
-                            if(T0[q].czydamka())
-                            {
-                                board[abc.n.y][abc.n.x]='B';
-                            }
-                            else
-                            {
-                                board[abc.n.y][abc.n.x]='b';
-                            }
-                        }
-                    }
-           }
-    }
-    else //czarne
-    {
-       for(int q=0;q<12;q++)
-           {
-                    if(T1[q].dorendera_x()==abc.o.x)
-                    {
-                        if(T1[q].dorendera_y()==abc.o.y)
-                        {
-                            board[T1[q].dorendera_y()][T1[q].dorendera_x()]=' ';
-                            if(T1[q].czydamka())
-                            {
-                                board[abc.n.y][abc.n.x]='C';
-                            }
-                            else
-                            {
-                                board[abc.n.y][abc.n.x]='c';
-                            }
-                        }
-                    }
-            }
-    }
-
-    if(act==0) T0[abc.id].setpos(abc.n);
-    else T1[Realid(abc.id)].setpos(abc.n);
-
     if(abc.bicie==1)
     {
         if(Teamprzeciwny(act)==0) T0[abc.bicieid].kill();
@@ -252,6 +210,13 @@ void MAP::changer(ruch abc)
     }
 
     if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
+
+    if(act==0) T0[abc.id].setpos(abc.n);
+    else T1[Realid(abc.id)].setpos(abc.n);
+
+    update(abc.id,abc.o);
+    if(abc.bicie==1) update(abc.bicieid,abc.p);
+
     //render();
     cout<<"X\n\n";
    for(int a=0;a<8;a++)
@@ -281,11 +246,7 @@ bool MAP::kruch()
 
     return zmienna;
 }
-bool MAP::kruch()
-{
-    if(ActBicie==1) return act;
-    else Teamprzeciwny(act);
-}
+
 int MAP::g00d(bool czy_wyswietlac)
 {
     int zmienna_pomocnicza=1,exit=0;
@@ -553,5 +514,45 @@ void MAP::showALL()
     }
 }
 
+void MAP::update(int id, c S)
+{
+    int realid = Realid(id);
 
+    if(act==0)//biale
+    {
+        board[S.y][S.x]=' ';
+    }
+    else //czarne
+    {
+        board[S.y][S.x]=' ';
+    }
 
+    if(act==0)//biale
+    {
+        if(T0[realid].a())
+        {
+            if(T0[realid].czydamka())
+            {
+                board[T0[realid].dorendera_y()][T0[realid].dorendera_x()]='B';
+            }
+            else
+            {
+                board[T0[realid].dorendera_y()][T0[realid].dorendera_x()]='b';
+            }
+        }
+    }
+    else //czarne
+    {
+        if(T1[realid].a())
+        {
+            if(T1[realid].czydamka())
+            {
+                board[T1[realid].dorendera_y()][T1[realid].dorendera_x()]='C';
+            }
+            else
+            {
+                board[T1[realid].dorendera_y()][T1[realid].dorendera_x()]='c';
+            }
+        }
+    }
+}
