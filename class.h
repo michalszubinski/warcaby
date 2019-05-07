@@ -28,6 +28,8 @@ struct ruch // KORDYNATY RUCHU
 
     bool operator==(ruch other);
     bool operator!=(ruch other);
+    
+    void show(); // pokazuje detale
 };
 
 class _ob // PIONEK
