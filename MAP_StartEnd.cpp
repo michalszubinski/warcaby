@@ -425,7 +425,7 @@ for(int i=0;i<8;i++)
                     {
                         if(T1[q].dorendera_y()==a)
                         {
-                            abc_pomocniczy.id=Realid(T1[q].getid());
+                            abc_pomocniczy.id=T1[q].getid();
                             abc_pomocniczy.team=1;
                         }
                      }
