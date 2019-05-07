@@ -115,6 +115,7 @@ public:
     bool czydamkaPOS(int id,bool Tt); // sprawdza czy dany pionek z danej druzyny jest damka [TUTAJ WYSYLAC ID OD 0 DO 12]
     void ladujbicie(ruch *R, c polewroga); // laduje bicie do obiektu klasy ruch
     bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
+    bool possibledamkaruch(ruch *R); // bada czy cos nie stoi na drodze damki, zeby isc na wskazane pole (warunek przemieszczania sie)
 
     int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     void showALL();
