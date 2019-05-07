@@ -12,7 +12,7 @@ ruch MAP::player0()
     int realid=99;
 
     R.team = act;
-    //cout<<"act:"<<act;
+    cout<<"act:"<<act<<endl;
 
     for(;;)
     {
@@ -26,6 +26,7 @@ ruch MAP::player0()
 
             realid = Realid(R.id);
         }
+
         realid = Realid(R.id);
 
         cout<<"Podaj X: ";
@@ -38,8 +39,12 @@ ruch MAP::player0()
         else R.o = T1[realid].pozycja();
 
         if(possible(&R)) return R;
+        else
+        {
+            cout<<"Ruch niemozliwy!\n";
+        }
 
-        R.id=99;
+        realid=99;
     }
 
 }
