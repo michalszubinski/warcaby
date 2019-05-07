@@ -43,6 +43,8 @@ ruch MAP::player0()
         {
             cout<<"Ruch niemozliwy!\n";
             R.show();
+            if(act==0) T0[realid].show();
+            else T1[realid].show();
         }
 
         realid=99;
