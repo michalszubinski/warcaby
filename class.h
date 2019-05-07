@@ -22,13 +22,14 @@ struct ruch // KORDYNATY RUCHU
     int id; //id pionka
     c o; // stara pozycja
     c n; // nowa pozycja
+    c p;
     bool bicie; // czy bylo bicie
     int bicieid; // id zbitego pionka przy tym ruchu
     bool team; // druzyna z ktorej pochodzi pionek
 
     bool operator==(ruch other);
     bool operator!=(ruch other);
-    
+
     void show(); // pokazuje detale
 };
 
@@ -71,7 +72,7 @@ public:
     bool gett(); //zwraca druzyne
     char getpt(); // zwraca typ gracza
     void StatsFromFile(); // Wczytywanie statystyk z pliku
-    void StatsToFile(); // Zapisywanie statystyk do pliku 
+    void StatsToFile(); // Zapisywanie statystyk do pliku
     void setteam(bool TTT); // ustawia druzyne
     void setteamname(string X); // ustawia nazwe druzyny
     void EndV(int X); //0 DODAJE WYGRANA , 1 DODAJE PRZEGRANA , 2 DODAJE REMIS
@@ -83,7 +84,7 @@ class MAP
     _ob T0[12]; // pionki druzyny bialych
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
-    char board[8][8]; //w tej tablicy przechowuję się pozycję
+    char board[8][8]; //w tej tablicy przechowujê siê pozycjê
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
     int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
     bool terazbicie; // przechowuje czy jakis pionek ma dostepne bicie
@@ -91,21 +92,21 @@ class MAP
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
-   void render(); // rysuje mape DO POPRAWY
-    
-    //void GAME(); // funckja gry WRZUCAM KOD DO ZASTANOWIENIA SIE
-   void TURN(); // poczatkuje zmiane pozycji 
-   ruch decide(bool Tt); // decyduje ktory typ gracza wybrac 
+    void render(); // rysuje mape DO POPRAWY
+
+    void GAME(); // funkcja gry
+    void TURN2(); // funckaj zmiany tury
+    void TURN();
+    ruch decide(bool Tt); // decyduje ktory typ gracza wybrac
 
     ruch player0(); //te cyferki oznaczaja typy gracza ######
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
     ruch player2();
     void changer(ruch abc); // zastosowuje ruch ######
-    
-    
+
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
-    bool possible(ruch *R);// czy ruch jest mozliwy 
+    bool possible(ruch *R);// czy ruch jest mozliwy ######
     char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
 
     bool czybicieNORM(ruch *R); // czy bicie dla normalnego pionka
@@ -119,12 +120,10 @@ public:
     bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
     bool possibledamkaruch(ruch *R); // bada czy cos nie stoi na drodze damki, zeby isc na wskazane pole (warunek przemieszczania sie)
 
-    int kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
+    bool kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     void showALL();
+    void update(int id, c S); // akutalizuje polozenie pionka na mapie char
     int g00d(bool czy_wyswietlac=0); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
-    
-    void GAME(); // dla wersji 2
-    void TURN2(); // dla wersji 2
 };
 
 
