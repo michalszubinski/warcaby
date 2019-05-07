@@ -306,6 +306,8 @@ void MAP::ladujbicie(ruch *R, c polewroga)
 {
     R->bicie=1;
 
+    R->p = polewroga;
+
     for(int i=0; i<12; i++)
     {
         if(T0[i].a()&&T0[i].pozycja() == polewroga) R->bicieid = T0[i].getid();
