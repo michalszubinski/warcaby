@@ -421,11 +421,11 @@ for(int i=0;i<8;i++)
                 abc_pomocniczy.o.y=a;
                 for(int q=0;q<12;q++)
                   {
-                    if(T0[q].dorendera_x()==i)
+                    if(T1[q].dorendera_x()==i)
                     {
-                        if(T0[q].dorendera_y()==a)
+                        if(T1[q].dorendera_y()==a)
                         {
-                            abc_pomocniczy.id=T0[q].getid();
+                            abc_pomocniczy.id=Realid(T1[q].getid());
                             abc_pomocniczy.team=1;
                         }
                      }
