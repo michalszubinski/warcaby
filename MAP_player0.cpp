@@ -38,14 +38,18 @@ ruch MAP::player0()
         if(act==0) R.o = T0[realid].pozycja();
         else R.o = T1[realid].pozycja();
 
+        //
+        R.show();
+        if(act==0) T0[realid].show();
+        else T1[realid].show();
+        //
+
         if(possible(&R)) return R;
         else
         {
             cout<<"Ruch niemozliwy!\n";
-            R.show();
-            if(act==0) T0[realid].show();
-            else T1[realid].show();
         }
+
 
         realid=99;
     }
