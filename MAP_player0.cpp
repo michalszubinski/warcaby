@@ -42,6 +42,7 @@ ruch MAP::player0()
         else
         {
             cout<<"Ruch niemozliwy!\n";
+            printf("ID: %d, OLD = (%d,%d), NEW = (%d,%d), BICIE = %d, BICIEID = %d\n",R.id,R.o.x,R.o.y,R.n.x,R.n.y,R.bicie,R.bicieid);
         }
 
         realid=99;
