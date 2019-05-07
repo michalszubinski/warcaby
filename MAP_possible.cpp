@@ -114,17 +114,23 @@ char MAP::polehelp(c pole)
 
 bool MAP::czybicieNORM(ruch *R)
 {
+    //R->show();
     bool teamprzeciwny = Teamprzeciwny(R->team);
 
-    if((abs(R->o.x -
-            R->n.x)== 2)&&(abs(R->o.y - R->n.y)== 2)) // sprawdzanie bicia
+    if((abs(R->o.x - R->n.x)== 2)&&(abs(R->o.y - R->n.y)== 2)) // sprawdzanie bicia
     {
         c polewroga;
         int mnoznik=-1;
         if(R->team==1) mnoznik = 1;
 
-        polewroga.x = R->n.x + mnoznik;
+        int dx;
+        if(R->n.x - R->o.x>0) dx=-1;
+        else dx=1;
+
+        polewroga.x = R->n.x + dx;
         polewroga.y = R->n.y + mnoznik;
+
+        //cout<<"x: "<<polewroga.x<<"     y: "<<polewroga.y<<endl;
 
         if(polehelp(polewroga)==teamprzeciwny)
         {
@@ -213,7 +219,6 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
 
             R->team = Tt;
             R->id = sztuczneid;
-
 
 
             if((fbicie==0)&&(R->n.good()==1))
