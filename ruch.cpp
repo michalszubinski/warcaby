@@ -20,5 +20,5 @@ bool ruch::operator!=(ruch other)
 
 void ruch::show()
 {
-    printf("ID: %d, OLD = (%d,%d), NEW = (%d,%d), BICIE = %d, BICIEID = %d, TEAM = %d, WARTOSC = %d\n",id,x,y,x,y,bicie,bicieid,team,wartoscruchu);
+    printf("ID: %d, OLD = (%d,%d), NEW = (%d,%d), BICIE = %d, BICIEID = %d, TEAM = %d, WARTOSC = %d\n",id,o.x,o.y,n.x,n.y,bicie,bicieid,team,wartoscruchu);
 }
