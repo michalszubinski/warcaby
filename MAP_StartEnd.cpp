@@ -176,7 +176,7 @@ for(int i=0;i<=7;i++)
 }
 ruch MAP::decide(bool Tt)
 {
-    terazbicie = czyjakiesbicie(Tt);
+    terazbicie = czyjakiesbicie(act);
     
     ruch abc;
 
