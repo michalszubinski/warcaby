@@ -159,21 +159,27 @@ for(int i=0;i<9;i++)
 
     }
    }
-cout<<"X\n\n";
+wyswietlanie_planszy();
+
+}
+void MAP:: wyswietlanie_planszy()
+{
+  cout<<"Y\n\n";
    for(int a=0;a<8;a++)
 
-   {cout<<a<<" ";
+   {cout<<7-a<<" ";
        for(int i=1;i<9;i++)
    {
-     cout<<board[a][i-1]<<"_|";
+     cout<<board[7-a][i-1]<<"_|";
    }
     cout<<"\n";
    }
-   cout<<"\nY";
+   cout<<"\nX";
 for(int i=0;i<=7;i++)
 {
   cout<<"  "<<i;
 }
+
 
 }
 ruch MAP::decide(bool Tt)
@@ -183,6 +189,7 @@ ruch MAP::decide(bool Tt)
     ruch abc;
 
     cout<<"\nterazbicie = "<<terazbicie<<endl;
+    cout<<"ActBicie = "<<ActBicie<<endl;
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
     else if(T[Tt].getpt()==1) abc=player1();
@@ -217,22 +224,7 @@ void MAP::changer(ruch abc)
     update(abc.id,abc.o);
     if(abc.bicie==1) update(abc.bicieid,abc.p);
 
-    //render();
-    cout<<"X\n\n";
-   for(int a=0;a<8;a++)
-
-   {cout<<a<<" ";
-       for(int i=1;i<9;i++)
-   {
-     cout<<board[a][i-1]<<"_|";
-   }
-    cout<<"\n";
-   }
-   cout<<"\nY";
-for(int i=0;i<=7;i++)
-{
-  cout<<"  "<<i;
-}
+ wyswietlanie_planszy();
 
 }
 bool MAP::kruch()
@@ -243,202 +235,165 @@ bool MAP::kruch()
     else zmienna = Teamprzeciwny(act);
 
     act = zmienna;
-
+//cout<<"zmienna"<<zmienna;
     return zmienna;
 }
 
 int MAP::g00d(bool czy_wyswietlac)
 {
-    int zmienna_pomocnicza=1,exit=0;
-  for(int i=0;i<8;i++)//wygrali biali-nie ma zadnego czarnego pionka lub damki na szachownicy
-  {
-      for (int a=0;a<8;a++)
-      {
-          if(board[i][a]=='c'|| board[i][a]=='C')
-          {
-                zmienna_pomocnicza=0;
-                exit=1;
-                break;
-          }
-          if(exit) break;
-      }
-  }
-  if(zmienna_pomocnicza)
+
+ int wygrana=czy_wygrana(),remis;
+ //cout<<"zmienna wygrana"<<wygrana;
+
+ if(wygrana==1) //mozna jeszce wykorzystac act
   {
    if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna bialych";
       return 1;
   }
-
- for(int i=0;i<8;i++)//wygrali czarni-nie ma zadnego czarnego pionka lub damki na szachownicy
-  {
-      for (int a=0;a<8;a++)
-      {
-          if(board[i][a]=='b'|| board[i][a]=='B')
-          {
-                zmienna_pomocnicza=0;
-                exit=1;
-                break;
-          }
-          if(exit) break;
-      }
-  }
-    if(zmienna_pomocnicza)
+   if(wygrana==2)
   {
      if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
       return 2;
   }
-
-  ruch abc_pomocniczy; //do sprawdzenia czy mozna wykonac jakis ruch
- if(act==0) //sprawdzam mozliwosc ruchu dla bialych
+if(act==0)remis=czyremis1(); //sprawdzam czy czarne beda mogly sie ruszyc
+else remis=czyremis0();
+if(remis==3)
  {
-     for(int i=0;i<8;i++)
-     {
-         for(int a=0;a<8;a++)
-         {
-             if(board[a][i]=='b') //szuka dowolnego bialego pionka i spr. czy mozna wykonac nim ruch //damka jesli damka nie moze sie ruszyc o 1 lub o dwa pola to nie moze sie ruszyc wogole
-              {
-                abc_pomocniczy.o.x=i; //1 wspolrzedna to y
-                abc_pomocniczy.o.y=a;
-                 for(int q=0;q<12;q++)
-                  {
-                    if(T0[q].dorendera_x()==i)
-                    {
-                        if(T0[q].dorendera_y()==a)
-                        {
-                            abc_pomocniczy.id=T0[q].getid();
-                            abc_pomocniczy.team=0;
-                        }
-                     }
-
-                  }
-                abc_pomocniczy.n.x=i+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
-                abc_pomocniczy.n.y=a+1;
-               if(possible(&abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
-                abc_pomocniczy.n.x=i+1;  //czy pionek moze sie ruszyc o 1 w lewo
-                abc_pomocniczy.n.y=a-1;
-                if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+2;  //spr. czy pionek moze zbic w prawo
-                abc_pomocniczy.n.y=a+2;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+2; //spr. czy pionek moze zbic w lewo
-                abc_pomocniczy.n.y=a-2;
-               if(possible(&abc_pomocniczy))return 0;
-
-             }
-             if(board[a][i]=='B') //dla damki spr. mozliwosci jak dla pionka bialego i czarnego, bo damka moze sie ruszac i do przodu i do tylu
-             {abc_pomocniczy.o.x=i;
-                abc_pomocniczy.o.y=a;
-                 for(int q=0;q<12;q++)
-                  {
-                    if(T0[q].dorendera_x()==i)
-                    {
-                        if(T0[q].dorendera_y()==a)
-                        {
-                            abc_pomocniczy.id=T0[q].getid();
-                            abc_pomocniczy.team=0;
-                        }
-                     }
-
-                  }
-                abc_pomocniczy.n.x=i+1;
-                abc_pomocniczy.n.y=a+1;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+1;
-                abc_pomocniczy.n.y=a-1;
-                if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+2;
-                abc_pomocniczy.n.y=a+2;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+2;
-                abc_pomocniczy.n.y=a-2;
-               if(possible(&abc_pomocniczy))return 0;
-               abc_pomocniczy.n.x=i-1;
-                abc_pomocniczy.n.y=a+1;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-1;
-                abc_pomocniczy.n.y=a-1;
-                if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-2;
-                abc_pomocniczy.n.y=a+2;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-2;
-                abc_pomocniczy.n.y=a-2;
-               if(possible(&abc_pomocniczy))return 0;
-
-             }
-
-         }
-     }
- }
- else
- {
-for(int i=0;i<8;i++)
-   {
-         for(int a=0;a<8;a++)
-         {
-             if(board[a][i]=='c')
-              {
-                abc_pomocniczy.o.x=i;
-                abc_pomocniczy.o.y=a;
-                for(int q=0;q<12;q++)
-                  {
-                    if(T1[q].dorendera_x()==i)
-                    {
-                        if(T1[q].dorendera_y()==a)
-                        {
-                            abc_pomocniczy.id=T1[q].getid();
-                            abc_pomocniczy.team=1;
-                        }
-                     }
-                  }
-                abc_pomocniczy.n.x=i-1; //czy pionek  moze sie ruszyc o jeden w prawo
-                abc_pomocniczy.n.y=a+1;
-               if(possible(&abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
-                abc_pomocniczy.n.x=i-1;  //czy pionek moze sie ruszyc o 1 w lewo
-                abc_pomocniczy.n.y=a-1;
-                if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-2;  //spr. czy pionek moze zbic w prawo
-                abc_pomocniczy.n.y=a+2;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-2; //spr. czy pionek moze zbic w lewo
-                abc_pomocniczy.n.y=a-2;
-               if(possible(&abc_pomocniczy))return 0;
-
-             }
-             if(board[a][i]=='C')
-             {
-                abc_pomocniczy.n.x=i+1;
-                abc_pomocniczy.n.y=a+1;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+1;
-                abc_pomocniczy.n.y=a-1;
-                if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+2;
-                abc_pomocniczy.n.y=a+2;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i+2;
-                abc_pomocniczy.n.y=a-2;
-               if(possible(&abc_pomocniczy))return 0;
-               abc_pomocniczy.n.x=i-1;
-                abc_pomocniczy.n.y=a+1;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-1;
-                abc_pomocniczy.n.y=a-1;
-                if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-2;
-                abc_pomocniczy.n.y=a+2;
-               if(possible(&abc_pomocniczy))return 0;
-                abc_pomocniczy.n.x=i-2;
-                abc_pomocniczy.n.y=a-2;
-               if(possible(&abc_pomocniczy))return 0;
-             }
-          }
-
-   }
- }
-if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
+ if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
  return 3; //jest remis
+ }
+return 0;
 }
+int MAP::czyremis1()
+{
+ruch * abc_pomocniczy=new ruch;
+  for(int q=0;q<12;q++)
+  {
+    int x=T1[q].dorendera_x(),y=T1[q].dorendera_y();
+     if(!czyjakiesbicie(act))
+     {
+
+
+     if(T1[q].a()==1)
+     { //cout<<"q wynosi"<<q<<endl;
+       abc_pomocniczy->o.x=x;
+       abc_pomocniczy->o.y=y;
+       abc_pomocniczy->id=T1[q].getid(); //nw co tu wstawic
+       abc_pomocniczy->team=1;
+       abc_pomocniczy->n.x=x+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
+       abc_pomocniczy->n.y=y-1;
+        if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
+        abc_pomocniczy->n.x=x-1;  //czy pionek moze sie ruszyc o 1 w lewo
+        abc_pomocniczy->n.y=y-1;
+        if(possible(abc_pomocniczy))return 0;
+        abc_pomocniczy->n.x=x+2;  //spr. czy pionek moze zbic w prawo
+        abc_pomocniczy->n.y=y-2;
+        if(possible(abc_pomocniczy))return 0;
+        abc_pomocniczy->n.x=x-2; //spr. czy pionek moze zbic w lewo
+        abc_pomocniczy->n.y=y-2;
+        if(possible(abc_pomocniczy))return 0;
+     }
+
+     if(T1[q].czydamka()==1)
+     {
+               abc_pomocniczy->n.x=x+1;//prawo
+                abc_pomocniczy->n.y=y+1;
+               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy->n.x=x-1;//lewo
+                abc_pomocniczy->n.y=y+1;
+                if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy->n.x=x+2;//bicie w prawo
+                abc_pomocniczy->n.y=y+2;
+               if(possible(abc_pomocniczy))return 0;
+                abc_pomocniczy->n.x=x-2;//bicie w lewo
+                abc_pomocniczy->n.y=y+2;
+               if(possible(abc_pomocniczy))return 0;
+     }
+     }
+     else return 0;
+  }
+delete abc_pomocniczy;
+return 3;
+}
+int MAP::czyremis0()
+{
+   ruch * abc_pomocniczy=new ruch;
+  for(int q=0;q<12;q++)
+  {
+    int x=T0[q].dorendera_x(),y=T0[q].dorendera_y();
+    if(!czyjakiesbicie(act))
+    {
+
+
+     if(T0[q].a()==1)
+     {
+//cout<<"q wynosi"<<q<<endl;
+       abc_pomocniczy->o.x=x;
+       abc_pomocniczy->o.y=y;
+       abc_pomocniczy->id=T0[q].getid();
+       abc_pomocniczy->team=0;
+     // cout<<"id";//<<abc_pomocniczy->id;
+      abc_pomocniczy->n.x=x+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
+       abc_pomocniczy->n.y=y+1;
+        if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
+        abc_pomocniczy->n.x=x-1;  //czy pionek moze sie ruszyc o 1 w lewo
+        abc_pomocniczy->n.y=y+1;
+        if(possible(abc_pomocniczy))return 0;
+        abc_pomocniczy->n.x=x+2;  //spr. czy pionek moze zbic w prawo
+        abc_pomocniczy->n.y=y+2;
+        if(possible(abc_pomocniczy))return 0;
+        abc_pomocniczy->n.x=x-2; //spr. czy pionek moze zbic w lewo
+        abc_pomocniczy->n.y=y+2;
+        if(possible(abc_pomocniczy))return 0;
+     }
+     if(T0[q].czydamka()==1)
+     {
+               abc_pomocniczy->n.x=x+1;//prawo
+                abc_pomocniczy->n.y=y-1;
+               if(!possible(abc_pomocniczy))return 0;
+                abc_pomocniczy->n.x=x-1;//lewo
+                abc_pomocniczy->n.y=y-1;
+                if(!possible(abc_pomocniczy))return 0;
+                abc_pomocniczy->n.x=x+2;//bicie w prawo
+                abc_pomocniczy->n.y=y-2;
+               if(!possible(abc_pomocniczy))return 0;
+                abc_pomocniczy->n.x=x-2;//bicie w lewo
+                abc_pomocniczy->n.y=y-2;
+               if(!possible(abc_pomocniczy))return 0;
+     }
+    }
+    else return 0;
+  }
+delete abc_pomocniczy;
+return 3;
+}
+int MAP::czy_wygrana()
+{
+    int zmienna_pomocnicza=1;
+    for(int i=0;i<8;i++) //wygrali czarni
+    {
+       if(T0[i].a()==1)
+       {
+           zmienna_pomocnicza=0;
+           break;
+        }
+
+    }
+    if(zmienna_pomocnicza) return 2;
+
+    for(int i=0;i<8;i++) //wygrali biali
+    {
+       if(T1[i].a()==1)
+       {
+           zmienna_pomocnicza=0;
+           break;
+        }
+
+    }
+    if(zmienna_pomocnicza) return 1;
+return 0;
+}
+/*
 void MAP::TURN()
 {
     ruch abc;
@@ -452,7 +407,7 @@ render();
     abc = decide(0);
     changer(abc);
     if(g00d(1)) break;
-    while(kruch()==1)
+    while(kruch()==0)
     {
     abc = decide(0);
     changer(abc);
@@ -480,7 +435,29 @@ render();
        }
     }
 }
+*/
+void MAP::TURN()
+{
 
+ruch abc;
+    int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
+     //stary decide przeniesiony do konstruktora
+render();
+   while(1)
+   {
+
+    //act=0;
+    abc = decide(act);
+    //if(g00d(1)) break;
+    changer(abc);
+    kruch();
+    if(g00d(1))
+    {exit=0;
+        break;}
+        if(exit==0)break;
+
+}
+}
 void MAP::GAME()
 {
     render();
