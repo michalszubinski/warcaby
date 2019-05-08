@@ -221,8 +221,9 @@ void MAP::changer(ruch abc)
     if(act==0) T0[abc.id].setpos(abc.n);
     else T1[Realid(abc.id)].setpos(abc.n);
 
-    if(!team&&T0[abc.id].dorendera_y()==8) T0[abc.id].DAMKA();
-    if(team&&T1[Realid(abc.id)].dorendera_y()==0) T1[Realid(abc.id)].DAMKA();
+    if((abc.team==0) && (T0[abc.id].dorendera_y()==8)) T0[abc.id].DAMKA();
+
+    if((abc.team==1) && (T1[Realid(abc.id)].dorendera_y()==0)) T1[Realid(abc.id)].DAMKA();
 
     update(abc.id,abc.o);
     if(abc.bicie==1) update(abc.bicieid,abc.p);
