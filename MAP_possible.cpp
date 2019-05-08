@@ -85,8 +85,6 @@ bool MAP::possible(ruch *R)
         {
             if(ActBicie==0&&terazbicie==0)
             {
-                if(((abs(R->o.x -  R->n.x))==(abs(R->o.y -  R->n.y)))) return 1; // jesli jest po linii
-
                 if(possibledamkaruch(R)) return 1;
             }
 
@@ -183,7 +181,7 @@ bool MAP::czybicieDAMKA(ruch *R)
     return 1;
 }
 
-bool MAP::mozliwoscbicia(int id, bool Tt)
+bool MAP::mozliwoscbicia(int id, bool Tt, bool X)
 {
     if(!czyonjestbijacym(id)) return 0;
 
@@ -191,6 +189,9 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
     if(Tt==1) sztuczneid = id +12;
     bool fbicie=0;
     bool nadsf=0;
+    bool czyda=0;
+
+    int o = X + 1;
 
     bool damka = czydamkaPOS(id,Tt);
 
@@ -214,8 +215,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
             if(Tt==0) ymn=1;
             else ymn= -1;
 
-            R->n.x += mn*2;
-            R->n.y += ymn*2;
+            R->n.x += mn*o;
+            R->n.y += ymn*o;
 
             R->team = Tt;
             R->id = sztuczneid;
@@ -226,6 +227,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
 
                 nadsf = possible(R);
                 if(R->bicie&&nadsf) fbicie = 1;
+
+                if(nadsf) czyda =1;
             }
 
             delete R;
@@ -262,6 +265,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
                 {
                     nadsf = possible(R);
                     if(R->bicie&&nadsf) fbicie = 1;
+
+                    if(nadsf) czyda =1;
                 }
 
                 delete R;
@@ -270,7 +275,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt)
     }
 
 
-    return fbicie;
+    if(X==1) return fbicie;
+    else nadsf;
 }
 
 bool MAP::czyjakiesbicie(bool Tt)
@@ -297,7 +303,7 @@ bool MAP::czydamkaPOS(int id,bool Tt)
 {
     bool damka;
     if(Tt==0) damka = T0[id].czydamka();
-    else damka = T1[id].czydamka();
+    else damka = T1[Realid(id)].czydamka();
 
     return damka;
 }
@@ -330,6 +336,8 @@ bool MAP::czyonjestbijacym(int id)
 
 bool MAP::possibledamkaruch(ruch *R)
 {
+    if(((abs(R->o.x -  R->n.x))!=(abs(R->o.y -  R->n.y)))) return 0; // jesli jest po linii
+
     c polewroga;
 
     int delta = abs(R->n.x - R->o.x);
