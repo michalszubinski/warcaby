@@ -18,8 +18,16 @@ ruch MAP::player0()
     {
         while(!((realid>=0)&&(realid<=11)))
         {
-            cout<<"Podaj id: ";
-            cin>>R.id;
+            cout<<"Pole pionka ktorym chcesz sie ruszyc:\n";
+            cout<<"Podaj X: ";
+            cin>>R.n.x;
+
+            cout<<"Podaj Y: ";
+            cin>>R.n.y;
+
+            if(polehelp(R.n)!=2)
+                R.id = scanid(R.n);
+
 
             if((act==0)&&(Realid(R.id)!=R.id)) R.id=9999;
             if((act==1)&&(Realid(R.id)==R.id)) R.id=9999;
@@ -28,6 +36,8 @@ ruch MAP::player0()
         }
 
         realid = Realid(R.id);
+
+        cout<<"Pole na ktore chcesz sie ruszyc\n:";
 
         cout<<"Podaj X: ";
         cin>>R.n.x;
@@ -53,5 +63,15 @@ ruch MAP::player0()
 
         realid=99;
     }
+}
 
+int MAP::scanid(c pole)
+{
+    for(int i =0; i<12; i++)
+    {
+        if(T0[i].pozycja()==pole) return T0[i].getid();
+        if(T1[i].pozycja()==pole) return T1[i].getid();
+    }
+
+    return -1;
 }
