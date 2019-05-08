@@ -93,25 +93,26 @@ public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
     void render(); // rysuje mape DO POPRAWY
+    void wyswietlanie_planszy();
 
     void GAME(); // funkcja gry
     void TURN2(); // funckaj zmiany tury
     void TURN();
     ruch decide(bool Tt); // decyduje ktory typ gracza wybrac
 
-    ruch player0(); //te cyferki oznaczaja typy gracza ######
+    ruch player0(); //te cyferki oznaczaja typy gracza
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
     ruch player2();
     void changer(ruch abc); // zastosowuje ruch ######
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
-    bool possible(ruch *R);// czy ruch jest mozliwy ######
+    bool possible(ruch *R);// czy ruch jest mozliwy
     char polehelp(c pole); // sprawdza co jest na danym polu (POMOCNIK FUNKCJI possible)
 
     bool czybicieNORM(ruch *R); // czy bicie dla normalnego pionka
     bool czybicieDAMKA(ruch *R); // czy bicie dla damki
-    bool mozliwoscbicia(int id, bool Tt); // tworzy obiekty klasy ruch i wysyla do possible [TUTAJ WYSYLAC ID OD 0 DO 12]
+    bool mozliwoscbicia(int id, bool Tt, bool X=1); // tworzy obiekty klasy ruch i wysyla do possible [TUTAJ WYSYLAC ID OD 0 DO 12]
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
@@ -120,10 +121,13 @@ public:
     bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
     bool possibledamkaruch(ruch *R); // bada czy cos nie stoi na drodze damki, zeby isc na wskazane pole (warunek przemieszczania sie)
 
-    bool kruch(); // okresla ktora druzyna ma ruch ###### zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
+    bool kruch(); // okresla ktora druzyna ma ruch  zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     void showALL();
     void update(int id, c S); // akutalizuje polozenie pionka na mapie char
     int g00d(bool czy_wyswietlac=0); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
+    int czy_wygrana();
+    int czyremis0();//spr. czy biale niemoga wykonac zadnego ruchu
+    int czyremis1();//sprawdza czy czarne nie moga wykonac zadnego ruchu
 };
 
 
