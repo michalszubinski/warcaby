@@ -48,7 +48,7 @@ bool _ob::a()
 
 void _ob::kill()
 {
-    this -> alive = 0;
+    (this -> alive) = 0;
 }
 
 bool _ob::czydamka()
@@ -63,7 +63,13 @@ int _ob::dorendera_y()
 {
   return pos.y;
 }
+
+c _ob::pozycja()
+{
+    return pos;
+}
+
 int _ob::getid()
 {
-    return id;
+    return this -> id;
 }
