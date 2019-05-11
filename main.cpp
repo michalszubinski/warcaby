@@ -6,6 +6,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    {
+        MAP M; // w takiej formie poniewaz zadziala dekonstruktor MAP zapisujacy statystyki
+    }
     return 0;
 }
