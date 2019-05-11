@@ -83,7 +83,7 @@ bool MAP::possible(ruch *R)
         }
         else // jesli jest damka
         {
-            if(ActBicie==0&&terazbicie==0)
+            if(ActBicie==0 && terazbicie==0)
             {
                 if(possibledamkaruch(R)) return 1;
             }
@@ -142,7 +142,8 @@ bool MAP::czybicieNORM(ruch *R)
 bool MAP::czybicieDAMKA(ruch *R)
 {
     bool teamprzeciwny = Teamprzeciwny(R->team);
-    c polewroga;
+    c apole;
+    c polewrogareal;
 
     int delta = abs(R->n.x - R->o.x);
 
@@ -163,19 +164,27 @@ bool MAP::czybicieDAMKA(ruch *R)
 
     for(int i=1; i<=delta; i++)
     {
-        polewroga.x=R->o.x + i*dx;
-        polewroga.y=R->o.y + i*dy;
+        apole.x=R->o.x + i*dx;
+        apole.y=R->o.y + i*dy;
 
-        pole = polehelp(polewroga);
+        pole = polehelp(apole);
+
         if(pole==R->team) return 0; // jesli po drodze stoi pionek tej samej druzyny
+
+        if((pole==teamprzeciwny)&&(firstobj==1)) return 0; // jesli napotka drugi pionek druzyny przeciwnej
 
         if(pole==teamprzeciwny)
         {
+            //cout<<"detected ";
             firstobj=1;
-            ladujbicie(R,polewroga);
+            polewrogareal=apole;
         }
 
-        if((pole==teamprzeciwny)&&(firstobj==1)) return 0; // jesli napotka drugi pionek druzyny przeciwnej
+        //cout<<(int)pole<<endl;
+
+        if(pole==2&&firstobj==1) ladujbicie(R,polewrogareal);
+
+
     }
 
     return 1;
@@ -186,7 +195,10 @@ bool MAP::mozliwoscbicia(int id, bool Tt, bool X)
     if(!czyonjestbijacym(id)) return 0;
 
     int sztuczneid;
+
     if(Tt==1) sztuczneid = id +12;
+    else sztuczneid = id;
+
     bool fbicie=0;
     bool nadsf=0;
     bool czyda=0;
@@ -204,8 +216,6 @@ bool MAP::mozliwoscbicia(int id, bool Tt, bool X)
             else R->o = T1[id].pozycja();
 
             R->n = R->o;
-            if(Tt==0) sztuczneid = id;
-            else sztuczneid = id+12;
 
             int mn; // dla dwoch pol ktore sa do bicia
             if(i==0) mn=-1;
@@ -221,10 +231,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt, bool X)
             R->team = Tt;
             R->id = sztuczneid;
 
-
             if((fbicie==0)&&(R->n.good()==1))
             {
-
                 nadsf = possible(R);
                 if(R->bicie&&nadsf) fbicie = 1;
 
@@ -264,10 +272,11 @@ bool MAP::mozliwoscbicia(int id, bool Tt, bool X)
                 if((fbicie==0)&&(R->n.good()))
                 {
                     nadsf = possible(R);
-                    if(R->bicie&&nadsf) fbicie = 1;
+                    if(R->bicie&&nadsf) {fbicie = 1; /*cout<<"v possible";*/}
 
                     if(nadsf) czyda =1;
                 }
+                //R->show();
 
                 delete R;
             }
@@ -276,7 +285,7 @@ bool MAP::mozliwoscbicia(int id, bool Tt, bool X)
 
 
     if(X==1) return fbicie;
-    else nadsf;
+    else czyda;
 }
 
 bool MAP::czyjakiesbicie(bool Tt)
