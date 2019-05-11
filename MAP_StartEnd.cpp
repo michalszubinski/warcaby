@@ -216,20 +216,19 @@ void MAP::changer(ruch abc)
         ActBicie = 1;
     }
 
-    if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
-
     if(act==0) T0[abc.id].setpos(abc.n);
     else T1[Realid(abc.id)].setpos(abc.n);
 
-    if((abc.team==0) && (T0[abc.id].dorendera_y()==8)) T0[abc.id].DAMKA();
+    if((abc.team==0) && (T0[abc.id].dorendera_y()==7)) T0[abc.id].DAMKA();
 
     if((abc.team==1) && (T1[Realid(abc.id)].dorendera_y()==0)) T1[Realid(abc.id)].DAMKA();
 
     update(abc.id,abc.o);
     if(abc.bicie==1) update(abc.bicieid,abc.p);
 
- wyswietlanie_planszy();
+    if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
 
+    wyswietlanie_planszy();
 }
 bool MAP::kruch()
 {
