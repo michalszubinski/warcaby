@@ -37,7 +37,7 @@ ruch MAP::player0()
 
         realid = Realid(R.id);
 
-        cout<<"Pole na ktore chcesz sie ruszyc\n:";
+        cout<<"Pole na ktore chcesz sie ruszyc:\n";
 
         cout<<"Podaj X: ";
         cin>>R.n.x;
