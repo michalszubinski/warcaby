@@ -26,7 +26,7 @@ ruch MAP::player0()
             cin>>R.n.y;
 
             if(polehelp(R.n)!=2)
-                R.id = scanid(R.n);
+            R.id = scanid(R.n);
 
 
             if((act==0)&&(Realid(R.id)!=R.id)) R.id=9999;
@@ -69,8 +69,8 @@ int MAP::scanid(c pole)
 {
     for(int i =0; i<12; i++)
     {
-        if(T0[i].pozycja()==pole) return T0[i].getid();
-        if(T1[i].pozycja()==pole) return T1[i].getid();
+        if(T0[i].pozycja()==pole&&T0[i].a()) return T0[i].getid();
+        if(T1[i].pozycja()==pole&&T1[i].a()) return T1[i].getid();
     }
 
     return -1;
