@@ -94,6 +94,8 @@ public:
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
     void render(); // rysuje mape DO POPRAWY
     void wyswietlanie_planszy();
+    void czyszczenie_planszy();
+    void wczytywanie_planszy();
 
     void GAME(); // funkcja gry
     void TURN2(); // funckaj zmiany tury
