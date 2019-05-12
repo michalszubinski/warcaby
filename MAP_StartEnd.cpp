@@ -278,7 +278,7 @@ int MAP::czyremis0()
 int MAP::czy_wygrana()
 {
     int zmienna_pomocnicza=1;
-    for(int i=0;i<8;i++) //wygrali czarni
+    for(int i=0;i<12;i++) //wygrali czarni
     {
        if(T0[i].a()==1)
        {
@@ -289,7 +289,7 @@ int MAP::czy_wygrana()
     }
     if(zmienna_pomocnicza) return 2;
     zmienna_pomocnicza=1;
-    for(int i=0;i<8;i++) //wygrali biali
+    for(int i=0;i<12;i++) //wygrali biali
     {
        if(T1[i].a()==1)
        {
