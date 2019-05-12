@@ -105,8 +105,8 @@ public:
     ruch player0(); //te cyferki oznaczaja typy gracza
     int scanid(c pole); // skanuje id na danym polu
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
-    ruch player2();
-    void changer(ruch abc); // zastosowuje ruch ######
+    ruch player2();  // ######
+    void changer(ruch abc); // zastosowuje ruch
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
@@ -127,7 +127,7 @@ public:
     bool kruch(); // okresla ktora druzyna ma ruch  zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     void showALL();
     void update(int id, c S); // akutalizuje polozenie pionka na mapie char
-    int g00d(bool czy_wyswietlac=0); // warunek trwania gry, jesli nie jest spelniony co sie stalo ###### // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
+    int g00d(bool czy_wyswietlac=0); // warunek trwania gry, jesli nie jest spelniony co sie stalo // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
     int czy_wygrana();
     int czyremis0();//spr. czy biale niemoga wykonac zadnego ruchu
     int czyremis1();//sprawdza czy czarne nie moga wykonac zadnego ruchu
