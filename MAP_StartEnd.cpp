@@ -107,9 +107,21 @@ MAP::~MAP() // MAP_StartEnd.cpp
 }
 void MAP::render()
 {
+czyszczenie_planszy();
+wczytywanie_planszy();
+wyswietlanie_planszy();
 
-
-    for(int i=0;i<12;i++)
+}
+void MAP::czyszczenie_planszy()
+{
+   for(int i=0;i<8;i++)
+   {
+       for(int a=0;a<8;a++) board[i][a]=' ';
+   }
+}
+void MAP::wczytywanie_planszy()
+{
+  for(int i=0;i<12;i++)
     {
         if((T0[i].a())==1)
         {
@@ -135,32 +147,6 @@ void MAP::render()
            }
          }
     }
-    for(int i=0;i<9;i++)
-    {
-        for(int a=0;a<9;a++)
-    {
-       if(board[i][a]=='c'||board[i][a]=='b');
-       else
-        {
-        board[i][a]=' ';
-       }
-
-    }
-   }
-for(int i=0;i<9;i++)
-    {
-        for(int a=0;a<9;a++)
-    {
-       if(board[i][a]=='c'||board[i][a]=='b');
-       else
-        {
-        board[i][a]=' ';
-       }
-
-    }
-   }
-wyswietlanie_planszy();
-
 }
 void MAP:: wyswietlanie_planszy()
 {
@@ -228,7 +214,10 @@ void MAP::changer(ruch abc)
 
     if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
 
-    wyswietlanie_planszy();
+czyszczenie_planszy();
+wczytywanie_planszy();
+wyswietlanie_planszy();
+
 }
 bool MAP::kruch()
 {
@@ -258,117 +247,33 @@ int MAP::g00d(bool czy_wyswietlac)
      if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
       return 2;
   }
-/*if(act==0)remis=czyremis1(); //sprawdzam czy czarne beda mogly sie ruszyc
+if(act==1)remis=czyremis1(); //sprawdzam czy czarne beda mogly sie ruszyc
 else remis=czyremis0();
 if(remis==3)
  {
  if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
  return 3; //jest remis
- }*/
+ }
 return 0;
 }
 int MAP::czyremis1()
 {
-ruch * abc_pomocniczy=new ruch;
-  for(int q=0;q<12;q++)
-  {
-    int x=T1[q].dorendera_x(),y=T1[q].dorendera_y();
-     if(!czyjakiesbicie(act))
-     {
-
-
-     if(T1[q].a()==1)
-     { //cout<<"q wynosi"<<q<<endl;
-       abc_pomocniczy->o.x=x;
-       abc_pomocniczy->o.y=y;
-       abc_pomocniczy->id=T1[q].getid(); //nw co tu wstawic
-       abc_pomocniczy->team=1;
-       abc_pomocniczy->n.x=x+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
-       abc_pomocniczy->n.y=y-1;
-        if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
-        abc_pomocniczy->n.x=x-1;  //czy pionek moze sie ruszyc o 1 w lewo
-        abc_pomocniczy->n.y=y-1;
-        if(possible(abc_pomocniczy))return 0;
-        abc_pomocniczy->n.x=x+2;  //spr. czy pionek moze zbic w prawo
-        abc_pomocniczy->n.y=y-2;
-        if(possible(abc_pomocniczy))return 0;
-        abc_pomocniczy->n.x=x-2; //spr. czy pionek moze zbic w lewo
-        abc_pomocniczy->n.y=y-2;
-        if(possible(abc_pomocniczy))return 0;
-     }
-
-     if(T1[q].czydamka()==1)
-     {
-               abc_pomocniczy->n.x=x+1;//prawo
-                abc_pomocniczy->n.y=y+1;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy->n.x=x-1;//lewo
-                abc_pomocniczy->n.y=y+1;
-                if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy->n.x=x+2;//bicie w prawo
-                abc_pomocniczy->n.y=y+2;
-               if(possible(abc_pomocniczy))return 0;
-                abc_pomocniczy->n.x=x-2;//bicie w lewo
-                abc_pomocniczy->n.y=y+2;
-               if(possible(abc_pomocniczy))return 0;
-     }
-     }
-     else return 0;
+ for(int i=0;i<12;i++)
+    {
+        if(mozliwoscbicia(i,1,0)==1||mozliwoscbicia(i,1,1)==1)return 0;
+    }
+ return 3;
   }
-delete abc_pomocniczy;
-return 3;
-}
+
+
 int MAP::czyremis0()
 {
-   ruch * abc_pomocniczy=new ruch;
-  for(int q=0;q<12;q++)
-  {
-    int x=T0[q].dorendera_x(),y=T0[q].dorendera_y();
-    if(!czyjakiesbicie(act))
+    for(int i=0;i<12;i++)
     {
-
-
-     if(T0[q].a()==1)
-     {
-//cout<<"q wynosi"<<q<<endl;
-       abc_pomocniczy->o.x=x;
-       abc_pomocniczy->o.y=y;
-       abc_pomocniczy->id=T0[q].getid();
-       abc_pomocniczy->team=0;
-     // cout<<"id";//<<abc_pomocniczy->id;
-      abc_pomocniczy->n.x=x+1; //czy pionek bialy moze sie ruszyc o jeden w prawo
-       abc_pomocniczy->n.y=y+1;
-        if(possible(abc_pomocniczy))return 0; //gra toczy sie dalej jest mozliwy ruch
-        abc_pomocniczy->n.x=x-1;  //czy pionek moze sie ruszyc o 1 w lewo
-        abc_pomocniczy->n.y=y+1;
-        if(possible(abc_pomocniczy))return 0;
-        abc_pomocniczy->n.x=x+2;  //spr. czy pionek moze zbic w prawo
-        abc_pomocniczy->n.y=y+2;
-        if(possible(abc_pomocniczy))return 0;
-        abc_pomocniczy->n.x=x-2; //spr. czy pionek moze zbic w lewo
-        abc_pomocniczy->n.y=y+2;
-        if(possible(abc_pomocniczy))return 0;
-     }
-     if(T0[q].czydamka()==1)
-     {
-               abc_pomocniczy->n.x=x+1;//prawo
-                abc_pomocniczy->n.y=y-1;
-               if(!possible(abc_pomocniczy))return 0;
-                abc_pomocniczy->n.x=x-1;//lewo
-                abc_pomocniczy->n.y=y-1;
-                if(!possible(abc_pomocniczy))return 0;
-                abc_pomocniczy->n.x=x+2;//bicie w prawo
-                abc_pomocniczy->n.y=y-2;
-               if(!possible(abc_pomocniczy))return 0;
-                abc_pomocniczy->n.x=x-2;//bicie w lewo
-                abc_pomocniczy->n.y=y-2;
-               if(!possible(abc_pomocniczy))return 0;
-     }
+        if(mozliwoscbicia(i,0,0)==1||mozliwoscbicia(i,0,1)==1)return 0;
     }
-    else return 0;
-  }
-delete abc_pomocniczy;
-return 3;
+ return 3;
+
 }
 int MAP::czy_wygrana()
 {
