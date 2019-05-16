@@ -11,6 +11,21 @@ using namespace std;
 ruch MAP::player1()
 {
     // W TYM MIEJSCU DLA player2 POWINNO BYC KOPIOWANY AKTUALNY STAN GRY
+    /*
+     bool act; 
+    _ob T0[12]; // dla kazdego pionka z tablicy
+            bool alive; 
+            c pos; 
+            bool damka; 
+    
+    _ob T1[12];
+        to samo co T0
+    
+    char board[8][8]; 
+    bool ActBicie; 
+    int idBijacego; 
+    bool terazbicie; 
+    */
 
     ruch R; // tworzy ruch
     R.team = act; // ustawia druzyne wykonujaca ruch w ruchu R
