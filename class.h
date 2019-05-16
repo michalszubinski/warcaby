@@ -10,6 +10,8 @@ struct c // KORDYNATY
     int x;
     int y;
 
+
+
     bool operator==(c other);
     bool operator!=(c other);
 
@@ -105,7 +107,8 @@ public:
     ruch player0(); //te cyferki oznaczaja typy gracza
     int scanid(c pole); // skanuje id na danym polu
     ruch player1();   //0-czlowiek 1-random 2-minimax ######
-    ruch player2();  // ######
+    ruch player2(); // ######
+    int ocena_ruchu();  // ocenia wartosc ruchu dla minmax
     void changer(ruch abc); // zastosowuje ruch
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
