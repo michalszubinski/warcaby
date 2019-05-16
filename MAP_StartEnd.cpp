@@ -184,10 +184,7 @@ ruch MAP::decide(bool Tt)
     return abc;
 }
 // player0 jest w MAP_player0.cpp
-ruch MAP::player1()
-{
-
-}
+// player1 jest w MAP_player1.cpp
 ruch MAP::player2()
 {
 
@@ -212,7 +209,7 @@ void MAP::changer(ruch abc)
     update(abc.id,abc.o);
     if(abc.bicie==1) update(abc.bicieid,abc.p);
 
-    if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
+    if(ActBicie==1) ActBicie = OLDmozliwoscbicia(Realid(abc.id),act);
 
 czyszczenie_planszy();
 wczytywanie_planszy();
@@ -234,7 +231,8 @@ bool MAP::kruch()
 int MAP::g00d(bool czy_wyswietlac)
 {
 
- int wygrana=czy_wygrana(),remis;
+ int wygrana=czy_wygrana();
+ int remis;
  //cout<<"zmienna wygrana"<<wygrana;
 
  if(wygrana==1) //mozna jeszce wykorzystac act
@@ -247,8 +245,9 @@ int MAP::g00d(bool czy_wyswietlac)
      if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
       return 2;
   }
-if(act==1)remis=czyremis1(); //sprawdzam czy czarne beda mogly sie ruszyc
-else remis=czyremis0();
+
+remis = czyremis(act);//sprawdzam czy czarne beda mogly sie ruszyc
+
 if(remis==3)
  {
  if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
@@ -256,29 +255,22 @@ if(remis==3)
  }
 return 0;
 }
-int MAP::czyremis1()
-{
- for(int i=0;i<12;i++)
-    {
-        if(mozliwoscbicia(i,1,0)==1||mozliwoscbicia(i,1,1)==1)return 0;
-    }
- return 3;
-  }
 
 
-int MAP::czyremis0()
+int MAP::czyremis(bool t)
 {
     for(int i=0;i<12;i++)
     {
-        if(mozliwoscbicia(i,0,0)==1||mozliwoscbicia(i,0,1)==1)return 0;
+        if(OLDmozliwoscbicia(i,t,0)==1) {/*cout<<"zwracam 0\n";*/ return 0;}
+        if(OLDmozliwoscbicia(i,t,1)==1) {/*cout<<"zwracam 0\n";*/ return 0;}
     }
  return 3;
-
 }
+
 int MAP::czy_wygrana()
 {
     int zmienna_pomocnicza=1;
-    for(int i=0;i<12;i++) //wygrali czarni
+    for(int i=0;i<8;i++) //wygrali czarni
     {
        if(T0[i].a()==1)
        {
@@ -288,8 +280,8 @@ int MAP::czy_wygrana()
 
     }
     if(zmienna_pomocnicza) return 2;
-    zmienna_pomocnicza=1;
-    for(int i=0;i<12;i++) //wygrali biali
+
+    for(int i=0;i<8;i++) //wygrali biali
     {
        if(T1[i].a()==1)
        {

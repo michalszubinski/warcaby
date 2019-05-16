@@ -10,8 +10,6 @@ struct c // KORDYNATY
     int x;
     int y;
 
-
-
     bool operator==(c other);
     bool operator!=(c other);
 
@@ -52,7 +50,7 @@ public:
     bool a(); // sprawdza czy pionek nie jest zbity
     void kill(); // zabija pionek
     bool czydamka(); // sprawdza czy pionek jest damka
-    int dorendera_x(); //c pos jest private a musiaÂ³em siÃª dostaÃ¦ do x i y
+    int dorendera_x(); //c pos jest private a musia³em siê dostaæ do x i y
     int dorendera_y();
     c pozycja(); // zwraca pozycje pionka
     int getid(); // zwraca id
@@ -86,7 +84,7 @@ class MAP
     _ob T0[12]; // pionki druzyny bialych
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
-    char board[8][8]; //w tej tablicy przechowujÃª siÃª pozycjÃª
+    char board[8][8]; //w tej tablicy przechowujê siê pozycjê
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
     int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
     bool terazbicie; // przechowuje czy jakis pionek ma dostepne bicie
@@ -106,9 +104,8 @@ public:
 
     ruch player0(); //te cyferki oznaczaja typy gracza
     int scanid(c pole); // skanuje id na danym polu
-    ruch player1();   //0-czlowiek 1-random 2-minimax ######
-    ruch player2(); // ######
-    int ocena_ruchu();  // ocenia wartosc ruchu dla minmax
+    ruch player1();   //0-czlowiek 1-random 2-minimax
+    ruch player2();
     void changer(ruch abc); // zastosowuje ruch
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
@@ -118,7 +115,8 @@ public:
 
     bool czybicieNORM(ruch *R); // czy bicie dla normalnego pionka
     bool czybicieDAMKA(ruch *R); // czy bicie dla damki
-    bool mozliwoscbicia(int id, bool Tt, bool X=1); // tworzy obiekty klasy ruch i wysyla do possible [TUTAJ WYSYLAC ID OD 0 DO 12]
+    bool mozliwoscbicia(int id, bool Tt, int* ile,bool X=1, bool czyliczyc=0);
+    ruch ruchydlaplayer2(int i, int j,int id, bool Tt, bool X, bool *fbicie, bool *nadsf, bool *czyda);
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
@@ -126,14 +124,17 @@ public:
     void ladujbicie(ruch *R, c polewroga); // laduje bicie do obiektu klasy ruch
     bool czyonjestbijacym(int id); // sprawdza czy pionek jest pionkiem bijacym !!! JESLI NIE MA BICIA LUB PIONEK JEST PIONKIEM BIJACYM ZWRACA 1 !!!
     bool possibledamkaruch(ruch *R); // bada czy cos nie stoi na drodze damki, zeby isc na wskazane pole (warunek przemieszczania sie)
+    void checkmen(int i, int id, bool Tt, int o, ruch *R, bool *fbicie, bool *nadsf, bool *czyda); // i = 0 lub 1 ; JESLI nadsf = true TO ZNACZY ZE RUCH JEST MOZLIWY
+    void checkking(int j, int i, int id, bool Tt, int o,int xchanger, int ychanger, ruch *R, bool *fbicie, bool *nadsf, bool *czyda); // j = {0,1,2,3}, i = 0..11; ^ to samo
+    void chansetter(int j, int *xchanger, int *ychanger); // j = {0,1,2,3}
+    bool OLDmozliwoscbicia(int id, bool Tt, bool X=1); // tworzy obiekty klasy ruch i wysyla do possible [TUTAJ WYSYLAC ID OD 0 DO 12]
 
     bool kruch(); // okresla ktora druzyna ma ruch  zwraca 0 jesli przeciwnik lub 1 jesli jesli znowu my
     void showALL();
     void update(int id, c S); // akutalizuje polozenie pionka na mapie char
     int g00d(bool czy_wyswietlac=0); // warunek trwania gry, jesli nie jest spelniony co sie stalo // ZWRACA 1 - WYGRALI BIALI // ZWRACA 2 - WYGRALI CZARNI // ZWRACA 3 - REMIS //ZWRACA 0 -  GRA TOCZY SIE DALEJ
     int czy_wygrana();
-    int czyremis0();//spr. czy biale niemoga wykonac zadnego ruchu
-    int czyremis1();//sprawdza czy czarne nie moga wykonac zadnego ruchu
+    int czyremis(bool t);//spr. czy biale niemoga wykonac zadnego ruchu
 };
 
 
