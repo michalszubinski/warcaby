@@ -33,6 +33,7 @@ struct ruch // KORDYNATY RUCHU
     void show(); // pokazuje detale
 };
 
+
 class _ob // PIONEK
 {
     bool team; // druzyna pionka
@@ -50,7 +51,7 @@ public:
     bool a(); // sprawdza czy pionek nie jest zbity
     void kill(); // zabija pionek
     bool czydamka(); // sprawdza czy pionek jest damka
-    int dorendera_x(); //c pos jest private a musia³em siê dostaæ do x i y
+    int dorendera_x(); //c pos jest private a musiaÅ‚em siÄ™ dostaÄ‡ do x i y
     int dorendera_y();
     c pozycja(); // zwraca pozycje pionka
     int getid(); // zwraca id
@@ -84,7 +85,7 @@ class MAP
     _ob T0[12]; // pionki druzyny bialych
     _ob T1[12]; // czarnych
     team T[2]; // 2 druzyny
-    char board[8][8]; //w tej tablicy przechowujê siê pozycjê
+    char board[8][8]; //w tej tablicy przechowujÄ™ siÄ™ pozycjÄ™
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
     int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
     bool terazbicie; // przechowuje czy jakis pionek ma dostepne bicie
@@ -117,6 +118,7 @@ public:
     bool czybicieDAMKA(ruch *R); // czy bicie dla damki
     bool mozliwoscbicia(int id, bool Tt, int* ile,bool X=1, bool czyliczyc=0);
     ruch ruchydlaplayer2(int i, int j,int id, bool Tt, bool X, bool *fbicie, bool *nadsf, bool *czyda);
+    void ocen(ruch *R);
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
