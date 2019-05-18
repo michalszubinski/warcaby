@@ -9,7 +9,6 @@ ruch MAP::ocen(ruch *R)
 {
     int suma=0;
     ruch R;
-;
     c p;
 
 
@@ -67,20 +66,26 @@ ruch MAP::ocen(ruch *R)
     if(czyjakiesbicie()==true)
         suma=suma+10;
         R.wartoscruchu=suma;
+    
+    // DLA DRUZYNY PRZECIWNEJ TA METODA POWINNA PRZEMNOZYC WARTOSC RUCHU PRZEZ -1
+    
+    // ZDECYDUJ SIE CZY TO MA BYC void I WYSYLAC WSKAZNIK CZY CHCESZ ZWRACAC RUCH, BO AKTUALNIE
+    // METODA PRZYJMUJE ARGUMENT JAKO WSKAZNIK, METODA MA ZWROCIC RUCH
+    // A NIE ZWRACA NIC
 }
 
 
 
 
-ruch MAP::player2()
+ruch MAP::player2(int KROK, ruch Wczesniejszy) 
 {
-    bool act;
-    _ob T0[12]; // dla kazdego pionka z tablicy
+    /*bool act;
+    _ob T0[12]; // dla kazdego pionka z tablicy te zmienne nizej nalezy skopiowac!!!!!!!!!!!!!
             bool alive;
             c pos;
             bool damka;
 
-    _ob T1[12];
+    _ob T1[12]; // dla kazdego pionka z tablicy te zmienne nizej nalezy skopiowac!!!!!!!!!!!!!
         bool alive;
         c pos;
         bool damka;
@@ -89,6 +94,17 @@ ruch MAP::player2()
     bool ActBicie;
     int idBijacego;
     bool terazbicie;
+    
+    TUTAJ NAPISALEM WSZYSTKIE ZMIENNE KTORE NALEZY SKOPIOWAC!!!!!!!!!!!!!!!!! ~ Michał
+    */
+    
+    /*
+    if(KROK) // JESLI KROK JEST WIEKSZY OD 0
+    {
+        W TYM MOMENCIE NALEZY WYKONAC RUCH WCZESNIEJSZY CZYLI
+        changer dla player2
+        kruch dla player 2
+    }*/
 
     ruch R;
     R.team=act;
@@ -177,15 +193,32 @@ ruch MAP::player2()
         }
     }
 
+    ruch Pomocniczy;
+    Pomocniczny.wartoscruchu=0;
 
-    if(actruch>0)
-    for(i=0;i<actruch;i++)
-        tab[i]=ocen(TAB[i],bool team)
-    NajlepszyRuch = player2(++actruch,TAB[i],bool Teamprzeciwny())
+    if(actruch>0 && KROK < MAXKROK)
+    {
+        for(i=0;i<actruch;i++)
+        {
+            TAB[i].wartoscruchu = 0;
+            TAB[i]=ocen(&TAB[i]);
+            Pomocniczy = player2(++KROK,TAB[i]);
+            TAB[i].wartoscruchu += Pomocniczny.wartoscruchu;
+        }
+    }
+    else
+    {
+        // TU TRZEBA WYMYSLIC CO BEDZIE JESLI NIE BEDZIE ZADNEGO RUCHU - PRAWDOPODBNIE ZMODYFIKOWANA METODA g00d
+        // TRZEBA TUTAJ TEZ WYMYSLIC CO BEDZIE JESLI KROK ZOSTANIE PRZEKROCZONY
+        
+        // MAXKROK - JAK GLEBOKO ALGORYTM MA ANALIZOWAC RUCHY
+        
+        // JESLI AI WYGRYWA TO WARTOSC RUCHU TO 9999999
+        // JESLI PRZEGRYWA TO WARTOSC RUCHU TO -9999999
+    }
 
-
-
-realid = Realid(R.id);
+        
+    realid = Realid(R.id);
 
     T0[realid].show();
 
@@ -204,11 +237,13 @@ realid = Realid(R.id);
         cout<<"Ruch niemozliwy!\n";
     }
 
+    // PRZED ZWROCENIEM RUCHU NALEZY PODMIENIC SPOWROTEM STARE DANE
+    // !!!!!!!!!11
+    // !!!!!!!!!!1
+    // !!!!!!!!!!
+    // PRZED ZWROCENIEM RUCHU NALEZY PODMIENIC SPOWROTEM STARE DANE
 
     return R;
-
-
-
 }
 
 
