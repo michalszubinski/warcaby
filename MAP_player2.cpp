@@ -8,10 +8,11 @@ using namespace std;
 ruch MAP::ocen(ruch R)
 {
     int suma=0;
-    ruch R;
     c p;
-
-
+    _ob T0[12];
+    for(int i=0;i<12;i++)
+    {
+        p=c pozycja();
 
     if (p.x==0&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
         {
@@ -64,10 +65,19 @@ ruch MAP::ocen(ruch R)
      }
 
     if(czyjakiesbicie()==true)
+    {
         suma=suma+10;
-        R.wartoscruchu=suma;
+    }
+
+    }
+
+
+
+    R.wartoscruchu=suma;
         if(act==false)
-            R.wartoscruchu=R.wartoscruchu*(-1);
+     {
+         R.wartoscruchu=R.wartoscruchu*(-1);
+     }
         return R;
 }
 
@@ -76,11 +86,7 @@ ruch MAP::ocen(ruch R)
 
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
-    int MAXKROK = 8;
-    
-    
-    
-    bool act;
+    int actt= act;
     _ob T0[12];
           for(int i=0;i<12;i++)
           {
@@ -208,10 +214,10 @@ Pomocniczy.wartoscruchu=0;
 
     if(actruch>0&&KROK<MAXKROK)
     {
-        for(int i=0;I<actruch;i++)
+        for(int i=0;o<actruch;i++)
         {
             TAB[i].wartoscruchu=0;
-            TAB[i]=ocen(TAB[i]);
+            TAB[i]=ocen(&TAB[i]);
             Pomocniczy=player2(++KROK,TAB[i]);
             TAB[i].wartoscruchu+= Pomocniczy.wartoscruchu;
 
