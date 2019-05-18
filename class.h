@@ -106,7 +106,7 @@ public:
     ruch player0(); //te cyferki oznaczaja typy gracza
     int scanid(c pole); // skanuje id na danym polu
     ruch player1();   //0-czlowiek 1-random 2-minimax
-    ruch player2();
+    ruch player2(int KROK, ruch Wczesniejszy);
     void changer(ruch abc); // zastosowuje ruch
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
@@ -118,7 +118,7 @@ public:
     bool czybicieDAMKA(ruch *R); // czy bicie dla damki
     bool mozliwoscbicia(int id, bool Tt, int* ile,bool X=1, bool czyliczyc=0);
     ruch ruchydlaplayer2(int i, int j,int id, bool Tt, bool X, bool *fbicie, bool *nadsf, bool *czyda);
-    int ocen(ruch R);
+    ruch ocen(ruch R);
     bool czyjakiesbicie(bool Tt); // sprawdza bicie dla wszystkich pionkow danej druzyny
     int Realid(int id); // zmienia id pionka na miejsce w tablicy pionkow odpowiednie dla jego druzyny - na podstawie ruchu
     bool Teamprzeciwny(bool t); //patrzy jaka druzyna jest przeciwna - na podstawie ruchu
