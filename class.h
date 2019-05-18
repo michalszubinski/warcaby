@@ -106,8 +106,8 @@ public:
 
     ruch player0(); //te cyferki oznaczaja typy gracza
     int scanid(c pole); // skanuje id na danym polu
-    ruch player1();   //0-czlowiek 1-random 2-minimax ######
-    ruch player2(); // ######
+    ruch player1();   //0-czlowiek 1-random 2-minimax 
+    ruch player2(int KROK, ruch Wczesniejszy); // ######
     int ocena_ruchu();  // ocenia wartosc ruchu dla minmax
     void changer(ruch abc); // zastosowuje ruch
 
