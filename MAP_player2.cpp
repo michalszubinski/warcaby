@@ -5,14 +5,15 @@
 
 using namespace std;
 
-ruch MAP::ocen(ruch R)
+int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
 {
     int suma=0;
     c p;
-    _ob T0[12];
+    //_ob T0[12]; - Nie rozumiem tej linijki
     for(int i=0;i<12;i++)
     {
-        p=c pozycja();
+        //p=c pozycja(); - zle
+        p = R.n; // p jest przywnywany do nowej pozycji (do tej na ktora ma sie ruszyc), jesli chcesz na stara napisz R.o
 
     if (p.x==0&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
         {
@@ -64,7 +65,7 @@ ruch MAP::ocen(ruch R)
         suma=suma+3;
      }
 
-    if(czyjakiesbicie()==true)
+    if(czyjakiesbicie()==true) // bool czyjakiesbicie(bool Tt); - Nie podales aktualnej druzyny (powinienes podac parametr act)
     {
         suma=suma+10;
     }
@@ -73,12 +74,12 @@ ruch MAP::ocen(ruch R)
 
 
 
-    R.wartoscruchu=suma;
-        if(act==false)
-     {
-         R.wartoscruchu=R.wartoscruchu*(-1);
-     }
-        return R;
+    
+     //if(ZMIENNA DRUZYNY player2 == Teamprzeciwny(ZMIENNA DRUZYNY player2))  // TA ZMIENNA DRUZYNY player2 musisz stworzyc, moze byc w klasie zeby bylo prosciej
+     //{
+     //    R.wartoscruchu=R.wartoscruchu*(-1);
+     //}
+     return suma;
 }
 
 
@@ -86,11 +87,10 @@ ruch MAP::ocen(ruch R)
 
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
-    int actt= act;
-    _ob T0[12];
+    /*_ob T0[12]; - NIE DEKLARUJ ZMIENNYCH O TAKIEJ SAMEJ NAZWIE CO GLOBALNE
           for(int i=0;i<12;i++)
           {
-           _ob T0[i].alive = bool alive;
+           _ob T0[i].alive = bool alive; - PRZY METODACH NIE DAWAJ NAZWY KLASY NA POCZATKU
             _ob T0[i].pos=c pos;
             _ob T0[i].damka= bool damka;
           }
@@ -101,8 +101,26 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         _ob T1[i].pos=c pos;
         _ob T1[1].damka=bool damka;
        }
-
-
+       TO CO JEST W TYM KOMENTARZU JEST ZLE
+       */
+    
+    _ob T00[12]; _ob T11[12];
+    team TT0, TT1;
+    
+    TT0.setplayertype(2); TT1.setplayertype(2);
+    
+    for(int i=0;i<12;i++)
+    {
+        T00[i].setalive(T0[i].a()); // ta metode musisz stworzyc, powinno wygladac tak: void _ob::setalive(bool A) {this -> alive = a}
+        T00[i].setpos(T0[i].pozycja());
+        if(T0[i].czydamka()) T00[i].DAMKA();
+    }
+    for(int i=0;i<12;i++)
+    {
+        T11[i].setalive(T1[i].a()); // ta metode musisz stworzyc, powinno wygladac tak: void _ob::setalive(bool A) {this -> alive = a}
+        T11[i].setpos(T1[i].pozycja());
+        if(T1[i].czydamka()) T11[i].DAMKA();
+    }
 
     char boardd[8][8];
     for(int i=0;i<8;i++)
@@ -110,6 +128,8 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         for(int j=0;j<8;j++)
         boardd[i][j]=board[i][j];
     }
+    
+    bool actt = act;
     bool terazbiciee=terazbicie;
     int idBijacegoo=idBijacego;
     bool ActBiciee=ActBicie;
@@ -209,15 +229,15 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         }
     }
 
-ruch Pomocniczy;
-Pomocniczy.wartoscruchu=0;
+    ruch Pomocniczy;
+    Pomocniczy.wartoscruchu=0;
 
     if(actruch>0&&KROK<MAXKROK)
     {
         for(int i=0;o<actruch;i++)
         {
             TAB[i].wartoscruchu=0;
-            TAB[i]=ocen(&TAB[i]);
+            TAB[i].wartoscruchu=ocen(TAB[i]);
             Pomocniczy=player2(++KROK,TAB[i]);
             TAB[i].wartoscruchu+= Pomocniczy.wartoscruchu;
 
@@ -237,7 +257,7 @@ Pomocniczy.wartoscruchu=0;
 
 
 
-realid = Realid(R.id);
+    realid = Realid(R.id);
 
     T0[realid].show();
 
@@ -255,8 +275,10 @@ realid = Realid(R.id);
     {
         cout<<"Ruch niemozliwy!\n";
     }
+    
+    // popraw to kopiowanie na dole zeby sie zgadzalo z tym co jest na gorze
 
-          for(int i=0;i<12;i++)
+    /*      for(int i=0;i<12;i++)
           {
              bool alive=_ob T0[i].alive;
              c pos=_ob T0[i].pos;
@@ -268,20 +290,19 @@ realid = Realid(R.id);
            c pos=_ob T1[i].pos;
            bool damka= _ob T1[i].damka;
        }
+       TO JEST DO POPRAWY BO NIE BEDZIE DZIALAC*/
     for(int i=0;i<8;i++)
     {
         for(int j=0;j<8;j++)
             board[i][j]=boardd[i][j];
     }
+    act=actt;
     terazbicie=terazbiciee;
     idBijacego=idBijacegoo;
     ActBicie=ActBiciee;
 
 
     return R;
-
-
-
 }
 
 
