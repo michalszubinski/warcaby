@@ -31,7 +31,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
      {
          suma=suma+1;
      }
-     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||))
+     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6))
      {
          suma=suma+2;
      }
@@ -65,7 +65,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
         suma=suma+3;
      }
 
-    if(czyjakiesbicie()==true) // bool czyjakiesbicie(bool Tt); - Nie podales aktualnej druzyny (powinienes podac parametr act)
+    if(czyjakiesbicie(act)==true) // bool czyjakiesbicie(bool Tt); - Nie podales aktualnej druzyny (powinienes podac parametr act)
     {
         suma=suma+10;
     }
@@ -74,7 +74,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
 
 
 
-    
+
      //if(ZMIENNA DRUZYNY player2 == Teamprzeciwny(ZMIENNA DRUZYNY player2))  // TA ZMIENNA DRUZYNY player2 musisz stworzyc, moze byc w klasie zeby bylo prosciej
      //{
      //    R.wartoscruchu=R.wartoscruchu*(-1);
@@ -87,6 +87,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
 
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
+    int MAXKROK = 8;
     /*_ob T0[12]; - NIE DEKLARUJ ZMIENNYCH O TAKIEJ SAMEJ NAZWIE CO GLOBALNE
           for(int i=0;i<12;i++)
           {
@@ -103,12 +104,12 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
        }
        TO CO JEST W TYM KOMENTARZU JEST ZLE
        */
-    
+
     _ob T00[12]; _ob T11[12];
     team TT0, TT1;
-    
+
     TT0.setplayertype(2); TT1.setplayertype(2);
-    
+
     for(int i=0;i<12;i++)
     {
         T00[i].setalive(T0[i].a()); // ta metode musisz stworzyc, powinno wygladac tak: void _ob::setalive(bool A) {this -> alive = a}
@@ -128,7 +129,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         for(int j=0;j<8;j++)
         boardd[i][j]=board[i][j];
     }
-    
+
     bool actt = act;
     bool terazbiciee=terazbicie;
     int idBijacegoo=idBijacego;
@@ -146,7 +147,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     R.team=act;
     int realid=99;
 
-    cout<<"act:"<<act<<end;
+    cout<<"act:"<<act<<endl;
 
     int ile=0;
     for(int i=0; i<12; i++)
@@ -234,7 +235,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
     if(actruch>0&&KROK<MAXKROK)
     {
-        for(int i=0;o<actruch;i++)
+        for(int i=0;i<actruch;i++)
         {
             TAB[i].wartoscruchu=0;
             TAB[i].wartoscruchu=ocen(TAB[i]);
@@ -275,7 +276,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     {
         cout<<"Ruch niemozliwy!\n";
     }
-    
+
     // popraw to kopiowanie na dole zeby sie zgadzalo z tym co jest na gorze
 
     /*      for(int i=0;i<12;i++)
