@@ -76,6 +76,10 @@ ruch MAP::ocen(ruch R)
 
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
+    int MAXKROK = 8;
+    
+    
+    
     bool act;
     _ob T0[12];
           for(int i=0;i<12;i++)
@@ -204,10 +208,10 @@ Pomocniczy.wartoscruchu=0;
 
     if(actruch>0&&KROK<MAXKROK)
     {
-        for(int i=0;o<actruch;i++)
+        for(int i=0;I<actruch;i++)
         {
             TAB[i].wartoscruchu=0;
-            TAB[i]=ocen(&TAB[i]);
+            TAB[i]=ocen(TAB[i]);
             Pomocniczy=player2(++KROK,TAB[i]);
             TAB[i].wartoscruchu+= Pomocniczy.wartoscruchu;
 
