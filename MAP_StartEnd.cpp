@@ -179,7 +179,12 @@ ruch MAP::decide(bool Tt)
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
     else if(T[Tt].getpt()==1) abc=player1();
-    else if(T[Tt].getpt()==2) abc=player2();
+    else if(T[Tt].getpt()==2)
+    {
+        ruch Pusty;
+
+        abc=player2(0,Pusty);
+    }
 
     return abc;
 }
