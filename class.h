@@ -55,6 +55,7 @@ public:
     int dorendera_y();
     c pozycja(); // zwraca pozycje pionka
     int getid(); // zwraca id
+    void setalive(bool A);
 };
 
 class team // DRUZYNA
@@ -89,7 +90,7 @@ class MAP
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
     int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
     bool terazbicie; // przechowuje czy jakis pionek ma dostepne bicie
-
+    int Druzyna_P2;  // Zmienna Druzyny player 2
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
