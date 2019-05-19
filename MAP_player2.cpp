@@ -235,29 +235,8 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
              if(actruch==0)
            {
 
-       zmienna_pomocnicza=1;
-    for(int i=0;i<12;i++) //wygrali czarni
-    {
-       if(T00[i].a()==1)
-       {
-           zmienna_pomocnicza=0;
-           break;
-        }
-
-    }
-    if(zmienna_pomocnicza) kto_wygrywa=2;
-     zmienna_pomocnicza=1;
-    for(int i=0;i<12;i++) //wygrali biali
-    {
-       if(T11[i].a()==1)
-       {
-           zmienna_pomocnicza=0;
-           break;
-        }
-
-    }
-      if(zmienna_pomocnicza) kto_wygrywa=1;
-      if(kto_wygrywa==0)Wczesniejszy.wartoscruchu+=7; //jest remis
+       kto_wygrywa=czy_wygrana();
+        if(kto_wygrywa==0)Wczesniejszy.wartoscruchu+=7; //jest remis
       if(kto_wygrywa==2) //wygrali czarni
       {
        if(Druzyna_P2==1) Wczesniejszy.wartoscruchu=9999999;
@@ -265,10 +244,12 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
      }
       if(kto_wygrywa==1)
       {
-      if(Druzyna_P2==0) Wczesniejszy.wartoscruchu=9999999;
-      else Wczesniejszy.wartoscruchu=-9999999;
+      if(Druzyna_P2==0) Wczesniejszy.wartoscruchu=-9999999;
+      else Wczesniejszy.wartoscruchu=9999999;
        }
 
+           }
+        }
            }
             // TU TRZEBA WYMYSLIC CO BEDZIE JESLI NIE BEDZIE ZADNEGO RUCHU - PRAWDOPODBNIE ZMODYFIKOWANA METODA g00d
         // TRZEBA TUTAJ TEZ WYMYSLIC CO BEDZIE JESLI KROK ZOSTANIE PRZEKROCZONY
