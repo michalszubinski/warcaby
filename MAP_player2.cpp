@@ -120,7 +120,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
     if(KROK) // JESLI KROK JEST WIEKSZY OD 0
     {
-          changer(decide(act));
+          changer(decide(act),0); //
           act = kruch();
     }
     else
@@ -218,7 +218,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
     ruch Pomocniczy;
     Pomocniczy.wartoscruchu=0;
-
+    int zmienna_pomocnicza,kto_wygrywa=0;
     if(actruch>0&&KROK<MAXKROK)
     {
         for(int i=0;i<actruch;i++)
@@ -231,7 +231,45 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         }
     }
         else
-        {
+        { 
+             if(actruch==0)
+           {
+
+       zmienna_pomocnicza=1;
+    for(int i=0;i<12;i++) //wygrali czarni
+    {
+       if(T00[i].a()==1)
+       {
+           zmienna_pomocnicza=0;
+           break;
+        }
+
+    }
+    if(zmienna_pomocnicza) kto_wygrywa=2;
+     zmienna_pomocnicza=1;
+    for(int i=0;i<12;i++) //wygrali biali
+    {
+       if(T11[i].a()==1)
+       {
+           zmienna_pomocnicza=0;
+           break;
+        }
+
+    }
+      if(zmienna_pomocnicza) kto_wygrywa=1;
+      if(kto_wygrywa==0)Wczesniejszy.wartoscruchu+=7; //jest remis
+      if(kto_wygrywa==2) //wygrali czarni
+      {
+       if(Druzyna_P2==1) Wczesniejszy.wartoscruchu=9999999;
+       else Wczesniejszy.wartoscruchu=-9999999;
+     }
+      if(kto_wygrywa==1)
+      {
+      if(Druzyna_P2==0) Wczesniejszy.wartoscruchu=9999999;
+      else Wczesniejszy.wartoscruchu=-9999999;
+       }
+
+           //}
             // TU TRZEBA WYMYSLIC CO BEDZIE JESLI NIE BEDZIE ZADNEGO RUCHU - PRAWDOPODBNIE ZMODYFIKOWANA METODA g00d
         // TRZEBA TUTAJ TEZ WYMYSLIC CO BEDZIE JESLI KROK ZOSTANIE PRZEKROCZONY
 
@@ -240,7 +278,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         // JESLI AI WYGRYWA TO WARTOSC RUCHU TO 9999999
         // JESLI PRZEGRYWA TO WARTOSC RUCHU TO -9999999
 
-        }
+       // }
 
 
 
