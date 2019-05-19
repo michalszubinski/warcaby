@@ -7,31 +7,29 @@ using namespace std;
 
 int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
 {
-    int suma=0;
+     int suma=0;
     c p;
-    //_ob T0[12]; - Nie rozumiem tej linijki
+
     for(int i=0;i<12;i++)
     {
-        //p=c pozycja(); - zle
-        p = R.n; // p jest przywnywany do nowej pozycji (do tej na ktora ma sie ruszyc), jesli chcesz na stara napisz R.o
-
+       p=R.n;
     if (p.x==0&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
         {
-            suma=suma+1;
+            suma=suma++;
         }
      if(p.y==0&&(p.x==0||p.x==1||p.x==2||p.x==3||p.x==4||p.x==5||p.x==6||p.x==7))
      {
-         suma=suma+1;
+         suma=suma++;
      }
      if(p.x=7&&(p.y==0||p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
      {
-         suma=suma+1;
+         suma=suma++;
      }
      if(p.y==7&&(p.x==1||p.x==2||p.x==3||p.x==4||p.x==5||p.x==6))
      {
-         suma=suma+1;
+         suma=suma++;
      }
-     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6))
+     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||))
      {
          suma=suma+2;
      }
@@ -65,7 +63,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
         suma=suma+3;
      }
 
-    if(czyjakiesbicie(act)==true) // bool czyjakiesbicie(bool Tt); - Nie podales aktualnej druzyny (powinienes podac parametr act)
+    if(czyjakiesbicie(act)==true)
     {
         suma=suma+10;
     }
@@ -73,37 +71,21 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
     }
 
 
+if(Druzyna_P2==Teamprzeciwny(Druzyna_P2))
 
 
-     //if(ZMIENNA DRUZYNY player2 == Teamprzeciwny(ZMIENNA DRUZYNY player2))  // TA ZMIENNA DRUZYNY player2 musisz stworzyc, moze byc w klasie zeby bylo prosciej
-     //{
-     //    R.wartoscruchu=R.wartoscruchu*(-1);
-     //}
-     return suma;
+     {
+         R.wartoscruchu=R.wartoscruchu*(-1);
+     }
+        return suma;
+
 }
-
-
 
 
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
     int MAXKROK = 8;
-    /*_ob T0[12]; - NIE DEKLARUJ ZMIENNYCH O TAKIEJ SAMEJ NAZWIE CO GLOBALNE
-          for(int i=0;i<12;i++)
-          {
-           _ob T0[i].alive = bool alive; - PRZY METODACH NIE DAWAJ NAZWY KLASY NA POCZATKU
-            _ob T0[i].pos=c pos;
-            _ob T0[i].damka= bool damka;
-          }
-    _ob T1[12];
-       for(int i=0;i<12;i++)
-       {
-        _ob T1[i].alive=bool alive;
-        _ob T1[i].pos=c pos;
-        _ob T1[1].damka=bool damka;
-       }
-       TO CO JEST W TYM KOMENTARZU JEST ZLE
-       */
+    
 
     _ob T00[12]; _ob T11[12];
     team TT0, TT1;
@@ -276,22 +258,21 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     {
         cout<<"Ruch niemozliwy!\n";
     }
+for(int i=0;i<12;i++)
+{
+    T0[i].setalive(T00[i].a());
+    T0[i].setpos(T00[i].pozycja());
+    if(T00[i].czydamka()) T0[i].DAMKA();
+}
 
-    // popraw to kopiowanie na dole zeby sie zgadzalo z tym co jest na gorze
+for(int i=0;i<12;i++)
+{
+    T1[i].setalive(T11[i].a());
+    T1[i].setpos(T11[i].pozycja());
+    if(T11[i].czydamka()) T1[i].DAMKA();
+}
 
-    /*      for(int i=0;i<12;i++)
-          {
-             bool alive=_ob T0[i].alive;
-             c pos=_ob T0[i].pos;
-             bool damka=_ob T0[i].damka;
-          }
-       for(int i=0;i<12;i++)
-       {
-           bool alive=_ob T1[i].alive;
-           c pos=_ob T1[i].pos;
-           bool damka= _ob T1[i].damka;
-       }
-       TO JEST DO POPRAWY BO NIE BEDZIE DZIALAC*/
+    
     for(int i=0;i<8;i++)
     {
         for(int j=0;j<8;j++)
