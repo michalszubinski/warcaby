@@ -269,7 +269,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
       else Wczesniejszy.wartoscruchu=-9999999;
        }
 
-           //}
+           }
             // TU TRZEBA WYMYSLIC CO BEDZIE JESLI NIE BEDZIE ZADNEGO RUCHU - PRAWDOPODBNIE ZMODYFIKOWANA METODA g00d
         // TRZEBA TUTAJ TEZ WYMYSLIC CO BEDZIE JESLI KROK ZOSTANIE PRZEKROCZONY
 
@@ -278,7 +278,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         // JESLI AI WYGRYWA TO WARTOSC RUCHU TO 9999999
         // JESLI PRZEGRYWA TO WARTOSC RUCHU TO -9999999
 
-       // }
+        }
 
 
 
