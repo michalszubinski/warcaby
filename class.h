@@ -22,6 +22,7 @@ struct ruch // KORDYNATY RUCHU
     int id; //id pionka
     c o; // stara pozycja
     c n; // nowa pozycja
+    c p; // pozycja wroga
 
     bool bicie; // czy bylo bicie
     int bicieid; // id zbitego pionka przy tym ruchu
@@ -90,7 +91,7 @@ class MAP
     bool ActBicie; // czy teraz na mapie ktos zaczal bicie
     int idBijacego; // id pionka ktory rozpoczal bicie na mapie [TO ID KTORE PRZYJMUJE WARTOSCI OD 0 DO 23]
     bool terazbicie; // przechowuje czy jakis pionek ma dostepne bicie
-    int Druzyna_P2;  // Zmienna Druzyny player 2
+    bool Druzyna_P2;  // Zmienna Druzyny player 2
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
@@ -107,7 +108,7 @@ public:
     ruch player0(); //te cyferki oznaczaja typy gracza
     int scanid(c pole); // skanuje id na danym polu
     ruch player1();   //0-czlowiek 1-random 2-minimax
-    ruch player2();
+    ruch player2(int KROK, ruch Wczesniejszy);
     void changer(ruch abc); // zastosowuje ruch
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
