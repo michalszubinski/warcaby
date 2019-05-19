@@ -109,7 +109,7 @@ public:
     int scanid(c pole); // skanuje id na danym polu
     ruch player1();   //0-czlowiek 1-random 2-minimax
     ruch player2(int KROK, ruch Wczesniejszy);
-    void changer(ruch abc); // zastosowuje ruch
+    void changer(ruch abc,int czy_aktualizowac=1); // zastosowuje ruch
 
     // DOMYSLNIE ID WYSYLAC Z TX[realid(czyli wartosc od 0 do 11)].getid() [Czyli wysylac to id ktore ma wartosci od 0 do 23]
     bool prepos(ruch *R); // podstawowe warunki mozliwosc ruchu
