@@ -194,7 +194,7 @@ ruch MAP::player2()
 {
 
 }
-void MAP::changer(ruch abc)
+void MAP::changer(ruch abc,int czy_aktualizowac)
 {
     if(abc.bicie==1)
     {
@@ -216,9 +216,12 @@ void MAP::changer(ruch abc)
 
     if(ActBicie==1) ActBicie = OLDmozliwoscbicia(Realid(abc.id),act);
 
-czyszczenie_planszy();
-wczytywanie_planszy();
-wyswietlanie_planszy();
+  if(czy_aktualizowac)
+  {
+    czyszczenie_planszy();
+    wczytywanie_planszy();
+    wyswietlanie_planszy();
+  }
 
 }
 bool MAP::kruch()
@@ -275,7 +278,7 @@ int MAP::czyremis(bool t)
 int MAP::czy_wygrana()
 {
     int zmienna_pomocnicza=1;
-    for(int i=0;i<8;i++) //wygrali czarni
+    for(int i=0;i<12;i++) //wygrali czarni
     {
        if(T0[i].a()==1)
        {
@@ -285,8 +288,8 @@ int MAP::czy_wygrana()
 
     }
     if(zmienna_pomocnicza) return 2;
-
-    for(int i=0;i<8;i++) //wygrali biali
+     zmienna_pomocnicza=1;
+    for(int i=0;i<12;i++) //wygrali biali
     {
        if(T1[i].a()==1)
        {
