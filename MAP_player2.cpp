@@ -29,7 +29,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
      {
          suma=suma++;
      }
-     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||))
+     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6))
      {
          suma=suma+2;
      }
@@ -71,7 +71,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
     }
 
 
-if(Druzyna_P2==Teamprzeciwny(Druzyna_P2))
+    if(Druzyna_P2==Teamprzeciwny(Druzyna_P2))
 
 
      {
@@ -85,12 +85,13 @@ if(Druzyna_P2==Teamprzeciwny(Druzyna_P2))
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
     int MAXKROK = 8;
-    
+
 
     _ob T00[12]; _ob T11[12];
-    team TT0, TT1;
+    team TT[2];
 
-    TT0.setplayertype(2); TT1.setplayertype(2);
+    TT[0].setplayertype(T[0].getpt()); TT[1].setplayertype(T[1].getpt());
+    T[0].setplayertype(2); T[1].setplayertype(2);
 
     for(int i=0;i<12;i++)
     {
@@ -116,13 +117,16 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     bool terazbiciee=terazbicie;
     int idBijacegoo=idBijacego;
     bool ActBiciee=ActBicie;
- /*
+
     if(KROK) // JESLI KROK JEST WIEKSZY OD 0
     {
-        W TYM MOMENCIE NALEZY WYKONAC RUCH WCZESNIEJSZY CZYLI
-        changer dla player2
-        kruch dla player 2
-    }*/
+          changer(decide(act));
+          act = kruch();
+    }
+    else
+    {
+        Druzyna_P2 = act;
+    }
 
 
     ruch R;
@@ -272,12 +276,15 @@ for(int i=0;i<12;i++)
     if(T11[i].czydamka()) T1[i].DAMKA();
 }
 
-    
+
     for(int i=0;i<8;i++)
     {
         for(int j=0;j<8;j++)
             board[i][j]=boardd[i][j];
     }
+
+    T[0].setplayertype(TT[0].getpt()); T[1].setplayertype(TT[1].getpt());
+
     act=actt;
     terazbicie=terazbiciee;
     idBijacego=idBijacegoo;
