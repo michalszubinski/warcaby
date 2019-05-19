@@ -73,3 +73,7 @@ int _ob::getid()
 {
     return this -> id;
 }
+void _ob::setalive(bool a)
+{
+    this -> alive =a;
+}
