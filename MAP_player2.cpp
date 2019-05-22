@@ -126,6 +126,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     else
     {
         Druzyna_P2 = act;
+          act=kruch();
     }
 
 
@@ -260,7 +261,24 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         // JESLI PRZEGRYWA TO WARTOSC RUCHU TO -9999999
 
         }
+if(ile>0)
+{
+    R.wartoscruchu = TAB[0].wartoscruchu;
+    for(int i=0;i<ile;i++ )
+    {
+        if(Druzyna_P2==act)
+        {
+            if(R.wartoscruchu<TAB[i].wartoscruchu)
+                R=TAB[i];
+        }
+        else
+        {
+            if(R.wartoscruchu>TAB[i].wartoscruchu)
+                R=TAB[i];
+        }
 
+    }
+}
 
 
     realid = Realid(R.id);
