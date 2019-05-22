@@ -84,7 +84,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
 
 ruch MAP::player2(int KROK, ruch Wczesniejszy)
 {
-    int MAXKROK = 8;
+    int MAXKROK = 3;
 
 
     _ob T00[12]; _ob T11[12];
@@ -120,13 +120,12 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
     if(KROK) // JESLI KROK JEST WIEKSZY OD 0
     {
-          changer(decide(act),0); //
+          changer(Wczesniejszy,0);
           act = kruch();
     }
     else
     {
         Druzyna_P2 = act;
-          act=kruch();
     }
 
 
@@ -134,7 +133,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     R.team=act;
     int realid=99;
 
-    cout<<"act:"<<act<<endl;
+    //cout<<"act:"<<act<<endl;
 
     int ile=0;
     for(int i=0; i<12; i++)
@@ -143,7 +142,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         mozliwoscbicia(i,act,&ile,1,1);
     }
 
-    cout<<"ile: "<<ile<<endl;
+    //cout<<"ile: "<<ile<<endl;
     ruch *TAB = new ruch[ile];
 
     bool CzyRuchBezBicia = 0;
@@ -217,42 +216,32 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         }
     }
 
+
+    /*for(int i=0; i<ile;i++)
+    {
+        cout<<"KROK: "<<KROK<<endl;
+        TAB[i].show();
+    }
+    cout<<endl;*/
+
     ruch Pomocniczy;
     Pomocniczy.wartoscruchu=0;
     int zmienna_pomocnicza,kto_wygrywa=0;
+
     if(actruch>0&&KROK<MAXKROK)
     {
         for(int i=0;i<actruch;i++)
         {
             TAB[i].wartoscruchu=0;
             TAB[i].wartoscruchu=ocen(TAB[i]);
-            Pomocniczy=player2(++KROK,TAB[i]);
+            TAB[i].show();
+            Pomocniczy=player2(KROK+1,TAB[i]);
             TAB[i].wartoscruchu+= Pomocniczy.wartoscruchu;
-
         }
     }
-        else
-        { 
-             if(actruch==0)
-           {
-
-       kto_wygrywa=czy_wygrana();
-        if(kto_wygrywa==0)Wczesniejszy.wartoscruchu+=7; //jest remis
-      if(kto_wygrywa==2) //wygrali czarni
-      {
-       if(Druzyna_P2==1) Wczesniejszy.wartoscruchu=9999999;
-       else Wczesniejszy.wartoscruchu=-9999999;
-     }
-      if(kto_wygrywa==1)
-      {
-      if(Druzyna_P2==0) Wczesniejszy.wartoscruchu=-9999999;
-      else Wczesniejszy.wartoscruchu=9999999;
-       }
-
-           }
-        }
-           }
-            // TU TRZEBA WYMYSLIC CO BEDZIE JESLI NIE BEDZIE ZADNEGO RUCHU - PRAWDOPODBNIE ZMODYFIKOWANA METODA g00d
+    else
+    {
+        // TU TRZEBA WYMYSLIC CO BEDZIE JESLI NIE BEDZIE ZADNEGO RUCHU - PRAWDOPODBNIE ZMODYFIKOWANA METODA g00d
         // TRZEBA TUTAJ TEZ WYMYSLIC CO BEDZIE JESLI KROK ZOSTANIE PRZEKROCZONY
 
         // MAXKROK - JAK GLEBOKO ALGORYTM MA ANALIZOWAC RUCHY
@@ -260,26 +249,72 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         // JESLI AI WYGRYWA TO WARTOSC RUCHU TO 9999999
         // JESLI PRZEGRYWA TO WARTOSC RUCHU TO -9999999
 
+        if(actruch==0) // jesli ich nie ma
+        {
+
+            kto_wygrywa=czy_wygrana();
+
+            if(kto_wygrywa==0)R.wartoscruchu+=7; //jest remis
+
+            if(kto_wygrywa==2) //wygrali czarni
+            {
+                if(Druzyna_P2==1) R.wartoscruchu=9999999;
+                else R.wartoscruchu=-9999999;
+            }
+
+            if(kto_wygrywa==1)
+            {
+                if(Druzyna_P2==0) R.wartoscruchu=-9999999;
+                else R.wartoscruchu=9999999;
+            }
+
+            return R;
         }
-if(ile>0)
-{
-    R.wartoscruchu = TAB[0].wartoscruchu;
-    for(int i=0;i<ile;i++ )
+        else // jesli sa ruchy
+        {
+            for(int i=0;i<actruch;i++)
+            {
+                TAB[i].wartoscruchu=0;
+                TAB[i].wartoscruchu=ocen(TAB[i]);
+                TAB[i].wartoscruchu+= Pomocniczy.wartoscruchu;
+            }
+        }
+    }
+
+    int KtoryRuchWybrac=0;
+
+    if(ile>0)
     {
-        if(Druzyna_P2==act)
+        R.wartoscruchu = TAB[0].wartoscruchu;
+        for(int i=0;i<ile;i++ )
         {
-            if(R.wartoscruchu<TAB[i].wartoscruchu)
-                R=TAB[i];
+            if(Druzyna_P2==act)
+            {
+                if(R.wartoscruchu<TAB[i].wartoscruchu)
+                {
+                    R=TAB[i]; KtoryRuchWybrac=i;
+                }
+
+            }
+            else
+            {
+                if(R.wartoscruchu>TAB[i].wartoscruchu)
+                {
+                    R=TAB[i]; KtoryRuchWybrac=i;
+                }
+            }
         }
-        else
-        {
-            if(R.wartoscruchu>TAB[i].wartoscruchu)
-                R=TAB[i];
-        }
+
+        R.wartoscruchu = TAB[KtoryRuchWybrac].wartoscruchu ; // dla minimax
+        R.id = TAB[KtoryRuchWybrac].id ; //id pionka
+        R.o = TAB[KtoryRuchWybrac].o ;  // stara pozycja
+        R.n = TAB[KtoryRuchWybrac].n ; // nowa pozycja
+        R.p = TAB[KtoryRuchWybrac].p;
+        R.bicie = TAB[KtoryRuchWybrac].bicie ;
+        R.bicieid = TAB[KtoryRuchWybrac].bicieid ;
+        R.team = TAB[KtoryRuchWybrac].team ;
 
     }
-}
-
 
     realid = Realid(R.id);
 
@@ -288,30 +323,27 @@ if(ile>0)
     if(act==0) R.o = T0[realid].pozycja();
     else R.o = T1[realid].pozycja();
 
-
-    R.show();
+    /*TAB[KtoryRuchWybrac].show();
+    cout<<endl;
+    R.show();*/
     if(act==0) T0[realid].show();
     else T1[realid].show();
 
+    // powrot do starych danych
 
-    if(possible(&R)) return R;
-    else
+    for(int i=0;i<12;i++)
     {
-        cout<<"Ruch niemozliwy!\n";
+        T0[i].setalive(T00[i].a());
+        T0[i].setpos(T00[i].pozycja());
+        T0[i].setdamka(T00[i].czydamka());
     }
-     for(int i=0;i<12;i++)
-     {
-         T0[i].setalive(T00[i].a());
-         T0[i].setpos(T00[i].pozycja());
-         T0[i].setdamka(T00[i].czydamka());
-     }
 
-     for(int i=0;i<12;i++)
-     {
-         T1[i].setalive(T11[i].a());
-         T1[i].setpos(T11[i].pozycja());
-         T1[i].setdamka(T11[i].czydamka());
-     }
+    for(int i=0;i<12;i++)
+    {
+        T1[i].setalive(T11[i].a());
+        T1[i].setpos(T11[i].pozycja());
+        T1[i].setdamka(T11[i].czydamka());
+    }
 
 
     for(int i=0;i<8;i++)
@@ -328,31 +360,13 @@ if(ile>0)
     ActBicie=ActBiciee;
 
 
+    if(possible(&R)) return R;
+    else
+    {
+        cout<<"Ruch niemozliwy!\n";
+        /*string x;
+        cin>>x;*/
+    }
+
     return R;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
