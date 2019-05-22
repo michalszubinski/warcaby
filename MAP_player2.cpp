@@ -129,34 +129,44 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     }
 
 
-    ruch R;
-    R.team=act;
+    //cpy
+
+    ruch R; // tworzy ruch
+    R.team = act; // ustawia druzyne wykonujaca ruch w ruchu R
     int realid=99;
 
     //cout<<"act:"<<act<<endl;
 
+    // POCZATEK LICZENIA RUCHOW
+
     int ile=0;
-    for(int i=0; i<12; i++)
+
+    terazbicie = czyjakiesbicie(act);
+
+    for(int i=0; i<12; i++) // jesli ruch jest mozliwy ile jest zwiekszane, wysylany jest adres inta ile do metody
     {
-        mozliwoscbicia(i,act,&ile,0,1);
-        mozliwoscbicia(i,act,&ile,1,1);
+        mozliwoscbicia(i,act,&ile,0,1); // sprawdza ruchy nie bijace
+        mozliwoscbicia(i,act,&ile,1,1); // sprawdza ruchy bijace
     }
 
-    //cout<<"ile: "<<ile<<endl;
-    ruch *TAB = new ruch[ile];
+    // KONIEC LICZENIA RUCHOW
 
-    bool CzyRuchBezBicia = 0;
+    // POCZATEK POZYSKIWANIA RUCHOW
+
+    //cout<<"ile: "<<ile<<endl;
+    ruch *TAB = new ruch[ile]; // tworzona jest tablica ruchow
+
+    bool CzyRuchBezBicia = 0; // potrzebne boole
     bool CzyRuchMaBicie = 0;
     bool Possible = 0;
     bool damka = 0;
-    int actruch = 0;
+    int actruch = 0; // aktualnie wykorzystywane miejsce w tablicy
 
-     for(int id=0; id<12; id++)
+
+    for(int id=0; id<12; id++) // WPISYWANIE RUCHOW DO TABLICY
     {
         damka = czydamkaPOS(id,act);
-
-
-        if(!damka)
+        if(!damka) // jesli pionek nie jest damka
         {
             for(int i=0; i<2; i++)
             {
@@ -167,7 +177,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
                     if(act==0) TAB[actruch].id = id;
                     else TAB[actruch].id = id +12;
 
-                    if(CzyRuchBezBicia) actruch++;
+                    if(!TAB[actruch].bicie&&Possible&&!terazbicie&&possible(&TAB[actruch])) actruch++;
 
                     if(actruch<ile)
                     {
@@ -175,14 +185,13 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
                         if(act==0) TAB[actruch].id = id;
                         else TAB[actruch].id = id +12;
+
+                        if(TAB[actruch].bicie&&Possible&&terazbicie&&possible(&TAB[actruch])) actruch++;
                     }
-
-
                 }
-
             }
         }
-        else
+        else // jesli jest
         {
             for(int j=0; j<4; j++)
             {
@@ -200,7 +209,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
                         if(act==0) TAB[actruch].id = id;
                         else TAB[actruch].id = id +12;
 
-                        if(CzyRuchBezBicia) actruch++;
+                        if(!TAB[actruch].bicie&&Possible&&!terazbicie&&possible(&TAB[actruch])) actruch++;
                         if(actruch<ile)
                         {
                             TAB[actruch] = ruchydlaplayer2(i,j,id,act,1,&CzyRuchMaBicie,&Possible,&CzyRuchBezBicia);
@@ -208,13 +217,15 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
                             if(act==0) TAB[actruch].id = i;
                             else TAB[actruch].id = id +12;
 
-                            if(CzyRuchMaBicie) actruch++;
+                            if(TAB[actruch].bicie&&Possible&&terazbicie&&possible(&TAB[actruch])) actruch++;
                         }
                     }
                 }
             }
         }
-    }
+    } // KONIEC POZYSKIWANIA RUCHOW // do tego momentu niech bedzie w player2 to samo
+
+    // POCZATEK DO PISANIA player2
 
 
     /*for(int i=0; i<ile;i++)
@@ -234,7 +245,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
         {
             TAB[i].wartoscruchu=0;
             TAB[i].wartoscruchu=ocen(TAB[i]);
-            TAB[i].show();
+            //TAB[i].show();
             Pomocniczy=player2(KROK+1,TAB[i]);
             TAB[i].wartoscruchu+= Pomocniczy.wartoscruchu;
         }
@@ -318,16 +329,16 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
     realid = Realid(R.id);
 
-    T0[realid].show();
+    //T0[realid].show();
 
     if(act==0) R.o = T0[realid].pozycja();
     else R.o = T1[realid].pozycja();
 
-    /*TAB[KtoryRuchWybrac].show();
-    cout<<endl;
-    R.show();*/
-    if(act==0) T0[realid].show();
-    else T1[realid].show();
+   /* cout<<"wybrany ruch:\n";
+    TAB[KtoryRuchWybrac].show();*/
+
+    /*if(act==0) T0[realid].show();
+    else T1[realid].show();*/
 
     // powrot do starych danych
 
@@ -363,7 +374,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     if(possible(&R)) return R;
     else
     {
-        cout<<"Ruch niemozliwy!\n";
+        //cout<<"Ruch niemozliwy!\n";
         /*string x;
         cin>>x;*/
     }

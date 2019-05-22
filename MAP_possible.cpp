@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <cstdio>
 
 #include "class.h"
 
@@ -194,7 +195,6 @@ bool MAP::czybicieDAMKA(ruch *R)
 
 bool MAP::mozliwoscbicia(int id, bool Tt,int* ile, bool X,  bool czyliczyc)
 {
-
     if(!czyonjestbijacym(id)) return 0;
 
     int sztuczneid;
@@ -210,7 +210,6 @@ bool MAP::mozliwoscbicia(int id, bool Tt,int* ile, bool X,  bool czyliczyc)
 
     bool damka = czydamkaPOS(id,Tt);
 
-
     if(!damka) // zwykly
     {
         for(int i=0; i<2; i++) // sprawdza strony ruchu
@@ -218,8 +217,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt,int* ile, bool X,  bool czyliczyc)
             ruch *R = new ruch;
             checkmen(i,id,Tt,o,R, &fbicie, &nadsf, &czyda);
 
-            if(!X&&nadsf&&czyliczyc) (*ile)++;
-            if(X&&nadsf&&czyliczyc) (*ile)++;
+            if(!X&&!R->bicie&&czyliczyc&&nadsf&&!terazbicie) {if(possible(R)) (*ile)++;}
+            if(X&&R->bicie&&czyliczyc&&nadsf&&terazbicie) {if(possible(R)) (*ile)++;}
 
             delete R;
         }
@@ -238,8 +237,8 @@ bool MAP::mozliwoscbicia(int id, bool Tt,int* ile, bool X,  bool czyliczyc)
                 ruch *R = new ruch;
                 checkking(j,i, id, Tt, o,xchanger, ychanger, R,  &fbicie, &nadsf, &czyda);
 
-                if(!X&&!R->bicie&&czyliczyc&&nadsf) (*ile)++;
-                if(X&&R->bicie&&czyliczyc&&nadsf) (*ile)++;
+                if(!X&&!R->bicie&&czyliczyc&&nadsf&&!terazbicie) {if(possible(R)) (*ile)++;}
+                if(X&&R->bicie&&czyliczyc&&nadsf&&terazbicie) {if(possible(R)) (*ile)++;}
 
                 delete R;
             }
@@ -253,8 +252,11 @@ bool MAP::mozliwoscbicia(int id, bool Tt,int* ile, bool X,  bool czyliczyc)
 
 ruch MAP::ruchydlaplayer2(int i, int j,int id, bool Tt, bool X, bool *fbicie, bool *nadsf, bool *czyda)
 {
-    *nadsf = 1;
-    if(!czyonjestbijacym(id)) nadsf = 0;
+    bool pozwolenie=1;
+    *nadsf = 0;
+    *fbicie = 0;
+    *czyda = 0;
+    if(!czyonjestbijacym(id)) pozwolenie = 0;
 
     int sztuczneid;
 
@@ -265,7 +267,7 @@ ruch MAP::ruchydlaplayer2(int i, int j,int id, bool Tt, bool X, bool *fbicie, bo
 
     bool damka = czydamkaPOS(id,Tt);
 
-    if(nadsf)
+    if(pozwolenie)
     {
         if(!damka) // zwykly
         {
@@ -394,13 +396,6 @@ void MAP::checkmen(int i, int id, bool Tt, int o, ruch *R, bool *fbicie, bool *n
     if(Tt==1) sztuczneid = id +12;
     else sztuczneid = id;
 
-    /*bool fbicie=0;
-    bool nadsf=0;
-    bool czyda=0;*/
-
-    //int o = X + 1;
-
-    //ruch *R = new ruch;
     if(Tt==0) R->o = T0[id].pozycja();
     else R->o = T1[id].pozycja();
 
@@ -425,10 +420,11 @@ void MAP::checkmen(int i, int id, bool Tt, int o, ruch *R, bool *fbicie, bool *n
         *nadsf = possible(R);
         if(R->bicie&&*nadsf) *fbicie = 1;
 
-        if(*nadsf) *czyda =1;
-    }
+        if(*nadsf) *czyda = 1;
 
-    delete R;
+        //if(*nadsf) cout<<"- ";
+        //printf("Possible: %d ", *nadsf); R->show();
+    }
 }
 
 void MAP::checkking(int j, int i, int id, bool Tt, int o,int xchanger, int ychanger, ruch *R, bool *fbicie, bool *nadsf, bool *czyda)
@@ -551,6 +547,8 @@ bool MAP::OLDmozliwoscbicia(int id, bool Tt, bool X)
                     if(R->bicie&&nadsf) {fbicie = 1; /*cout<<"v possible";*/}
 
                     if(nadsf) czyda =1;
+
+
                 }
                 //R->show();
 

@@ -12,7 +12,6 @@ ruch MAP::player0()
     int realid=99;
 
     R.team = act;
-    cout<<"act:"<<act<<endl;
 
     for(;;)
     {
@@ -49,9 +48,9 @@ ruch MAP::player0()
         else R.o = T1[realid].pozycja();
 
         //
-        R.show();
-        if(act==0) T0[realid].show();
-        else T1[realid].show();
+        //R.show();
+        //if(act==0) T0[realid].show();
+        //else T1[realid].show();
         //
 
         if(possible(&R)) return R;

@@ -181,7 +181,7 @@ for(int i=0;i<=7;i++)
   cout<<"  "<<i;
 }
 
-
+    cout<<endl;
 }
 ruch MAP::decide(bool Tt)
 {
@@ -189,12 +189,25 @@ ruch MAP::decide(bool Tt)
 
     ruch abc;
 
-    cout<<"\nterazbicie = "<<terazbicie<<endl;
-    cout<<"ActBicie = "<<ActBicie<<endl;
+    if(T[act].getpt()!=2)
+    {
+        cout<<"\nterazbicie = "<<terazbicie<<endl;
+        cout<<"ActBicie = "<<ActBicie<<endl;
+        cout<<"act:"<<act<<endl;
+    }
+
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
     else if(T[Tt].getpt()==1) abc=player1();
     else if(T[Tt].getpt()==2) {ruch Pusty; abc=player2(0,Pusty);}
+
+    if(T[act].getpt()!=2)
+    {
+        abc.show();
+        if(act==0) T0[abc.id].show();
+        else T1[Realid(abc.id)].show();
+    }
+
 
     return abc;
 }
