@@ -57,6 +57,7 @@ public:
     c pozycja(); // zwraca pozycje pionka
     int getid(); // zwraca id
     void setalive(bool A);
+    void setdamka(bool d);
 };
 
 class team // DRUZYNA
