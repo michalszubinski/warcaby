@@ -36,7 +36,7 @@ MAP::MAP()  // MAP_StartEnd.cpp
 
         T[1].setplayertype(wybor);
 
-        cout<<"Tryb graficzny? wpisz 0 lub 1";
+        cout<<"Tryb graficzny? wpisz 0 lub 1 \n";
         cin>>gfx;
 
         system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
@@ -121,10 +121,11 @@ MAP::~MAP() // MAP_StartEnd.cpp
 }
 void MAP::render()
 {
-if(gfx) mapsend();
+
 czyszczenie_planszy();
 wczytywanie_planszy();
 wyswietlanie_planszy();
+    if(gfx) mapsend();
 
 }
 void MAP::czyszczenie_planszy()
@@ -241,7 +242,9 @@ void MAP::changer(ruch abc,int czy_aktualizowac)
     czyszczenie_planszy();
     wczytywanie_planszy();
     wyswietlanie_planszy();
+    if(gfx) mapsend();
   }
+
 
 }
 bool MAP::kruch()
