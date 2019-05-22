@@ -121,12 +121,10 @@ MAP::~MAP() // MAP_StartEnd.cpp
 }
 void MAP::render()
 {
-
 czyszczenie_planszy();
 wczytywanie_planszy();
 wyswietlanie_planszy();
-    if(gfx) mapsend();
-
+if(gfx) mapsend();
 }
 void MAP::czyszczenie_planszy()
 {
@@ -244,6 +242,7 @@ void MAP::changer(ruch abc,int czy_aktualizowac)
     wyswietlanie_planszy();
     if(gfx) mapsend();
   }
+
 
 
 }
