@@ -5,6 +5,8 @@
 #include <ctime>
 #include <fstream>
 #include <string>
+#include <iostream>
+#include <windows.h>
 
 using namespace std;
 
@@ -31,7 +33,7 @@ void tboardload();
 
 void boardload()
 {
-    zazwlaczone=0;
+
 
     fstream plik1;
     string linia="";
@@ -90,20 +92,34 @@ void tboardload()
     }
 }
 
-//int onMouse;
+
 void mouseClicks(int button, int state, int x, int y)
 {
     if(button == GLUT_LEFT_BUTTON )
     {
-        //if(!zazwlaczone)
-        //zaz.x = x;
-        //zaz.y = y;
-        zazwlaczone=1;
+        /*if(zazwlaczone)
+        {
+            zazwlaczone=0;
+        }
+        else
+        {*/
+            cout<<x<<endl;
+            cout<<y<<endl;
+            cout<<"y: "<<(y/80)<<endl;
+
+
+            zaz.x = x/80;
+            zaz.y = 7 - (y/80);
+            cout<<"y: "<<zaz.y<<endl;
+            zazwlaczone=1;
+            Sleep(200);
+        //}
     }
 }
 
 int main(int argc, char**argv)
 {
+    zazwlaczone=0;
 
     glutInit(&argc,argv); // initialize the glut
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // initialize the display mode */| GLUT_DOUBLE - double buffer*/
@@ -221,7 +237,8 @@ void init()
 
 void reshape(int w,int h)
 {
-    glViewport(0,0,(GLsizei)w,(GLsizei)h);//square displaying image
+    //glViewport(0,0,(GLsizei)w,(GLsizei)h);//square displaying image
+    glViewport(0,0,640,640);//square displaying image
     glMatrixMode(GL_PROJECTION); //matrix mode
     glLoadIdentity();
 
