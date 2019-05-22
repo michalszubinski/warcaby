@@ -26,12 +26,19 @@ MAP::MAP()  // MAP_StartEnd.cpp
         T[1].setteamname(x);
 
         int wybor;
+
         cout<<"Kto ma grac bialymi?\n0-gracz \n1-random\n2-minimax\n";
         cin >>wybor;
         T[0].setplayertype(wybor);
+
         cout<<"Kto ma grac czarnymi?\n0-gracz \n1-random\n2-minimax\n";
         cin >>wybor;
+
         T[1].setplayertype(wybor);
+
+        cout<<"Tryb graficzny? wpisz 0 lub 1";
+        cin>>gfx;
+
         system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
     }
 
@@ -78,11 +85,18 @@ MAP::MAP()  // MAP_StartEnd.cpp
     }
 
     //GAME(); // DLA WERSJI NR 2
+    if(gfx)
+    {
+        mapsend();
+        gfxini();
+    }
     TURN();
 }
 
 MAP::~MAP() // MAP_StartEnd.cpp
 {
+    if(gfx) gfxclose();
+
     if(g00d(0)==1)
     {
         T[0].EndV(0);
@@ -107,6 +121,7 @@ MAP::~MAP() // MAP_StartEnd.cpp
 }
 void MAP::render()
 {
+if(gfx) mapsend();
 czyszczenie_planszy();
 wczytywanie_planszy();
 wyswietlanie_planszy();
@@ -179,25 +194,14 @@ ruch MAP::decide(bool Tt)
 
     if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
     else if(T[Tt].getpt()==1) abc=player1();
-    else if(T[Tt].getpt()==2)
-    {
-        ruch Pusty;
-        
-        abc=player2(0,Pusty);
-    }
+    else if(T[Tt].getpt()==2) {ruch Pusty; abc=player2(0,Pusty);}
 
     return abc;
 }
 // player0 jest w MAP_player0.cpp
-ruch MAP::player1()
-{
-
-}
-ruch MAP::player2()
-{
-
-}
-void MAP::changer(ruch abc)
+// player1 jest w MAP_player1.cpp
+// player2 tez
+void MAP::changer(ruch abc,int czy_aktualizowac)
 {
     if(abc.bicie==1)
     {
@@ -217,11 +221,14 @@ void MAP::changer(ruch abc)
     update(abc.id,abc.o);
     if(abc.bicie==1) update(abc.bicieid,abc.p);
 
-    if(ActBicie==1) ActBicie = mozliwoscbicia(Realid(abc.id),act);
+    if(ActBicie==1) ActBicie = OLDmozliwoscbicia(Realid(abc.id),act);
 
-czyszczenie_planszy();
-wczytywanie_planszy();
-wyswietlanie_planszy();
+  if(czy_aktualizowac)
+  {
+    czyszczenie_planszy();
+    wczytywanie_planszy();
+    wyswietlanie_planszy();
+  }
 
 }
 bool MAP::kruch()
@@ -239,7 +246,8 @@ bool MAP::kruch()
 int MAP::g00d(bool czy_wyswietlac)
 {
 
- int wygrana=czy_wygrana(),remis;
+ int wygrana=czy_wygrana();
+ int remis;
  //cout<<"zmienna wygrana"<<wygrana;
 
  if(wygrana==1) //mozna jeszce wykorzystac act
@@ -252,8 +260,9 @@ int MAP::g00d(bool czy_wyswietlac)
      if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
       return 2;
   }
-if(act==1)remis=czyremis1(); //sprawdzam czy czarne beda mogly sie ruszyc
-else remis=czyremis0();
+
+remis = czyremis(act);//sprawdzam czy czarne beda mogly sie ruszyc
+
 if(remis==3)
  {
  if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
@@ -261,25 +270,18 @@ if(remis==3)
  }
 return 0;
 }
-int MAP::czyremis1()
-{
- for(int i=0;i<12;i++)
-    {
-        if(mozliwoscbicia(i,1,0)==1||mozliwoscbicia(i,1,1)==1)return 0;
-    }
- return 3;
-  }
 
 
-int MAP::czyremis0()
+int MAP::czyremis(bool t)
 {
     for(int i=0;i<12;i++)
     {
-        if(mozliwoscbicia(i,0,0)==1||mozliwoscbicia(i,0,1)==1)return 0;
+        if(OLDmozliwoscbicia(i,t,0)==1) {/*cout<<"zwracam 0\n";*/ return 0;}
+        if(OLDmozliwoscbicia(i,t,1)==1) {/*cout<<"zwracam 0\n";*/ return 0;}
     }
  return 3;
-
 }
+
 int MAP::czy_wygrana()
 {
     int zmienna_pomocnicza=1;
@@ -293,7 +295,7 @@ int MAP::czy_wygrana()
 
     }
     if(zmienna_pomocnicza) return 2;
-    zmienna_pomocnicza=1;
+     zmienna_pomocnicza=1;
     for(int i=0;i<12;i++) //wygrali biali
     {
        if(T1[i].a()==1)
@@ -356,6 +358,7 @@ ruch abc;
     int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
      //stary decide przeniesiony do konstruktora
 render();
+
    while(1)
    {
 

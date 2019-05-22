@@ -124,6 +124,54 @@ void team::StatsToFile()
 
         plik1.close();
     }
+    else
+    {
+        string* nowy;
+        int ile=0;
+
+        plik1.open("nowy.txt", ios::in);
+
+        while (getline(plik1, linia))
+            ile++;
+
+        if(ile>0)
+        {
+            nowy = new string[ile];
+
+            int i=0;
+
+            while (getline(plik1, linia))
+            {
+                nowy[i] = linia;
+                i++;
+            }
+
+            plik1.close();
+
+            for(int j=0; j<ile; j+=4)
+            {
+                if(nowy[j] == name)
+                {
+                    nowy[j+1] = w;
+                    nowy[j+2] = l;
+                    nowy[j+3] = d;
+                }
+            }
+
+            plik1.open("nowy.txt", ios::out | ios::trunc);
+
+            for(int j=0; j<ile; j++)
+                plik1<<nowy[j]<<endl;
+
+            plik1.close();
+
+            delete [] nowy;
+        }
+        else plik1.close();
+
+
+
+    }
 }
 
 void team::setteam(bool TTT)
