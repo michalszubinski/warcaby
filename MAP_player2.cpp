@@ -281,19 +281,19 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
     {
         cout<<"Ruch niemozliwy!\n";
     }
-for(int i=0;i<12;i++)
-{
-    T0[i].setalive(T00[i].a());
-    T0[i].setpos(T00[i].pozycja());
-    if(T00[i].czydamka()) T0[i].DAMKA();
-}
+     for(int i=0;i<12;i++)
+     {
+         T0[i].setalive(T00[i].a());
+         T0[i].setpos(T00[i].pozycja());
+         T0[i].setdamka(T00[i].czydamka());
+     }
 
-for(int i=0;i<12;i++)
-{
-    T1[i].setalive(T11[i].a());
-    T1[i].setpos(T11[i].pozycja());
-    if(T11[i].czydamka()) T1[i].DAMKA();
-}
+     for(int i=0;i<12;i++)
+     {
+         T1[i].setalive(T11[i].a());
+         T1[i].setpos(T11[i].pozycja());
+         T1[i].setdamka(T11[i].czydamka());
+     }
 
 
     for(int i=0;i<8;i++)
