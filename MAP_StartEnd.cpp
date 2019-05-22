@@ -190,10 +190,7 @@ ruch MAP::decide(bool Tt)
 }
 // player0 jest w MAP_player0.cpp
 // player1 jest w MAP_player1.cpp
-ruch MAP::player2()
-{
-
-}
+// player2 tez
 void MAP::changer(ruch abc,int czy_aktualizowac)
 {
     if(abc.bicie==1)
