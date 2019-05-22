@@ -77,3 +77,8 @@ void _ob::setalive(bool a)
 {
     this -> alive =a;
 }
+
+void _ob::setdamka(bool d)
+{
+    this -> damka =d;
+}
