@@ -43,5 +43,6 @@ void MAP::gfxini()
 
 void MAP::gfxclose()
 {
-
+    CloseHandle( processInfo.hProcess );
+    CloseHandle( processInfo.hThread );
 }
