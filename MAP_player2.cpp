@@ -10,8 +10,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
      int suma=0;
     c p;
 
-    for(int i=0;i<12;i++)
-    {
+    
        p=R.n;
     if (p.x==0&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
         {
@@ -68,7 +67,7 @@ int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
         suma=suma+10;
     }
 
-    }
+    
 
 
     if(Druzyna_P2==Teamprzeciwny(Druzyna_P2))
@@ -175,6 +174,7 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
                         if(act==0) TAB[actruch].id = id;
                         else TAB[actruch].id = id +12;
+                         if(CzyRuchMaBicie) actruch++;
                     }
 
 
