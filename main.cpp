@@ -5,6 +5,7 @@
 #include <ctime>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <windows.h>
 
@@ -27,33 +28,50 @@ int boardcheck;
 c zaz;
 c send;
 bool zazwlaczone;
+bool zielony;
+int g00d;
 
 void boardload();
 void tboardload();
 
 void boardload()
 {
-
-
     fstream plik1;
     string linia="";
+    stringstream ss;
     char actchar=' ';
     char char_array[2];
 
     plik1.open("mapa.txt", ios::in);
 
-    int x=0; int y=0;
+    int x=0; int y=0; int i=0;
 
     while (getline(plik1, linia))
     {
-        strcpy(char_array, linia.c_str());
+        if(y>=0&y<8)
+        {
+            strcpy(char_array, linia.c_str());
 
-        actchar = char_array[0];
-        board[x][y]=char_array[0];
+            actchar = char_array[0];
+            board[x][y]=char_array[0];
+            //cout<<board[x][y];
 
-        x++;
-        if(x==8) {x=0;y++;}
-        if(y==8) break;
+            i++;
+            x++;
+            if(x==8) {x=0;y++;}
+            if(y==8) break;
+        }
+        else
+        {
+            ss >> linia;
+
+
+            if(i==64) ss << g00d;
+            if(i==65) ss << zazwlaczone ;
+            if(i==66) ss << zielony ;
+
+            i++;
+        }
     }
     plik1.close();
 }
@@ -103,11 +121,9 @@ void mouseClicks(int button, int state, int x, int y)
         }
         else
         {*/
-            cout<<x<<endl;
-            cout<<y<<endl;
-            cout<<"y: "<<(y/80)<<endl;
-
-
+            //cout<<x<<endl;
+            //cout<<y<<endl;
+            cout<<"x: "<<(x/80)<<endl;
             zaz.x = x/80;
             zaz.y = 7 - (y/80);
             cout<<"y: "<<zaz.y<<endl;
@@ -117,9 +133,47 @@ void mouseClicks(int button, int state, int x, int y)
     }
 }
 
+void sendpos()
+{
+    fstream plik1;
+    string linia="";
+    stringstream ss;
+
+    plik1.open("mapa.txt", ios::in);
+
+    int i=0; bool check=0;
+
+    while (getline(plik1, linia))
+    {
+        ss >> linia;
+
+        if(i==0) ss << check ;
+        i++;
+    }
+
+    plik1.close();
+
+    i=0;
+
+    if(check)
+    {
+        plik1.open("c.txt", ios::out | ios::trunc);
+
+        for(int j=0; j<3; j++)
+        {
+            if(!j) plik1<<"1\n";
+            if(j==1) plik1<<zaz.x<<endl;
+            if(j==2) plik1<<zaz.y<<endl;
+        }
+
+        plik1.close();
+    }
+}
+
 int main(int argc, char**argv)
 {
     zazwlaczone=0;
+    g00d = 0;
 
     glutInit(&argc,argv); // initialize the glut
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // initialize the display mode */| GLUT_DOUBLE - double buffer*/
@@ -164,7 +218,8 @@ void display()
             if((x%2)==(y%2)) glColor3f(0,0,0);
             else glColor3f(1,1,1);
 
-            if(zaz.x==x&&zaz.y==y&&zazwlaczone) glColor3f(1,0,0);
+            if(zaz.x==x&&zaz.y==y&&zazwlaczone&&!zielony) glColor3f(1,0,0);
+            if(zaz.x==x&&zaz.y==y&&zazwlaczone&& zielony) glColor3f(0,1,0);
 
             glVertex2f((float)(x + 0.5f),(float)(y + 0.5f));
         }
@@ -250,7 +305,8 @@ void reshape(int w,int h)
 void timer(int)
 {
     glutPostRedisplay();
-    glutTimerFunc(1000/1,timer,0);
+    glutTimerFunc(1000/3,timer,0);
 
     boardload();
+    if(g00d) exit(1);
 }
