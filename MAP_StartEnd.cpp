@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-
+#include<conio.h>
 #include "class.h"
 
 using namespace std;
@@ -9,6 +9,52 @@ using namespace std;
 
 MAP::MAP()  // MAP_StartEnd.cpp
 {
+    cout<<"GRA WARCABY"<<endl;
+    cout<<"Wykonali:\nMichal Szubinski\nKamil Stepien\nKrzysztof Kruszynski";
+    int cowybrac=menu();
+    if(cowybrac==1)gra();
+    if(cowybrac==2)wczytujestatystyki();
+    if(cowybrac==3)exit(0);
+
+
+
+}
+
+MAP::~MAP() // MAP_StartEnd.cpp
+{
+    if(gfx) gfxclose();
+
+    if(g00d(0)==1)
+    {
+        T[0].EndV(0);
+        T[1].EndV(1);
+    }
+
+    else if(g00d(0)==2)
+    {
+        T[0].EndV(1);
+        T[1].EndV(0);
+    }
+
+    else if(g00d(0)==3)
+    {
+        T[0].EndV(2);
+        T[1].EndV(2);
+    }
+
+
+    T[0].StatsToFile();
+    T[1].StatsToFile();
+}
+int MAP::menu()
+{
+    int wybor;
+  cout<<"\n\nMENU:\n1.NOWA GRA\n2.WCZYTAJ STATYSTYKI\n3.WYJDZ Z PROGRAMU\n";
+  cin>>wybor;
+  return wybor;
+}
+void MAP::gra()
+{
     ActBicie=0;
     terazbicie=0;
     act=0;
@@ -16,7 +62,7 @@ MAP::MAP()  // MAP_StartEnd.cpp
     T[0].setteam(0);
     T[1].setteam(1);
 
-    {
+
         string x="";
 
         cout<<"Nazwa druzyny bialej\n"; cin>>x;
@@ -40,12 +86,8 @@ MAP::MAP()  // MAP_StartEnd.cpp
         cin>>gfx;
 
         system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
-    }
 
-
-    T[0].StatsFromFile();
-    T[1].StatsFromFile();
-    c help0, help1;
+ c help0, help1;
 
     act = 0;
 
@@ -85,39 +127,26 @@ MAP::MAP()  // MAP_StartEnd.cpp
     }
 
     //GAME(); // DLA WERSJI NR 2
-    if(gfx)
+   if(gfx)
     {
         mapsend();
         gfxini();
     }
+    
     TURN();
 }
-
-MAP::~MAP() // MAP_StartEnd.cpp
+void MAP::wczytujestatystyki()
 {
-    if(gfx) gfxclose();
-
-    if(g00d(0)==1)
-    {
-        T[0].EndV(0);
-        T[1].EndV(1);
-    }
-
-    else if(g00d(0)==2)
-    {
-        T[0].EndV(1);
-        T[1].EndV(0);
-    }
-
-    else if(g00d(0)==3)
-    {
-        T[0].EndV(2);
-        T[1].EndV(2);
-    }
+    while(1)
+{
 
 
-    T[0].StatsToFile();
-    T[1].StatsToFile();
+    T[0].StatsFromFile();
+    T[1].StatsFromFile();
+    _getch();
+    system("CLS");
+    MAP();
+}
 }
 void MAP::render()
 {
@@ -190,9 +219,9 @@ ruch MAP::decide(bool Tt)
 
     if(T[act].getpt()!=2)
     {
-        cout<<"\nterazbicie = "<<terazbicie<<endl;
-        cout<<"ActBicie = "<<ActBicie<<endl;
-        cout<<"act:"<<act<<endl;
+        //cout<<"\nterazbicie = "<<terazbicie<<endl;
+        //cout<<"ActBicie = "<<ActBicie<<endl;
+        //cout<<"act:"<<act<<endl;
     }
 
 
@@ -372,14 +401,26 @@ void MAP::TURN()
 ruch abc;
     int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
      //stary decide przeniesiony do konstruktora
+while(1)
+{
+
+
 render();
 
    while(1)
    {
-
+if(act==0)
+{
+    cout<<"\nDRUZYNA BIALYCH:\n"<<T[0].returnteamname()<<"\nNA POSUNIECIU\n";
+}
+else
+{
+    cout<<"\nDRUZYNA CZARNYCH:\n"<<T[1].returnteamname()<<"\nNA POSUNIECIU\n";
+}
     //act=0;
     abc = decide(act);
     //if(g00d(1)) break;
+    system("CLS");
     changer(abc);
     kruch();
     if(g00d(1))
@@ -387,6 +428,8 @@ render();
         break;}
         if(exit==0)break;
 
+     }
+     MAP();
 }
 }
 void MAP::GAME()
