@@ -193,3 +193,7 @@ void team::EndV(int X)
     case 2: d++; break;
     }
 }
+string team::returnteamname()
+{
+  return name;
+}
