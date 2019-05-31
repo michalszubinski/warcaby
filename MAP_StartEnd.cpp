@@ -193,7 +193,7 @@ void MAP::wczytywanie_planszy()
 }
 void MAP:: wyswietlanie_planszy()
 {
-  cout<<"Y\n\n";
+  cout<<"Y\n";
    for(int a=0;a<8;a++)
 
    {cout<<7-a<<" ";
