@@ -19,13 +19,13 @@ ruch MAP::player0()
         {
             cout<<"Pole pionka ktorym chcesz sie ruszyc:\n";
             cout<<"Podaj X: ";
-            cin>>R.n.x;
+            cin>>R.o.x;
 
             cout<<"Podaj Y: ";
-            cin>>R.n.y;
+            cin>>R.o.y;
 
-            if(polehelp(R.n)!=2)
-            R.id = scanid(R.n);
+            if(polehelp(R.o)!=2)
+            R.id = scanid(R.o);
 
 
             if((act==0)&&(Realid(R.id)!=R.id)) R.id=9999;

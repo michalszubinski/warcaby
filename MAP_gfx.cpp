@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void MAP::mapsend()
+void MAP::mapsend( bool zaz, bool ziel,int g00d)
 {
     fstream plik1;
     stringstream ss;
@@ -25,6 +25,10 @@ void MAP::mapsend()
             plik1<<board[x][y]<<endl;
         }
     }
+
+    plik1<<g00d<<endl;
+    plik1<<zaz<<endl;
+    plik1<<ziel;
 
     plik1.close();
 }
