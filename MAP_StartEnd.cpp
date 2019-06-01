@@ -21,7 +21,7 @@ MAP::MAP()  // MAP_StartEnd.cpp
 
 }
 
-MAP::~MAP() // MAP_StartEnd.cpp
+void MAP::statystykidopliku() // MAP_StartEnd.cpp
 {
     if(gfx) gfxclose();
 
@@ -48,12 +48,22 @@ MAP::~MAP() // MAP_StartEnd.cpp
     T[1].StatsToFile();
     if(gfx) {gfxclose(); mapsend(0,0,1);}
 }
-int MAP::menu()
+int MAP::menu(bool cowyswietlac)
 {
     int wybor;
-  cout<<"\n\nMENU:\n1.NOWA GRA\n2.WCZYTAJ STATYSTYKI\n3.WYJDZ Z PROGRAMU\n";
+    if(!cowyswietlac)
+    {
+       cout<<"\n\nMENU:\n1.NOWA GRA\n2.WCZYTAJ STATYSTYKI\n3.WYJDZ Z PROGRAMU\n";
   cin>>wybor;
   return wybor;
+    }
+    else
+    {
+       cout<<"\n\nMENU:\n1.NOWA GRA\n2.WYJDZ Z PROGRAMU\n";
+       cin>>wybor;
+       return wybor;
+    }
+
 }
 void MAP::gra()
 {
@@ -308,12 +318,22 @@ int MAP::g00d(bool czy_wyswietlac)
 
  if(wygrana==1) //mozna jeszce wykorzystac act
   {
-   if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna bialych";
-      return 1;
+   if(czy_wyswietlac)
+   {
+       cout<<"\nKoniec gry-Wygrala druzyna bialych";
+       _getch();
+       system("CLS");
+   }
+         return 1;
   }
    if(wygrana==2)
   {
-     if(czy_wyswietlac) cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
+     if(czy_wyswietlac)
+     {
+         cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
+         _getch();
+         system("CLS");
+     }
       return 2;
   }
 
@@ -321,12 +341,17 @@ remis = czyremis(act);//sprawdzam czy czarne beda mogly sie ruszyc
 
 if(remis==3)
  {
- if(czy_wyswietlac) cout<<"\nKoniec gry-Remis";
+ if(czy_wyswietlac)
+ {
+     cout<<"\nKoniec gry-Remis";
+     _getch();
+     system("CLS");
+
+ }
  return 3; //jest remis
  }
 return 0;
 }
-
 
 int MAP::czyremis(bool t)
 {
@@ -415,8 +440,6 @@ ruch abc;
      //stary decide przeniesiony do konstruktora
 while(1)
 {
-
-
 render();
 
    while(1)
@@ -441,6 +464,7 @@ else
         if(exit==0)break;
 
      }
+     statystykidopliku();
      MAP();
 }
 }
