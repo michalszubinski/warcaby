@@ -153,9 +153,11 @@ public:
     int czy_wygrana();
     int czyremis(bool t);//spr. czy biale niemoga wykonac zadnego ruchu
 
-    void mapsend(); // wysyla mape do grafiki
+    void mapsend(bool zaz=0, bool ziel=0,int g00d=0);
     void gfxini();
     void gfxclose();
+    ruch player0gfx();
+    c posfromfile();
 };
 
 
