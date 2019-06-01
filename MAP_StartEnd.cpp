@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
-#include<conio.h>
+#include <conio.h>
+#include <fstream>
 #include "class.h"
 
 using namespace std;
@@ -45,6 +46,7 @@ MAP::~MAP() // MAP_StartEnd.cpp
 
     T[0].StatsToFile();
     T[1].StatsToFile();
+    if(gfx) {gfxclose(); mapsend(0,0,1);}
 }
 int MAP::menu()
 {
@@ -55,6 +57,11 @@ int MAP::menu()
 }
 void MAP::gra()
 {
+    fstream plik1;
+
+    plik1.open("c.txt", ios::out | ios::trunc);
+    plik1.close();
+    
     ActBicie=0;
     terazbicie=0;
     act=0;
@@ -62,7 +69,7 @@ void MAP::gra()
     T[0].setteam(0);
     T[1].setteam(1);
 
-
+    {
         string x="";
 
         cout<<"Nazwa druzyny bialej\n"; cin>>x;
@@ -86,6 +93,7 @@ void MAP::gra()
         cin>>gfx;
 
         system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
+    }
 
  c help0, help1;
 
@@ -221,11 +229,15 @@ ruch MAP::decide(bool Tt)
     {
         //cout<<"\nterazbicie = "<<terazbicie<<endl;
         //cout<<"ActBicie = "<<ActBicie<<endl;
-        //cout<<"act:"<<act<<endl;
+        cout<<"Ruch druzyny ";
+        if(act==0) cout<<"bialych!"<<endl;
+        else cout<<"czarnych!"<<endl;
     }
 
 
-    if(T[Tt].getpt()==0) abc=player0(); //sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
+    if(T[Tt].getpt()==0) {
+    if(!gfx) abc=player0();      if(gfx) abc=player0gfx();
+    }//sprawdza ktory gracz gra bialymi czyli minimax,czlowiek,random
     else if(T[Tt].getpt()==1) abc=player1();
     else if(T[Tt].getpt()==2) {ruch Pusty; abc=player2(0,Pusty);}
 
