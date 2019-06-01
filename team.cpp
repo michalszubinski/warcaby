@@ -76,13 +76,18 @@ void team::StatsFromFile()
 		cout << "Nie udalo sie otworzyc pliku! " << endl;
 	}
 	w, l, d = 0;
+	//cout<<"Jestem tu";
+	string druzyna;
+	cout<<"Jakiej druzyny chcesz wczytac statystyki"<<endl;
+	cin>>druzyna;
 	while (getline(plik, linia))
 	{
 
-		if (linia == name)
+		if (linia == druzyna)
 		{
 			getline(plik, linia);
 			w = w + atoi(linia.c_str());
+			//cout<<w<<endl;
 			getline(plik, linia);
 			l = l + atoi(linia.c_str());
 			getline(plik, linia);
@@ -113,10 +118,10 @@ void team::StatsToFile()
         }
 	}
 
-
+    plik1.close();
     if(!jest)
     {
-        plik1.open("nowy.txt", ios::out | ios::app);
+        plik1.open("nowy.txt",ios::app);
         plik1 << name << endl;
         plik1 << w << endl;
         plik1 << l << endl;
@@ -133,7 +138,8 @@ void team::StatsToFile()
 
         while (getline(plik1, linia))
             ile++;
-
+        plik1.close();
+         plik1.open("nowy.txt", ios::in);
         if(ile>0)
         {
             nowy = new string[ile];
@@ -196,4 +202,20 @@ void team::EndV(int X)
 string team::returnteamname()
 {
   return name;
+}
+bool team::czyplikjestpusty()
+{
+    string linia;
+	fstream plik;
+   plik.open("nowy.txt", ios::in);
+
+	if (plik.good() == false)
+	{
+		return 1;
+	}
+	while (getline(plik, linia))
+    {
+        return 0;
+    }
+    return 1;
 }
