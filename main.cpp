@@ -30,6 +30,7 @@ c send;
 bool zazwlaczone;
 bool zielony;
 int g00d;
+void sendpos();
 
 void boardload();
 void tboardload();
@@ -59,16 +60,16 @@ void boardload()
             i++;
             x++;
             if(x==8) {x=0;y++;}
-            if(y==8) break;
         }
         else
         {
-            ss >> linia;
+            istringstream iss (linia);
 
 
-            if(i==64) ss << g00d;
-            if(i==65) ss << zazwlaczone ;
-            if(i==66) ss << zielony ;
+            if(i==64) iss >> g00d;
+            if(i==65) iss >> zazwlaczone ;
+            if(i==66) iss >> zielony ;
+            //cout<<"zazwlaczone: "<<zazwlaczone<<endl;
 
             i++;
         }
@@ -127,7 +128,8 @@ void mouseClicks(int button, int state, int x, int y)
             zaz.x = x/80;
             zaz.y = 7 - (y/80);
             cout<<"y: "<<zaz.y<<endl;
-            zazwlaczone=1;
+            sendpos();
+            //zazwlaczone=1;
             Sleep(200);
         //}
     }
@@ -139,35 +141,16 @@ void sendpos()
     string linia="";
     stringstream ss;
 
-    plik1.open("mapa.txt", ios::in);
+    plik1.open("c.txt", ios::out | ios::trunc);
 
-    int i=0; bool check=0;
-
-    while (getline(plik1, linia))
+    for(int j=0; j<2; j++)
     {
-        ss >> linia;
-
-        if(i==0) ss << check ;
-        i++;
+        if(j==0) plik1<<zaz.x<<endl;
+        if(j==1) plik1<<zaz.y<<endl;
     }
 
     plik1.close();
 
-    i=0;
-
-    if(check)
-    {
-        plik1.open("c.txt", ios::out | ios::trunc);
-
-        for(int j=0; j<3; j++)
-        {
-            if(!j) plik1<<"1\n";
-            if(j==1) plik1<<zaz.x<<endl;
-            if(j==2) plik1<<zaz.y<<endl;
-        }
-
-        plik1.close();
-    }
 }
 
 int main(int argc, char**argv)
