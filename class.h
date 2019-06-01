@@ -82,6 +82,7 @@ public:
     void setteam(bool TTT); // ustawia druzyne
     void setteamname(string X); // ustawia nazwe druzyny
     void EndV(int X); //0 DODAJE WYGRANA , 1 DODAJE PRZEGRANA , 2 DODAJE REMIS
+     bool czyplikjestpusty(); //sprawdza czy plik ze statystykami jest pusty
      string returnteamname(); //zwraca nazwe druzyny
 };
 
@@ -105,7 +106,7 @@ class MAP
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
     ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
-    int menu();
+     int menu(bool cowyswietlac);
     void gra();
     void wczytujestatystyki();
     void render(); // rysuje mape DO POPRAWY
