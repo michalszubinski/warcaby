@@ -105,7 +105,7 @@ class MAP
     BOOL bSuccess;
 public:
     MAP(); //inicjalizuje gre //  MAP_StartEnd.cpp
-    ~MAP();// konczy gre// MAP_StartEnd.cpp // KIEDY ZOSTANIE ZROBIONA FUNKCJA g00d NALEZY USUNAC KOMENTARZE W TEJ FUNCKJI!!!!
+    void statystykidopliku();
      int menu(bool cowyswietlac);
     void gra();
     void wczytujestatystyki();
