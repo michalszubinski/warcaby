@@ -2,6 +2,7 @@
 #include <fstream>
 #include<string>
 #include <cstdlib>
+#include <sstream>
 
 #include "class.h"
 
@@ -19,7 +20,7 @@ team::team(bool tea, char playertype, string name)
 
 team::~team()
 {
-    StatsToFile();
+
 }
 
 void team::setplayertype(char T)
@@ -71,29 +72,20 @@ void team::StatsFromFile()
 	fstream plik;
 	plik.open("nowy.txt", ios::in);
 
-	if (plik.good() == false)
-	{
-		cout << "Nie udalo sie otworzyc pliku! " << endl;
-	}
-	w, l, d = 0;
-	//cout<<"Jestem tu";
-	string druzyna;
-	cout<<"Jakiej druzyny chcesz wczytac statystyki"<<endl;
-	cin>>druzyna;
 	while (getline(plik, linia))
 	{
 
-		if (linia == druzyna)
+		if (linia == name)
 		{
 			getline(plik, linia);
 			w = w + atoi(linia.c_str());
-			//cout<<w<<endl;
 			getline(plik, linia);
 			l = l + atoi(linia.c_str());
 			getline(plik, linia);
 			d = d + atoi(linia.c_str());
 		}
 	}
+	cout << "Nazwa druzyny" << name << endl;
 	cout << "Wygrane: " << w << endl;
 	cout << "Przegrane: " << l << endl;
 	cout << "Remisy: " << d << endl;
@@ -105,6 +97,7 @@ void team::StatsToFile()
     bool jest=0;
     fstream plik1;
     string linia;
+    stringstream ss1,ss2,ss3;
 
     plik1.open("nowy.txt", ios::in);
 
@@ -113,15 +106,16 @@ void team::StatsToFile()
 		if (linia == name)
         {
             jest = 1;
-            plik1.close();
             break;
         }
 	}
 
-    plik1.close();
+	plik1.close();
+
     if(!jest)
     {
-        plik1.open("nowy.txt",ios::app);
+        //cout<<"!JEST"<<endl;
+        plik1.open("nowy.txt", ios::out | ios::app);
         plik1 << name << endl;
         plik1 << w << endl;
         plik1 << l << endl;
@@ -131,6 +125,7 @@ void team::StatsToFile()
     }
     else
     {
+        //cout<<"JEST"<<endl;
         string* nowy;
         int ile=0;
 
@@ -138,45 +133,51 @@ void team::StatsToFile()
 
         while (getline(plik1, linia))
             ile++;
+
         plik1.close();
-         plik1.open("nowy.txt", ios::in);
+
         if(ile>0)
         {
             nowy = new string[ile];
 
             int i=0;
 
+            plik1.open("nowy.txt", ios::in);
+            //cout<<"T PRE" <<endl;
+
             while (getline(plik1, linia))
             {
                 nowy[i] = linia;
+                //cout<<linia<<endl;
                 i++;
             }
 
             plik1.close();
 
-            for(int j=0; j<ile; j+=4)
+            for(int j=0; j<ile; j++)
             {
-                if(nowy[j] == name)
+                if(nowy[j] == this->name)
                 {
-                    nowy[j+1] = w;
-                    nowy[j+2] = l;
-                    nowy[j+3] = d;
+                    ss1 << w;
+                    ss2 << d;
+                    ss3 << l;
+                    nowy[j+1] =  ss1.str();
+                    nowy[j+2] =  ss2.str();
+                    nowy[j+3] =  ss3.str();
                 }
             }
 
             plik1.open("nowy.txt", ios::out | ios::trunc);
 
+            //cout<<"T START"<<endl;
+
             for(int j=0; j<ile; j++)
-                plik1<<nowy[j]<<endl;
+                {plik1<<nowy[j]<<endl; /*cout<<nowy[j]<<endl;*/}
 
             plik1.close();
 
             delete [] nowy;
         }
-        else plik1.close();
-
-
-
     }
 }
 
@@ -187,6 +188,7 @@ void team::setteam(bool TTT)
 
 void team::setteamname(string X) // ustawia nazwe druzyny
 {
+    X = ": " + X;
     this -> name = X;
 }
 
@@ -198,24 +200,4 @@ void team::EndV(int X)
     case 1: l++; break;
     case 2: d++; break;
     }
-}
-string team::returnteamname()
-{
-  return name;
-}
-bool team::czyplikjestpusty()
-{
-    string linia;
-	fstream plik;
-   plik.open("nowy.txt", ios::in);
-
-	if (plik.good() == false)
-	{
-		return 1;
-	}
-	while (getline(plik, linia))
-    {
-        return 0;
-    }
-    return 1;
 }
