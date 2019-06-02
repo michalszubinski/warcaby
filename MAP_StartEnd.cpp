@@ -12,10 +12,21 @@ MAP::MAP()  // MAP_StartEnd.cpp
 {
     cout<<"GRA WARCABY"<<endl;
     cout<<"Wykonali:\nMichal Szubinski\nKamil Stepien\nKrzysztof Kruszynski";
-    int cowybrac=menu();
-    if(cowybrac==1)gra();
-    if(cowybrac==2)wczytujestatystyki();
-    if(cowybrac==3)exit(0);
+    bool czypusty=T[0].czyplikjestpusty();
+    int cowybrac=menu(czypusty);
+    if(!czypusty)
+    {
+        if(cowybrac==1)gra();
+        if(cowybrac==2)wczytujestatystyki();
+        if(cowybrac==3)exit(0);
+    }
+    else
+    {
+        if(cowybrac==1)gra();
+        if(cowybrac==2)exit(0);
+    }
+
+
 
 
 
