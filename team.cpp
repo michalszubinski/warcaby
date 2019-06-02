@@ -201,3 +201,24 @@ void team::EndV(int X)
     case 2: d++; break;
     }
 }
+
+string team::returnteamname()
+{
+  return name;
+}
+bool team::czyplikjestpusty()
+{
+    string linia;
+	fstream plik;
+   plik.open("nowy.txt", ios::in);
+
+	if (plik.good() == false)
+	{
+		return 1;
+	}
+	while (getline(plik, linia))
+    {
+        return 0;
+    }
+    return 1;
+}
