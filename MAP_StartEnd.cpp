@@ -78,11 +78,13 @@ int MAP::menu(bool cowyswietlac)
 }
 void MAP::gra()
 {
+    system("cls");
+
     fstream plik1;
 
     plik1.open("c.txt", ios::out | ios::trunc);
     plik1.close();
-    
+
     ActBicie=0;
     terazbicie=0;
     act=0;
@@ -96,21 +98,21 @@ void MAP::gra()
         cout<<"Nazwa druzyny bialej\n"; cin>>x;
         T[0].setteamname(x);
 
-        cout<<"Nazwa druzyny czarnej\n"; cin>>x;
+        cout<<"\nNazwa druzyny czarnej\n"; cin>>x;
         T[1].setteamname(x);
 
         int wybor;
 
-        cout<<"Kto ma grac bialymi?\n0-gracz \n1-random\n2-minimax\n";
+        cout<<"\nKto ma grac bialymi?\n0 - gracz \n1 - random\n2 - minimax\n";
         cin >>wybor;
         T[0].setplayertype(wybor);
 
-        cout<<"Kto ma grac czarnymi?\n0-gracz \n1-random\n2-minimax\n";
+        cout<<"\nKto ma grac czarnymi?\n0 - gracz \n1 - random\n2 - minimax\n";
         cin >>wybor;
 
         T[1].setplayertype(wybor);
 
-        cout<<"Tryb graficzny? wpisz 0 lub 1 \n";
+        cout<<"\nTryb graficzny? wpisz 0 lub 1 \n";
         cin>>gfx;
 
         system("CLS"); //jesli nic wczesniej ma nie wyskakiwac
@@ -154,6 +156,7 @@ void MAP::gra()
         //T0[i].show();
         //T1[i].show();
     }
+    system("cls");
 
     //GAME(); // DLA WERSJI NR 2
    if(gfx)
@@ -161,7 +164,7 @@ void MAP::gra()
         mapsend();
         gfxini();
     }
-    
+
     TURN();
 }
 void MAP::wczytujestatystyki()
@@ -181,7 +184,7 @@ void MAP::render()
 {
 czyszczenie_planszy();
 wczytywanie_planszy();
-wyswietlanie_planszy();
+if(!gfx) wyswietlanie_planszy();
 if(gfx) mapsend();
 }
 void MAP::czyszczenie_planszy()
@@ -250,9 +253,9 @@ ruch MAP::decide(bool Tt)
     {
         //cout<<"\nterazbicie = "<<terazbicie<<endl;
         //cout<<"ActBicie = "<<ActBicie<<endl;
-        cout<<"Ruch druzyny ";
+        /*cout<<"Ruch druzyny ";
         if(act==0) cout<<"bialych!"<<endl;
-        else cout<<"czarnych!"<<endl;
+        else cout<<"czarnych!"<<endl;*/
     }
 
 
@@ -269,6 +272,9 @@ ruch MAP::decide(bool Tt)
         else T1[Realid(abc.id)].show();
     }
 
+    if(T[0].getpt()&&T[1].getpt()) Sleep(200);
+
+    system("cls");
 
     return abc;
 }
@@ -331,7 +337,7 @@ int MAP::g00d(bool czy_wyswietlac)
   {
    if(czy_wyswietlac)
    {
-       cout<<"\nKoniec gry-Wygrala druzyna bialych";
+       cout<<"\nKoniec gry - Wygrala druzyna bialych";
        _getch();
        system("CLS");
    }
@@ -341,7 +347,7 @@ int MAP::g00d(bool czy_wyswietlac)
   {
      if(czy_wyswietlac)
      {
-         cout<<"\nKoniec gry-Wygrala druzyna czarnych!";
+         cout<<"\nKoniec gry - Wygrala druzyna czarnych!";
          _getch();
          system("CLS");
      }
@@ -354,7 +360,7 @@ if(remis==3)
  {
  if(czy_wyswietlac)
  {
-     cout<<"\nKoniec gry-Remis";
+     cout<<"\nKoniec gry - Remis";
      _getch();
      system("CLS");
 
@@ -457,11 +463,15 @@ render();
    {
 if(act==0)
 {
-    cout<<"\nDRUZYNA BIALYCH:\n"<<T[0].returnteamname()<<"\nNA POSUNIECIU\n";
+    string x = T[0].returnteamname();
+    x.erase(0,2);
+    cout<<"\nDRUZYNA BIALYCH:\n"<<x<<"\nNA POSUNIECIU\n============\n";
 }
 else
 {
-    cout<<"\nDRUZYNA CZARNYCH:\n"<<T[1].returnteamname()<<"\nNA POSUNIECIU\n";
+    string x = T[1].returnteamname();
+    x.erase(0,2);
+    cout<<"\nDRUZYNA CZARNYCH:\n"<<x<<"\nNA POSUNIECIU\n============\n";
 }
     //act=0;
     abc = decide(act);
