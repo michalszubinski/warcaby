@@ -307,7 +307,7 @@ void MAP::changer(ruch abc,int czy_aktualizowac)
   {
     czyszczenie_planszy();
     wczytywanie_planszy();
-    wyswietlanie_planszy();
+    if(!gfx) wyswietlanie_planszy();
     if(gfx) mapsend();
   }
 
