@@ -7,76 +7,29 @@ using namespace std;
 
 int MAP::ocen(ruch R) // NIECH OCEN BEDZIE INTEM, ZWROCI WARTOSC RUCHU
 {
-     int suma=0;
+    int suma=0;
     c p;
+    int przel;
 
-    for(int i=0;i<12;i++)
+    for(int i=0; i<2; i++)
     {
-       p=R.n;
-    if (p.x==0&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
-        {
-            suma=suma++;
-        }
-     if(p.y==0&&(p.x==0||p.x==1||p.x==2||p.x==3||p.x==4||p.x==5||p.x==6||p.x==7))
-     {
-         suma=suma++;
-     }
-     if(p.x=7&&(p.y==0||p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6||p.y==7))
-     {
-         suma=suma++;
-     }
-     if(p.y==7&&(p.x==1||p.x==2||p.x==3||p.x==4||p.x==5||p.x==6))
-     {
-         suma=suma++;
-     }
-     if(p.x==1&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6))
-     {
-         suma=suma+2;
-     }
-     if(p.x==6&&(p.y==1||p.y==2||p.y==3||p.y==4||p.y==5||p.y==6))
-     {
-         suma=suma+2;
-     }
-     if(p.y=1&&(p.x==2||p.x==3||p.x==4||p.x==5))
-     {
+        if(!i) {p.x = R.o.x;p.y = R.o.y; przel=-1;}
+        else {p.x = R.n.x;p.y = R.n.y;przel=1;}
 
-         suma=suma+2;
-     }
-      if(p.y=6&&(p.x==2||p.x==3||p.x==4||p.x==5))
-     {
-         suma=suma+2;
-     }
-     if(p.x==2&&(p.y==2||p.y==3||p.y==4||p.y==5))
-     {
-        suma=suma+3;
-     }
-      if(p.x==3&&(p.y==2||p.y==3||p.y==4||p.y==5))
-     {
-        suma=suma+3;
-     }
-      if(p.x==4&&(p.y==2||p.y==3||p.y==4||p.y==5))
-     {
-        suma=suma+3;
-     }
-      if(p.x==5&&(p.y==2||p.y==3||p.y==4||p.y==5))
-     {
-        suma=suma+3;
-     }
+        if(((p.x==0)||(p.x==7))&&((p.y==0)||(p.y==7))) suma+=20*przel;
+        else if(((p.x<=1)||(p.x>=6))&&((p.y<=1)||(p.x>=6))) suma+=10*przel;
+    }
 
     if(czyjakiesbicie(act)==true)
     {
-        suma=suma+10;
+        if(act==Druzyna_P2)suma+=20;
+        else suma-=45;
     }
-
-    }
-
 
     if(Druzyna_P2==Teamprzeciwny(Druzyna_P2))
-
-
-     {
+    {
          R.wartoscruchu=R.wartoscruchu*(-1);
-     }
+    }
         return suma;
 
 }
@@ -327,9 +280,54 @@ ruch MAP::player2(int KROK, ruch Wczesniejszy)
 
     }
 
-    realid = Realid(R.id);
+
 
     //T0[realid].show();
+
+    if(!R.o.good()||!R.n.good()||R.id<0||R.id>24) // system ratowania przed brakiem ruchu
+    {
+        c o;
+        c n;
+        bool found=0;
+
+        c copy1 = R.o;
+        c copy2 = R.n;
+
+        for(int ox=0; ox<8; ox++)
+        {
+            for(int oy=0; oy<8; oy++)
+            {
+                for(int nx=0; nx<8; nx++)
+                {
+                    for(int ny=0; ny<8; ny++)
+                    {
+                        if(!found)
+                        {
+                            R.o.x = ox;
+                            R.o.y = oy;
+                            if(polehelp(R.o)==act)
+                            {
+                                R.id = scanid(R.o);
+                                R.n.x = nx;
+                                R.n.y = ny;
+                                OLDmozliwoscbicia(R.id,act);
+                                if(possible(&R)) found = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if(!found)
+        {
+            cout<<"Ups...\n"<<endl;
+            copy1 = R.o;
+            copy2 = R.n;
+        }
+    } // koniec systemu zapobiegawczego
+
+    realid = Realid(R.id);
 
     if(act==0) R.o = T0[realid].pozycja();
     else R.o = T1[realid].pozycja();

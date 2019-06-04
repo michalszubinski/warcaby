@@ -272,7 +272,7 @@ ruch MAP::decide(bool Tt)
         else T1[Realid(abc.id)].show();
     }
 
-    if(T[0].getpt()&&T[1].getpt()) Sleep(200);
+    //if(T[0].getpt()&&T[1].getpt()) Sleep(200);
 
     system("cls");
 
@@ -452,42 +452,40 @@ render();
 void MAP::TURN()
 {
 
-ruch abc;
+    ruch abc;
     int exit=1; //zmienna potrzebna do wyjscia z glownej petli jesli funckja g00d() zwraca wartosc 0
-     //stary decide przeniesiony do konstruktora
-while(1)
-{
-render();
 
-   while(1)
-   {
-if(act==0)
-{
-    string x = T[0].returnteamname();
-    x.erase(0,2);
-    cout<<"\nDRUZYNA BIALYCH:\n"<<x<<"\nNA POSUNIECIU\n============\n";
-}
-else
-{
-    string x = T[1].returnteamname();
-    x.erase(0,2);
-    cout<<"\nDRUZYNA CZARNYCH:\n"<<x<<"\nNA POSUNIECIU\n============\n";
-}
-    //act=0;
+    while(1)
+    {
+    render();
+
+    while(1)
+    {
+    if(act==0)
+    {
+        string x = T[0].returnteamname();
+        x.erase(0,2);
+        cout<<"\nDRUZYNA BIALYCH:\n"<<x<<"\nNA POSUNIECIU\n============\n";
+    }
+    else
+    {
+        string x = T[1].returnteamname();
+        x.erase(0,2);
+        cout<<"\nDRUZYNA CZARNYCH:\n"<<x<<"\nNA POSUNIECIU\n============\n";
+    }
     abc = decide(act);
-    //if(g00d(1)) break;
     system("CLS");
     changer(abc);
     kruch();
     if(g00d(1))
-    {exit=0;
-        break;}
-        if(exit==0)break;
+    {exit=0;break;}
 
-     }
-     statystykidopliku();
-     MAP();
-}
+    if(exit==0)break;
+    }
+         statystykidopliku();
+         MAP();
+    }
+
 }
 void MAP::GAME()
 {

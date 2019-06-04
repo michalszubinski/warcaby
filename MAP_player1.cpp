@@ -137,10 +137,55 @@ ruch MAP::player1()
     // KONIEC DO PISANIA player2
 
 
-    realid = Realid(R.id); // do konca niech bedzie to samo
+     // do konca niech bedzie to samo
     //cout<<"realid = "<<realid<<endl;
 
     //T0[realid].show();
+
+    if(!R.o.good()||!R.n.good()||R.id<0||R.id>24) // system ratowania przed brakiem ruchu
+    {
+        c o;
+        c n;
+        bool found=0;
+
+        c copy1 = R.o;
+        c copy2 = R.n;
+
+        for(int ox=0; ox<8; ox++)
+        {
+            for(int oy=0; oy<8; oy++)
+            {
+                for(int nx=0; nx<8; nx++)
+                {
+                    for(int ny=0; ny<8; ny++)
+                    {
+                        if(!found)
+                        {
+                            R.o.x = ox;
+                            R.o.y = oy;
+                            if(polehelp(R.o)==act)
+                            {
+                                R.id = scanid(R.o);
+                                R.n.x = nx;
+                                R.n.y = ny;
+                                OLDmozliwoscbicia(R.id,act);
+                                if(possible(&R)) found = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if(!found)
+        {
+            cout<<"Ups...\n"<<endl;
+            copy1 = R.o;
+            copy2 = R.n;
+        }
+    } // koniec systemu zapobiegawczego
+
+    realid = Realid(R.id);
 
     if(act==0) R.o = T0[realid].pozycja();
     else R.o = T1[realid].pozycja();
