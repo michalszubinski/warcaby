@@ -165,16 +165,28 @@ void MAP::gra()
         gfxini();
     }
 
+    T[0].StatsFromFile();
+    T[1].StatsFromFile();
+    Sleep(200);
+
     TURN();
 }
 void MAP::wczytujestatystyki()
 {
+    fstream plik1;
+    string linia;
+
     while(1)
 {
+    plik1.open("nowy.txt", ios::in);
+    while (getline(plik1, linia))
+	{
+        cout<<linia<<endl;
+    }
+
+	plik1.close();
 
 
-    T[0].StatsFromFile();
-    T[1].StatsFromFile();
     _getch();
     system("CLS");
     MAP();
